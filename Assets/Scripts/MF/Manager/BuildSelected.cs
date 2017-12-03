@@ -157,7 +157,7 @@ public class BuildSelected : MonoBehaviour
             bd.batteryLevel = 1;
             bd.batteryType = info.battleType;
             bd.index = bc.index;
-            GameJsonDataHelper.AddData(bd);
+            GameJsonDataHelper.AddBatteryData(bd);
         }
         CloseThisPanel();
     }

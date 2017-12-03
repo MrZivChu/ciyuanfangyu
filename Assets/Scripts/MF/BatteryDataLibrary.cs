@@ -7,14 +7,18 @@ public enum BatteryType
     CannonBattery = 1,//加农炮
     RexCannonBattery = 2,//雷克斯加农炮
     NovaCannonBattery = 3,//新星加农炮
+
     GatlinGunBattery = 4,//加特林枪
+
     MissileBattery = 5, //导弹
     RexMissileBattery = 6,//雷克斯导弹
     NovaMissileBattery = 7,//新星导弹
+
     RexLaserBattery = 8,//雷克斯激光
     CounterattackMissileBBattery = 9,//反击导弹B
     SniperBattery = 10,//狙击手
     NovaSniperBattery = 11,//新星狙击手
+
     ResidentSBattery = 12,//驻地(S)
     ResidentMBattery = 13,//驻地(M)
     LeisureParkBattery = 14,//休闲公园
@@ -99,7 +103,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 400;
         batteryInfo.attack = 257;
         batteryInfo.maxAttackDistance = 45;
-        batteryInfo.starLevel = 2;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "快读连射武器，火力强大且能压制敌人，但是耐用性不高";
         batteryInfo.wood = 10;
         batteryInfo.MW = 150;
@@ -114,7 +118,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 600;
         batteryInfo.attack = 171;
         batteryInfo.maxAttackDistance = 80;
-        batteryInfo.starLevel = 4;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "该武器射程很远，但不擅长应付快速移动的敌人";
         batteryInfo.wood = 10;
         batteryInfo.MW = 100;
@@ -129,7 +133,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 1200;
         batteryInfo.attack = 423;
         batteryInfo.maxAttackDistance = 80;
-        batteryInfo.starLevel = 5;
+        batteryInfo.starLevel = 2;
         batteryInfo.desc = "更耐用、更强力的发射器，可以一次性的攻击一大群人";
         batteryInfo.wood = 10;
         batteryInfo.MW = 200;
@@ -147,7 +151,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.desc = "一个精简了尺寸的发射器，很容易带入城市而不被发现，而且威力更大";
         batteryInfo.wood = 10;
         batteryInfo.MW = 400;
-        batteryInfo.starLevel = 1;
+        batteryInfo.starLevel = 3;
         missileList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
@@ -174,7 +178,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 1000;
         batteryInfo.attack = 160;
         batteryInfo.maxAttackDistance = 450;
-        batteryInfo.starLevel = 3;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "城市防御的最后一道屏障，用来攻击进入城市的敌人";
         batteryInfo.wood = 10;
         batteryInfo.MW = 100;
@@ -204,7 +208,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 2800;
         batteryInfo.attack = 1333;
         batteryInfo.maxAttackDistance = 65;
-        batteryInfo.starLevel = 2;
+        batteryInfo.starLevel = 3;
         batteryInfo.desc = "同样的暴击能力，但是火力和射程都比以前更强，最适合用来对付单一敌人";
         batteryInfo.wood = 10;
         batteryInfo.MW = 800;
@@ -219,7 +223,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 800;
         batteryInfo.attack = 1200;
         batteryInfo.maxAttackDistance = 450;
-        batteryInfo.starLevel = 2;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "用来安置人口的住所，要想引入新居民的话，就得建些这样的地方";
         batteryInfo.wood = 10;
         batteryInfo.MW = 200;
@@ -234,7 +238,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 1600;
         batteryInfo.attack = 2400;
         batteryInfo.maxAttackDistance = 450;
-        batteryInfo.starLevel = 1;
+        batteryInfo.starLevel = 2;
         batteryInfo.desc = "可以让人舒适居住的单位，可以增加城市的住宅容量";
         batteryInfo.wood = 10;
         batteryInfo.MW = 400;
@@ -249,7 +253,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 600;
         batteryInfo.attack = 20;
         batteryInfo.maxAttackDistance = 450;
-        batteryInfo.starLevel = 3;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "一个能让城市人群放松下来的地方，里面有不少年轻人和来年人都喜爱的娱乐活动";
         batteryInfo.wood = 10;
         batteryInfo.MW = 100;
@@ -264,7 +268,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 1000;
         batteryInfo.attack = 30;
         batteryInfo.maxAttackDistance = 450;
-        batteryInfo.starLevel = 4;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "这个单位负责满足你城市人民的基本需求，对一些大型娱乐活动也很有帮助";
         batteryInfo.wood = 10;
         batteryInfo.MW = 200;
@@ -279,7 +283,7 @@ public class BatteryDataLibrary : MonoBehaviour
         batteryInfo.blood = 1500;
         batteryInfo.attack = 40;
         batteryInfo.maxAttackDistance = 450;
-        batteryInfo.starLevel = 2;
+        batteryInfo.starLevel = 1;
         batteryInfo.desc = "一个繁忙的地方，很适合举办大型活动，比如独一无二的安奎尔女士的演唱会";
         batteryInfo.wood = 10;
         batteryInfo.MW = 300;

@@ -8,34 +8,42 @@ public class GameJsonDataHelper
 {
     static string saveFile = Application.persistentDataPath + "/batteryData.data";
 
-    public static List<BatteryData> ReadData()
+    static List<BatteryData> batteryDatalist = new List<BatteryData>();
+    public static List<BatteryData> ReadBatteryData()
     {
         if (File.Exists(saveFile))
         {
             string jsonData = File.ReadAllText(saveFile);
-            list = JsonMapper.ToObject<List<BatteryData>>(jsonData);
+            batteryDatalist = JsonMapper.ToObject<List<BatteryData>>(jsonData);
         }
-        return list;
+        return batteryDatalist;
     }
 
-    public static void AddData(BatteryData bt)
+    public static void WriteBatteryData()
     {
-        if (!list.Contains(bt))
-        {
-            list.Add(bt);
-        }
-    }
-
-    static List<BatteryData> list = new List<BatteryData>();
-    public static void WriteData()
-    {
-        string content = JsonMapper.ToJson(list);
+        string content = JsonMapper.ToJson(batteryDatalist);
         if (!File.Exists(saveFile))
         {
             using (File.Create(saveFile))
             { }
         }
         File.WriteAllText(saveFile, content);
+    }
+
+    public static void AddBatteryData(BatteryData bt)
+    {
+        if (!batteryDatalist.Contains(bt))
+        {
+            batteryDatalist.Add(bt);
+        }
+    }
+
+    public static void DeleteBatteryData(BatteryData bt)
+    {
+        if (batteryDatalist.Contains(bt))
+        {
+            batteryDatalist.Remove(bt);
+        }
     }
 }
 

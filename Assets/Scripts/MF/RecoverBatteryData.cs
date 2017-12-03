@@ -33,7 +33,7 @@ public class RecoverBatteryData : MonoBehaviour
 
     void HandleRecoverData()
     {
-        List<BatteryData> localDataList = GameJsonDataHelper.ReadData();
+        List<BatteryData> localDataList = GameJsonDataHelper.ReadBatteryData();
         if (batteryHoleList != null && batteryHoleList.Count > 0)
         {
             if (localDataList != null && localDataList.Count > 0)
@@ -83,6 +83,6 @@ public class RecoverBatteryData : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        GameJsonDataHelper.WriteData();
+        GameJsonDataHelper.WriteBatteryData();
     }
 }

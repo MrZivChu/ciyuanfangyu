@@ -8,17 +8,20 @@ public class HUM : MonoBehaviour
 {
     public Button backBtn;
     public GameObject buildSelected;
+    public GameObject buildOperate;
 
     BuildSelected BuildSelectedScript;
+    BuildOperate BuildOperateScript;
     private void Start()
     {
         BuildSelectedScript = buildSelected.GetComponent<BuildSelected>();
+        BuildOperateScript = buildOperate.GetComponent<BuildOperate>();
         backBtn.onClick.AddListener(BackClick);
     }
 
     void BackClick()
     {
-        GameJsonDataHelper.WriteData();
+        GameJsonDataHelper.WriteBatteryData();
         Loading.sceneName = "Main";
         SceneManager.LoadScene("Loading");
     }
@@ -58,6 +61,12 @@ public class HUM : MonoBehaviour
                                         BuildSelectedScript.targetBuild = hit.transform.gameObject;
                                         buildSelected.SetActive(true);
                                         BuildSelectedScript.PlayBuildSelectedTween(false);
+                                    }
+                                    else
+                                    {
+                                        BuildOperateScript.currentBattery = bc.currentBP;
+                                        buildOperate.SetActive(true);
+                                        BuildOperateScript.PlayBuildOperateTween(false);
                                     }
                                 }
                             }
