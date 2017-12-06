@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TechnologyDevelopment : MonoBehaviour
 {
+    public HUD hudScript;
     public Button backBtn;
     void Start()
     {
@@ -14,5 +15,6 @@ public class TechnologyDevelopment : MonoBehaviour
     void BackClick(GameObject go, object data)
     {
         gameObject.SetActive(false);
+        hudScript.ResetTweenPlay();
     }
 }

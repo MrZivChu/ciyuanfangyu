@@ -7,7 +7,7 @@ public class Recruit : MonoBehaviour
 {
     public Button backBtn;
     public Animator animator;
-
+    public HUD hudScript;
     void Start()
     {
        
@@ -24,5 +24,6 @@ public class Recruit : MonoBehaviour
     {
         gameObject.SetActive(false);
         animator.SetBool("start", false);
+        hudScript.ResetTweenPlay();
     }
 }

@@ -7,6 +7,7 @@ using uTools;
 
 public class Fortress : MonoBehaviour
 {
+    public HUD hudScript;
     public GameObject map1;
     public GameObject map2;
     public GameObject map3;
@@ -40,6 +41,7 @@ public class Fortress : MonoBehaviour
 
         backbtn.onClick.AddListener(()=> {
             gameObject.SetActive(false);
+            hudScript.ResetTweenPlay();
         });
 
     }
