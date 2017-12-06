@@ -52,15 +52,8 @@ public class Main : MonoBehaviour
 
     void StartGame(GameObject obj, object param)
     {
-        print("startgame");
-
-        GameObject page = GameObject.Instantiate(Resources.Load("Login")) as GameObject;
-        if (page)
-        {
-            GameObject parent = GameObject.Find("GUI/Canvas");
-            page.transform.parent = parent.transform;
-            page.transform.localScale = Vector3.one;
-        }
+        Loading.sceneName = "Story";
+        SceneManager.LoadScene("Loading");
 
         //AppGlobal.Start();
 

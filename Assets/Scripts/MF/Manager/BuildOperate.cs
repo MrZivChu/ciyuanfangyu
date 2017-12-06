@@ -14,6 +14,10 @@ public class BuildOperate : MonoBehaviour
     public Button destoryBtn;
     public Button moveBtn;
 
+    public Text nameText;
+    public GameObject starParent;
+    public Image icon;
+
     bool isOpen = false;
     void Start()
     {
@@ -23,6 +27,25 @@ public class BuildOperate : MonoBehaviour
         modifyBtn.onClick.AddListener(ModifyClick);
         destoryBtn.onClick.AddListener(DestoryClick);
         moveBtn.onClick.AddListener(MoveClick);
+
+        InitData();
+    }
+
+    void InitData()
+    {
+        if (currentBattery != null)
+        {
+            nameText.text = currentBattery.batteryName;
+            int star = currentBattery.starLevel;
+            for (int i = 0; i < star; i++)
+            {
+                starParent.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            for (int i = star; i < starParent.transform.childCount; i++)
+            {
+                starParent.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
     }
 
     void CloseClick()
