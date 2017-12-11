@@ -31,6 +31,7 @@ public class InfantryEnemy : EnemyParent
                     if (!attacking)
                     {
                         attacking = true;
+                        print("hahah"+attackRepeatRateTime);
                         InvokeRepeating("Attack", 0, attackRepeatRateTime);
                     }
                 }

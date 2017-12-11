@@ -46,9 +46,8 @@ public class Bomb : BulletParent
                     {
                         Destroy(target);
                     }
-                    Destroy(gameObject);
                 }
-                print(target.name + "还剩血" + bp.blood);
+                Destroy(gameObject);
             }
             else
             {
@@ -62,19 +61,21 @@ public class Bomb : BulletParent
                         {
                             Destroy(target);
                         }
-                        Destroy(gameObject);
                     }
-                    print(target.name + "还剩血" + bp.blood);
+                    Destroy(gameObject);
                 }
             }
 
             return;
         }
-        time += Time.deltaTime;
-        float test = verticalSpeed - g * time;
-        transform.Translate(moveDirection.normalized * speed * Time.deltaTime, Space.World);
-        transform.Translate(Vector3.up * test * Time.deltaTime, Space.World);
-        float testAngle = -angle + angleSpeed * time;
-        transform.eulerAngles = new Vector3(testAngle, transform.eulerAngles.y, transform.eulerAngles.z);
+        if (gameObject)
+        {
+            time += Time.deltaTime;
+            float test = verticalSpeed - g * time;
+            transform.Translate(moveDirection.normalized * speed * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * test * Time.deltaTime, Space.World);
+            float testAngle = -angle + angleSpeed * time;
+            transform.eulerAngles = new Vector3(testAngle, transform.eulerAngles.y, transform.eulerAngles.z);
+        }
     }
 }

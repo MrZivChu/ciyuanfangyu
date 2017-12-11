@@ -32,7 +32,7 @@ public class Story : MonoBehaviour
         contentText.text = msgList[0];
         peopleTweenScale.Reset();
         descTweenScale.Reset();
-        Skip();
+        //Skip();
     }
 
     public Image bgImage1;
