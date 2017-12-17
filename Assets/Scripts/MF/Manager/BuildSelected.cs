@@ -27,15 +27,19 @@ public class BuildSelected : MonoBehaviour
         closeBtn.onClick.AddListener(CloseThisPanel);
     }
 
+    bool LeftPanelIsOpen = false;
     void CloseThisPanel()
     {
-        if (leftInfoPanel.activeSelf)
+        if (LeftPanelIsOpen)
         {
+            LeftPanelIsOpen = false;
             uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
             tuTweenPosition[1].Reset();
+            return;
         }
-        else
+        if (isOpen)
         {
+            isOpen = false;
             PlayBuildSelectedTween(true);
         }
     }
@@ -67,6 +71,7 @@ public class BuildSelected : MonoBehaviour
 
     public void LeftInfoPanelHideOver()
     {
+        LeftPanelIsOpen = false;
         PlayBuildSelectedTween(true);
     }
 
@@ -120,8 +125,9 @@ public class BuildSelected : MonoBehaviour
         BatteryInfo info = (BatteryInfo)param;
         LeftInfo leftInfoScript = leftInfoPanel.GetComponent<LeftInfo>();
         leftInfoScript.SetData(info);
-        if (!leftInfoPanel.activeSelf)
+        if (!LeftPanelIsOpen)
         {
+            LeftPanelIsOpen = true;
             leftInfoPanel.SetActive(true);
             uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
             tuTweenPosition[0].Reset();

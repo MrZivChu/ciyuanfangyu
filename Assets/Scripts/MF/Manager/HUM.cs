@@ -31,7 +31,7 @@ public class HUM : MonoBehaviour
     bool isClickUI = false;
     private void Update()
     {
-        if (!BuildSelectedScript.isOpen)
+        if (!BuildSelectedScript.isOpen && !BuildOperateScript.isOpen)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -49,7 +49,7 @@ public class HUM : MonoBehaviour
                         Vector2 mousePosition = Input.mousePosition;
                         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
                         int layMask = 1 << LayerMask.NameToLayer("Build");
-                        if (Physics.Raycast(ray, out hit, layMask))
+                        if (Physics.Raycast(ray, out hit, 1000, layMask))
                         {
                             if (hit.transform.CompareTag("build"))
                             {
@@ -65,6 +65,8 @@ public class HUM : MonoBehaviour
                                     else
                                     {
                                         BuildOperateScript.currentBattery = bc.currentBP;
+                                        BuildOperateScript.buildConfig = bc;
+                                        BuildOperateScript.battleTarget = hit.transform.GetChild(0).gameObject;
                                         buildOperate.SetActive(true);
                                         BuildOperateScript.PlayBuildOperateTween(false);
                                     }

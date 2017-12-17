@@ -33,29 +33,16 @@ public class Bomb : BulletParent
     float time;
     void FixedUpdate()
     {
-        if (transform.position.y < target.transform.position.y)
+        if (target != null)
         {
-            //finish  
-            BatteryParent bp = target.GetComponent<BatteryParent>();
-            if (bp != null)
+            if (transform.position.y < target.transform.position.y)
             {
-                bp.blood -= damage;
-                if (bp.blood <= 0)
+                //finish  
+                BatteryParent bp = target.GetComponent<BatteryParent>();
+                if (bp != null)
                 {
-                    if (target.name != "boss")
-                    {
-                        Destroy(target);
-                    }
-                }
-                Destroy(gameObject);
-            }
-            else
-            {
-                EnemyParent ep = target.GetComponent<EnemyParent>();
-                if (ep != null)
-                {
-                    ep.blood -= damage;
-                    if (ep.blood <= 0)
+                    bp.blood -= damage;
+                    if (bp.blood <= 0)
                     {
                         if (target.name != "boss")
                         {
@@ -64,18 +51,34 @@ public class Bomb : BulletParent
                     }
                     Destroy(gameObject);
                 }
-            }
+                else
+                {
+                    EnemyParent ep = target.GetComponent<EnemyParent>();
+                    if (ep != null)
+                    {
+                        ep.blood -= damage;
+                        if (ep.blood <= 0)
+                        {
+                            if (target.name != "boss")
+                            {
+                                Destroy(target);
+                            }
+                        }
+                        Destroy(gameObject);
+                    }
+                }
 
-            return;
-        }
-        if (gameObject)
-        {
-            time += Time.deltaTime;
-            float test = verticalSpeed - g * time;
-            transform.Translate(moveDirection.normalized * speed * Time.deltaTime, Space.World);
-            transform.Translate(Vector3.up * test * Time.deltaTime, Space.World);
-            float testAngle = -angle + angleSpeed * time;
-            transform.eulerAngles = new Vector3(testAngle, transform.eulerAngles.y, transform.eulerAngles.z);
+                return;
+            }
+            if (gameObject)
+            {
+                time += Time.deltaTime;
+                float test = verticalSpeed - g * time;
+                transform.Translate(moveDirection.normalized * speed * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * test * Time.deltaTime, Space.World);
+                float testAngle = -angle + angleSpeed * time;
+                transform.eulerAngles = new Vector3(testAngle, transform.eulerAngles.y, transform.eulerAngles.z);
+            }
         }
     }
 }

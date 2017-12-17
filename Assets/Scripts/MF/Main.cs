@@ -1,5 +1,4 @@
 ﻿using LitJson;
-using LuaInterface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,19 +53,6 @@ public class Main : MonoBehaviour
     {
         Loading.sceneName = "Story";
         SceneManager.LoadScene("Loading");
-
-        //AppGlobal.Start();
-
-        //LuaState lua = new LuaState();
-        //string fullPath = Application.dataPath.Replace("Assets", "Lua");
-        //lua.AddSearchPath(fullPath);
-        //LuaBinder.Bind(lua);
-        //lua.Start();
-        //lua.DoFile("Others/main.lua");
-        ////lua.Collect();
-        ////lua.CheckTop();
-        ////lua.Dispose();
-        ////lua = null;
     }
 
     /// <summary>

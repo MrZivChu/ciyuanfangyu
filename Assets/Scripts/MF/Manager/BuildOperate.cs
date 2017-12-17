@@ -6,6 +6,8 @@ using uTools;
 
 public class BuildOperate : MonoBehaviour
 {
+    public GameObject battleTarget;
+    public BuildConfig buildConfig;
     public BatteryParent currentBattery;
     public Button closeBtn;
     public Button strengthenBtn;//demo版本强化先不做
@@ -18,7 +20,7 @@ public class BuildOperate : MonoBehaviour
     public GameObject starParent;
     public Image icon;
 
-    bool isOpen = false;
+    public bool isOpen = false;
     void Start()
     {
         closeBtn.onClick.AddListener(CloseClick);
@@ -27,8 +29,6 @@ public class BuildOperate : MonoBehaviour
         modifyBtn.onClick.AddListener(ModifyClick);
         destoryBtn.onClick.AddListener(DestoryClick);
         moveBtn.onClick.AddListener(MoveClick);
-
-        InitData();
     }
 
     void InitData()
@@ -50,19 +50,23 @@ public class BuildOperate : MonoBehaviour
 
     void CloseClick()
     {
-        if (leftInfoPanel.activeSelf)
+        if (LeftPanelIsOpen)
         {
+            LeftPanelIsOpen = false;
             uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
             tuTweenPosition[1].Reset();
+            return;
         }
-        else
+        if (isOpen)
         {
+            isOpen = false;
             PlayBuildOperateTween(true);
         }
     }
 
     void StrengthenClick()
     {
+
         CloseClick();
     }
 
@@ -78,6 +82,13 @@ public class BuildOperate : MonoBehaviour
 
     void DestoryClick()
     {
+        buildConfig.currentBP = null;
+        Destroy(battleTarget);
+        BatteryData bd = new BatteryData();
+        bd.batteryLevel = 1;
+        bd.batteryType = currentBattery.battleType;
+        bd.index = buildConfig.index;
+        GameJsonDataHelper.DeleteBatteryData(bd);
         CloseClick();
     }
 
@@ -86,6 +97,7 @@ public class BuildOperate : MonoBehaviour
         CloseClick();
     }
 
+    bool LeftPanelIsOpen = false;
     public void PlayBuildOperateTween(bool isHide)
     {
         uTweenPosition[] tuTweenPosition = transform.GetComponents<uTweenPosition>();
@@ -98,6 +110,7 @@ public class BuildOperate : MonoBehaviour
         else
         {
             //进入
+            InitData();
             isOpen = true;
             tuTweenPosition[0].Reset();
             tuTweenPosition[1].Reset();
@@ -124,8 +137,9 @@ public class BuildOperate : MonoBehaviour
     public GameObject leftInfoPanel;
     void LookInfo(GameObject go, object param)
     {
-        if (!leftInfoPanel.activeSelf)
+        if (!LeftPanelIsOpen)
         {
+            LeftPanelIsOpen = true;
             leftInfoPanel.SetActive(true);
             uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
             tuTweenPosition[0].Reset();

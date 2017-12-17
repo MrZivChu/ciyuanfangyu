@@ -74,6 +74,7 @@ public class RecoverBatteryData : MonoBehaviour
             bp.maxAttackDistance = info.maxAttackDistance;
             bp.model = info.model;
             bp.MW = info.MW;
+            bp.battleType = info.battleType;
             bp.starLevel = info.starLevel;
             bp.wood = info.wood;
             BuildConfig bc = parent.transform.GetComponent<BuildConfig>();

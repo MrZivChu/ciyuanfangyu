@@ -30,6 +30,7 @@ public abstract class BatteryParent : MonoBehaviour
     [HideInInspector]
     public float attackRepeatRateTime;
 
+    public BatteryType battleType;
 
     //射击行为
     public abstract void Shoot();

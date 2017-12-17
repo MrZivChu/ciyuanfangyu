@@ -10,6 +10,7 @@ public class InfantryEnemy : EnemyParent
     private void Start()
     {
         boss = GameObject.Find("boss");
+        transform.LookAt(boss.transform);
         attackTargetList.Add(boss);
         getTarget();
     }
@@ -93,7 +94,6 @@ public class InfantryEnemy : EnemyParent
                 }
             }
             target = tCurrentTarget;
-            transform.LookAt(target.transform);
         }
         else
         {
