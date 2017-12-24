@@ -11,12 +11,14 @@ public class HUD : MonoBehaviour
     public Button recruitBtn;
     public Button urgentDefenseBtn;
     public Button fortressBtn;
+    public Button headBtn;
+    public Button settingBtn;
 
     public GameObject TechnologyDevelopmentPanel;
     public GameObject RecruitPanel;
     public GameObject FortressPanel;
-
-
+    public GameObject PersonInfoPanel;
+    public GameObject SettingPanel;
 
     void Start()
     {
@@ -26,6 +28,8 @@ public class HUD : MonoBehaviour
         EventTriggerListener.Get(recruitBtn.gameObject).onClick = RecruitClick;
         EventTriggerListener.Get(urgentDefenseBtn.gameObject).onClick = UrgentDefenseClick;
         EventTriggerListener.Get(fortressBtn.gameObject).onClick = FortressClick;
+        EventTriggerListener.Get(headBtn.gameObject).onClick = HeadBtnClick;
+        EventTriggerListener.Get(settingBtn.gameObject).onClick = SettingBtnClick;
 
         GetTween();
     }
@@ -89,6 +93,18 @@ public class HUD : MonoBehaviour
     void FortressClick(GameObject go, object data)
     {
         FortressPanel.SetActive(true);
+        ResetTweenToBack();
+    }
+
+    void HeadBtnClick(GameObject go, object data)
+    {
+        PersonInfoPanel.SetActive(true);
+        ResetTweenToBack();
+    }
+
+    void SettingBtnClick(GameObject go, object data)
+    {
+        SettingPanel.SetActive(true);
         ResetTweenToBack();
     }
 

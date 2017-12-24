@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class HUM : MonoBehaviour
 {
     public Button backBtn;
-    public GameObject buildSelected;
-    public GameObject buildOperate;
+    public GameObject buildSelectedPanel;
+    public GameObject buildOperatePanel;
 
     BuildSelected BuildSelectedScript;
     BuildOperate BuildOperateScript;
     private void Start()
     {
-        BuildSelectedScript = buildSelected.GetComponent<BuildSelected>();
-        BuildOperateScript = buildOperate.GetComponent<BuildOperate>();
+        BuildSelectedScript = buildSelectedPanel.GetComponent<BuildSelected>();
+        BuildOperateScript = buildOperatePanel.GetComponent<BuildOperate>();
         backBtn.onClick.AddListener(BackClick);
     }
 
@@ -29,6 +29,8 @@ public class HUM : MonoBehaviour
     private float t1;
     private float t2;
     bool isClickUI = false;
+
+    bool isChangePosition = false;
     private void Update()
     {
         if (!BuildSelectedScript.isOpen && !BuildOperateScript.isOpen)
@@ -38,6 +40,7 @@ public class HUM : MonoBehaviour
                 isClickUI = Utils.CheckGuiRaycastObjects();
                 t1 = Time.realtimeSinceStartup;
             }
+
             if (Input.GetMouseButtonUp(0))
             {
                 if (!isClickUI)
@@ -58,17 +61,33 @@ public class HUM : MonoBehaviour
                                 {
                                     if (bc.currentBP == null)
                                     {
-                                        BuildSelectedScript.targetBuild = hit.transform.gameObject;
-                                        buildSelected.SetActive(true);
-                                        BuildSelectedScript.PlayBuildSelectedTween(false);
+                                        if (isChangePosition)
+                                        {
+                                            //BuildSelectedScript.SpawnBattery();
+                                            isChangePosition = false;
+                                        }
+                                        else
+                                        {
+                                            BuildSelectedScript.targetBuild = hit.transform.gameObject;
+                                            buildSelectedPanel.SetActive(true);
+                                            BuildSelectedScript.PlayBuildSelectedTween(false);
+                                        }
                                     }
                                     else
                                     {
-                                        BuildOperateScript.currentBattery = bc.currentBP;
-                                        BuildOperateScript.buildConfig = bc;
-                                        BuildOperateScript.battleTarget = hit.transform.GetChild(0).gameObject;
-                                        buildOperate.SetActive(true);
-                                        BuildOperateScript.PlayBuildOperateTween(false);
+                                        if (isChangePosition)
+                                        {
+
+                                            isChangePosition = false;
+                                        }
+                                        else
+                                        {
+                                            BuildOperateScript.currentBattery = bc.currentBP;
+                                            BuildOperateScript.buildConfig = bc;
+                                            BuildOperateScript.battleTarget = hit.transform.GetChild(0).gameObject;
+                                            buildOperatePanel.SetActive(true);
+                                            BuildOperateScript.PlayBuildOperateTween(false);
+                                        }
                                     }
                                 }
                             }

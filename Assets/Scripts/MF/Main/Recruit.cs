@@ -10,7 +10,6 @@ public class Recruit : MonoBehaviour
     public HUD hudScript;
     void Start()
     {
-       
         EventTriggerListener.Get(backBtn.gameObject).onClick = BackClick;
     }
 

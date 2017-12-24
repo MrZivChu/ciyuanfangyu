@@ -134,14 +134,21 @@ public class BuildSelected : MonoBehaviour
         }
     }
 
+
     void PlaceBattery(GameObject go, object param)
     {
         BatteryInfo info = (BatteryInfo)param;
+        SpawnBattery(info, targetBuild.transform);
+        CloseThisPanel();
+    }
+
+    public void SpawnBattery(BatteryInfo info, Transform parent)
+    {
         UnityEngine.Object obj = Resources.Load(info.battleType.ToString() + "Lv1");
         if (obj != null)
         {
             GameObject tempGO = Instantiate(obj) as GameObject;
-            tempGO.transform.parent = targetBuild.transform;
+            tempGO.transform.parent = parent;
             tempGO.transform.localScale = Vector3.one;
             tempGO.transform.localPosition = Vector3.zero;
             BatteryParent bp = tempGO.GetComponent<BatteryParent>();
@@ -156,7 +163,7 @@ public class BuildSelected : MonoBehaviour
             bp.MW = info.MW;
             bp.starLevel = info.starLevel;
             bp.wood = info.wood;
-            BuildConfig bc = targetBuild.transform.GetComponent<BuildConfig>();
+            BuildConfig bc = parent.GetComponent<BuildConfig>();
             bc.currentBP = bp;
 
             BatteryData bd = new BatteryData();
@@ -165,7 +172,6 @@ public class BuildSelected : MonoBehaviour
             bd.index = bc.index;
             GameJsonDataHelper.AddBatteryData(bd);
         }
-        CloseThisPanel();
     }
 
     void Selected(GameObject obj, object param)

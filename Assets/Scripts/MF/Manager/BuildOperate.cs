@@ -82,18 +82,24 @@ public class BuildOperate : MonoBehaviour
 
     void DestoryClick()
     {
-        buildConfig.currentBP = null;
-        Destroy(battleTarget);
+        DestoryBattery(buildConfig, battleTarget, currentBattery);
+        CloseClick();
+    }
+
+    public void DestoryBattery(BuildConfig tBuildConfig, GameObject tBattleTarget, BatteryParent tCurrentBattery)
+    {
+        tBuildConfig.currentBP = null;
+        Destroy(tBattleTarget);
         BatteryData bd = new BatteryData();
         bd.batteryLevel = 1;
-        bd.batteryType = currentBattery.battleType;
-        bd.index = buildConfig.index;
+        bd.batteryType = tCurrentBattery.battleType;
+        bd.index = tBuildConfig.index;
         GameJsonDataHelper.DeleteBatteryData(bd);
-        CloseClick();
     }
 
     void MoveClick()
     {
+
         CloseClick();
     }
 
