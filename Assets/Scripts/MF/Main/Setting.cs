@@ -12,6 +12,7 @@ public class Setting : MonoBehaviour
     public AudioSource audioSource;
     void Start()
     {
+        audioSource.volume = slider.value;
         closeBtn.onClick.AddListener(ClosePanel);
         slider.onValueChanged.AddListener(AudioSourceChanged);
     }
