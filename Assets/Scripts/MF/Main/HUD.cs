@@ -14,6 +14,10 @@ public class HUD : MonoBehaviour
     public Button headBtn;
     public Button settingBtn;
 
+    public Button leftBtn;
+    public Button rightBtn;
+    public Scrollbar activityScrollbar;
+
     public GameObject TechnologyDevelopmentPanel;
     public GameObject RecruitPanel;
     public GameObject FortressPanel;
@@ -30,6 +34,9 @@ public class HUD : MonoBehaviour
         EventTriggerListener.Get(fortressBtn.gameObject).onClick = FortressClick;
         EventTriggerListener.Get(headBtn.gameObject).onClick = HeadBtnClick;
         EventTriggerListener.Get(settingBtn.gameObject).onClick = SettingBtnClick;
+
+        EventTriggerListener.Get(leftBtn.gameObject).onClick = LeftBtnClick;
+        EventTriggerListener.Get(rightBtn.gameObject).onClick = RightBtnClick;
 
         GetTween();
     }
@@ -106,6 +113,16 @@ public class HUD : MonoBehaviour
     {
         SettingPanel.SetActive(true);
         ResetTweenToBack();
+    }
+
+    void LeftBtnClick(GameObject go, object data)
+    {
+        activityScrollbar.value = 0;
+    }
+
+    void RightBtnClick(GameObject go, object data)
+    {
+        activityScrollbar.value = 1;
     }
 
     public void ResetTweenToBack()
