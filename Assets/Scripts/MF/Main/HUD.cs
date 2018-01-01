@@ -10,28 +10,34 @@ public class HUD : MonoBehaviour
     public Button technologyDevelopmentBtn;
     public Button recruitBtn;
     public Button urgentDefenseBtn;
-    public Button fortressBtn;
+    public Button worldMapBtn;
     public Button headBtn;
     public Button settingBtn;
 
     public Button leftBtn;
     public Button rightBtn;
     public Scrollbar activityScrollbar;
+    public GameObject Advertisement;
 
-    public GameObject TechnologyDevelopmentPanel;
-    public GameObject RecruitPanel;
-    public GameObject FortressPanel;
-    public GameObject PersonInfoPanel;
-    public GameObject SettingPanel;
+    Object recruitResource;
+    Object worldMapResource;
+    Object personInfoResource;
+    Object settingResource;
+    Object mercenaryBagResource;
+    public Transform parent;
 
     void Start()
     {
-        TechnologyDevelopmentPanel.SetActive(false);
-        RecruitPanel.SetActive(false);
+        recruitResource = Resources.Load("UI/Main/Recruit");
+        worldMapResource = Resources.Load("UI/Main/WorldMap");
+        personInfoResource = Resources.Load("UI/Main/PersonInfo");
+        settingResource = Resources.Load("UI/Main/Setting");
+        mercenaryBagResource = Resources.Load("UI/Main/MercenaryBag");
+
         EventTriggerListener.Get(technologyDevelopmentBtn.gameObject).onClick = TechnologyDevelopmentClick;
         EventTriggerListener.Get(recruitBtn.gameObject).onClick = RecruitClick;
         EventTriggerListener.Get(urgentDefenseBtn.gameObject).onClick = UrgentDefenseClick;
-        EventTriggerListener.Get(fortressBtn.gameObject).onClick = FortressClick;
+        EventTriggerListener.Get(worldMapBtn.gameObject).onClick = WorldMapClick;
         EventTriggerListener.Get(headBtn.gameObject).onClick = HeadBtnClick;
         EventTriggerListener.Get(settingBtn.gameObject).onClick = SettingBtnClick;
 
@@ -50,6 +56,7 @@ public class HUD : MonoBehaviour
     public GameObject leftTweenPositionObj;
     public GameObject rightTweenPositionObj;
     public GameObject bottomBtnsTweenPositionObj;
+    public GameObject advertisementTweenScaleObj;
 
     uTweenAlpha[] girlTweenAlpha;
     uTweenPosition[] girlTweenPosition;
@@ -62,6 +69,7 @@ public class HUD : MonoBehaviour
     uTweenPosition[] rightTweenPosition;
     uTweenAlpha[] rightTweenAlpha;
     uTweenPosition[] bottomBtnsTweenPosition;
+    uTweenScale[] AdvertisementTweenScale;
     void GetTween()
     {
         girlTweenAlpha = girlTweenAlphaObj.GetComponents<uTweenAlpha>();
@@ -75,19 +83,24 @@ public class HUD : MonoBehaviour
         rightTweenPosition = rightTweenPositionObj.GetComponents<uTweenPosition>();
         rightTweenAlpha = rightTweenPositionObj.GetComponents<uTweenAlpha>();
         bottomBtnsTweenPosition = bottomBtnsTweenPositionObj.GetComponents<uTweenPosition>();
+        AdvertisementTweenScale = advertisementTweenScaleObj.GetComponents<uTweenScale>();
     }
 
     void TechnologyDevelopmentClick(GameObject go, object data)
     {
-        TechnologyDevelopmentPanel.SetActive(true);
-        RecruitPanel.SetActive(false);
+        GameObject obj = Instantiate(mercenaryBagResource) as GameObject;
+        Utils.SpawnUIObj(obj.transform, parent);
+        obj.GetComponent<MercenaryBag>().hudScript = this;
+        obj.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
         ResetTweenToBack();
     }
 
     void RecruitClick(GameObject go, object data)
     {
-        TechnologyDevelopmentPanel.SetActive(false);
-        RecruitPanel.SetActive(true);
+        GameObject obj = Instantiate(recruitResource) as GameObject;
+        Utils.SpawnUIObj(obj.transform, parent);
+        obj.GetComponent<Recruit>().hudScript = this;
+        obj.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
         ResetTweenToBack();
     }
 
@@ -97,21 +110,29 @@ public class HUD : MonoBehaviour
         SceneManager.LoadScene("Loading");
     }
 
-    void FortressClick(GameObject go, object data)
+    void WorldMapClick(GameObject go, object data)
     {
-        FortressPanel.SetActive(true);
+        GameObject obj = Instantiate(worldMapResource) as GameObject;
+        Utils.SpawnUIObj(obj.transform, parent);
+        obj.GetComponent<WorldMap>().hudScript = this;
+        obj.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
         ResetTweenToBack();
     }
 
     void HeadBtnClick(GameObject go, object data)
     {
-        PersonInfoPanel.SetActive(true);
+        GameObject obj = Instantiate(personInfoResource) as GameObject;
+        Utils.SpawnUIObj(obj.transform, parent);
+        obj.GetComponent<PersonInfo>().hudScript = this;
+        obj.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
         ResetTweenToBack();
     }
 
     void SettingBtnClick(GameObject go, object data)
     {
-        SettingPanel.SetActive(true);
+        GameObject obj = Instantiate(settingResource) as GameObject;
+        Utils.SpawnUIObj(obj.transform, parent);
+        obj.GetComponent<Setting>().hudScript = this;
         ResetTweenToBack();
     }
 
@@ -138,6 +159,7 @@ public class HUD : MonoBehaviour
         rightTweenPosition[1].Reset();
         rightTweenAlpha[1].Reset();
         bottomBtnsTweenPosition[1].Reset();
+        AdvertisementTweenScale[1].Reset();
     }
 
     public void ResetTweenPlay()
@@ -153,5 +175,6 @@ public class HUD : MonoBehaviour
         rightTweenPosition[0].Reset();
         rightTweenAlpha[0].Reset();
         bottomBtnsTweenPosition[0].Reset();
+        AdvertisementTweenScale[0].Reset();
     }
 }

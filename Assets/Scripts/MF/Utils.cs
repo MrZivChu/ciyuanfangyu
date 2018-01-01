@@ -313,4 +313,11 @@ public class Utils
         }
         return false;
     }
+
+    public static void SpawnUIObj(Transform child, Transform parent)
+    {
+        child.parent = parent;
+        child.localScale = Vector3.one;
+        child.localPosition = Vector3.zero;
+    }
 }

@@ -12,9 +12,7 @@ public class BuildSelected : MonoBehaviour
     public GameObject cellParent;
     [HideInInspector]
     public GameObject targetBuild;
-
-    public BatteryDataLibrary batteryDataLibrary;
-
+    
     public bool isOpen = false;
     GameObject BatteryCell;
 
@@ -183,27 +181,27 @@ public class BuildSelected : MonoBehaviour
             int index = (int)param;
             if (index == 0)
             {
-                SpawnCell(batteryDataLibrary.allList);
+                SpawnCell(BatteryDataLibrary.allList);
             }
             else if (index == 1)
             {
-                SpawnCell(batteryDataLibrary.cannonList);
+                SpawnCell(BatteryDataLibrary.cannonList);
             }
             else if (index == 2)
             {
-                SpawnCell(batteryDataLibrary.gatlinGunList);
+                SpawnCell(BatteryDataLibrary.gatlinGunList);
             }
             else if (index == 3)
             {
-                SpawnCell(batteryDataLibrary.missileList);
+                SpawnCell(BatteryDataLibrary.missileList);
             }
             else if (index == 4)
             {
-                SpawnCell(batteryDataLibrary.specialList);
+                SpawnCell(BatteryDataLibrary.specialList);
             }
             else if (index == 5)
             {
-                SpawnCell(batteryDataLibrary.publicList);
+                SpawnCell(BatteryDataLibrary.publicList);
             }
         }
     }

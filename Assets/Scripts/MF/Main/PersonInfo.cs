@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class PersonInfo : MonoBehaviour
 {
     public HUD hudScript;
-    public Button closeBtn;
+    public GameObject clickMask;
     void Start()
     {
-        closeBtn.onClick.AddListener(ClosePanel);
+        EventTriggerListener.Get(clickMask).onClick = ClosePanel;
     }
 
-    void ClosePanel()
+    void ClosePanel(GameObject go, object obj)
     {
-        gameObject.SetActive(false);
         hudScript.ResetTweenPlay();
+        Destroy(gameObject);
     }
 }

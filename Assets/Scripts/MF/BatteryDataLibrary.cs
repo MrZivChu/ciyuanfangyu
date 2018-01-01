@@ -33,20 +33,20 @@ public class BatteryDataLibrary : MonoBehaviour
         InitData();
     }
 
-    public Dictionary<BatteryType, BatteryInfo> dic = new Dictionary<BatteryType, BatteryInfo>();
+    public static Dictionary<BatteryType, BatteryInfo> dic = new Dictionary<BatteryType, BatteryInfo>();
 
     //所有
-    public List<BatteryInfo> allList = new List<BatteryInfo>();
+    public static List<BatteryInfo> allList = new List<BatteryInfo>();
     //加农炮
-    public List<BatteryInfo> cannonList = new List<BatteryInfo>();
+    public static List<BatteryInfo> cannonList = new List<BatteryInfo>();
     //加特林枪
-    public List<BatteryInfo> gatlinGunList = new List<BatteryInfo>();
+    public static List<BatteryInfo> gatlinGunList = new List<BatteryInfo>();
     //导弹
-    public List<BatteryInfo> missileList = new List<BatteryInfo>();
+    public static List<BatteryInfo> missileList = new List<BatteryInfo>();
     //特殊
-    public List<BatteryInfo> specialList = new List<BatteryInfo>();
+    public static List<BatteryInfo> specialList = new List<BatteryInfo>();
     //公共
-    public List<BatteryInfo> publicList = new List<BatteryInfo>();
+    public static List<BatteryInfo> publicList = new List<BatteryInfo>();
 
     void InitData()
     {

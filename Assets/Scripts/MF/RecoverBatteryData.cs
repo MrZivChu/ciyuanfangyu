@@ -5,8 +5,6 @@ using UnityEngine;
 //恢复设置的炮塔数据
 public class RecoverBatteryData : MonoBehaviour
 {
-    public BatteryDataLibrary batteryDataLibrary;
-
     public List<GameObject> batteryHoleList;
     public Dictionary<int, GameObject> holeDic = new Dictionary<int, GameObject>();
 
@@ -43,9 +41,9 @@ public class RecoverBatteryData : MonoBehaviour
                     BatteryData bd = localDataList[i];
                     if (holeDic.ContainsKey(bd.index))
                     {
-                        if (batteryDataLibrary.dic.ContainsKey(bd.batteryType))
+                        if (BatteryDataLibrary.dic.ContainsKey(bd.batteryType))
                         {
-                            BatteryInfo info = batteryDataLibrary.dic[bd.batteryType];
+                            BatteryInfo info = BatteryDataLibrary.dic[bd.batteryType];
                             GameObject hole = holeDic[bd.index];
                             InstanceObj(info, hole);
                         }
@@ -81,9 +79,5 @@ public class RecoverBatteryData : MonoBehaviour
             bc.currentBP = bp;
         }
     }
-
-    void OnApplicationQuit()
-    {
-        GameJsonDataHelper.WriteBatteryData();
-    }
+   
 }
