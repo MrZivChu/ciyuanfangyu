@@ -28,7 +28,7 @@ public class Recruit : MonoBehaviour
     int index = 0;
     void RefreshClick(GameObject go, object data)
     {
-        List<Mercenary> mercenaryList = MercenaryDataLibrary.MercenaryList;
+        List<Mercenary> mercenaryList = MercenaryDataConfigTable.MercenaryList;
 
         if (itemList != null && itemList.Count > 0)
         {
@@ -49,11 +49,6 @@ public class Recruit : MonoBehaviour
                 {
                     itemList[i].GetChild(2).GetChild(j).gameObject.SetActive(false);
                 }
-                index++;
-                if (index >= mercenaryList.Count)
-                {
-                    index = 0;
-                }
                 if (BaseDataLibrary.mercenaryList != null && BaseDataLibrary.mercenaryList.Contains(mercenaryList[index].ID))
                 {
                     itemList[i].GetChild(12).gameObject.SetActive(false);
@@ -67,6 +62,11 @@ public class Recruit : MonoBehaviour
                     itemList[i].GetChild(12).gameObject.SetActive(true);
                     itemList[i].GetChild(3).GetComponent<Text>().text = "雇佣";
                     EventTriggerListener.Get(itemList[i].GetChild(12).gameObject, list).onClick = BuyMercenary;
+                }
+                index++;
+                if (index >= mercenaryList.Count)
+                {
+                    index = 0;
                 }
             }
         }

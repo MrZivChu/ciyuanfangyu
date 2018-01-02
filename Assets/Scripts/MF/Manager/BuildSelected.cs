@@ -181,27 +181,27 @@ public class BuildSelected : MonoBehaviour
             int index = (int)param;
             if (index == 0)
             {
-                SpawnCell(BatteryDataLibrary.allList);
+                SpawnCell(BatteryDataConfigTable.allList);
             }
             else if (index == 1)
             {
-                SpawnCell(BatteryDataLibrary.cannonList);
+                SpawnCell(BatteryDataConfigTable.cannonList);
             }
             else if (index == 2)
             {
-                SpawnCell(BatteryDataLibrary.gatlinGunList);
+                SpawnCell(BatteryDataConfigTable.gatlinGunList);
             }
             else if (index == 3)
             {
-                SpawnCell(BatteryDataLibrary.missileList);
+                SpawnCell(BatteryDataConfigTable.missileList);
             }
             else if (index == 4)
             {
-                SpawnCell(BatteryDataLibrary.specialList);
+                SpawnCell(BatteryDataConfigTable.specialList);
             }
             else if (index == 5)
             {
-                SpawnCell(BatteryDataLibrary.publicList);
+                SpawnCell(BatteryDataConfigTable.publicList);
             }
         }
     }

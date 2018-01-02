@@ -77,7 +77,7 @@ public class Utils
                 dict[str[i]] = str[i + 1];
             }
         }
-        GameObject go = GameObject.Find("CoroutineHelper");
+        GameObject go = GameObject.Find("DontDestroyOnLoad");
         go.GetComponent<CoroutineHelper>().StartCoroutine(HttpPost(url, dict, onSuccess, onFailed));
     }
 

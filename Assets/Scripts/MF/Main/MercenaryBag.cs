@@ -27,7 +27,7 @@ public class MercenaryBag : MonoBehaviour
                 go.transform.parent = parent;
                 go.transform.localScale = Vector3.one;
                 go.transform.localPosition = Vector3.zero;
-                Mercenary mer = MercenaryDataLibrary.MercenaryList.Find(it => it.ID == idList[i]);
+                Mercenary mer = MercenaryDataConfigTable.MercenaryList.Find(it => it.ID == idList[i]);
                 if (mer != null)
                 {
                     go.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(mer.iconPath.Replace("girl", ""));

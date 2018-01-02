@@ -69,7 +69,8 @@ public class MessageBox : MonoBehaviour
             {
                 leftCallback();
             }
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         };
         EventTriggerListener.Get(rightBtn.gameObject).onClick = (go, data) =>
         {
@@ -77,7 +78,8 @@ public class MessageBox : MonoBehaviour
             {
                 rightCallback();
             }
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         };
     }
 }

@@ -1450,7 +1450,6 @@ MonoBehaviour:
   closeBtn: {fileID: 1354105004}
   cellParent: {fileID: 1667606636}
   targetBuild: {fileID: 0}
-  batteryDataLibrary: {fileID: 278056702}
   isOpen: 0
   leftInfoPanel: {fileID: 285940364}
 --- !u!114 &192293853
@@ -2472,7 +2471,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 278056700}
-  - component: {fileID: 278056702}
   - component: {fileID: 278056701}
   m_Layer: 0
   m_Name: Manager
@@ -2507,7 +2505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e55ac5b4f2d00749a1435599e2f7b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batteryDataLibrary: {fileID: 278056702}
   batteryHoleList:
   - {fileID: 1122317282}
   - {fileID: 302150572}
@@ -2570,18 +2567,6 @@ MonoBehaviour:
   - {fileID: 1860956602}
   - {fileID: 1742733992}
   - {fileID: 1201247580}
---- !u!114 &278056702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114591370881181904, guid: 9f818b0b8ee55b94da0972eec3c933aa,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 278056699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46dbbec418f1f9b45a357e5971dbb0eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &280735747
 GameObject:
   m_ObjectHideFlags: 0

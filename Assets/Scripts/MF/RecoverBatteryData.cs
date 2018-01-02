@@ -41,9 +41,9 @@ public class RecoverBatteryData : MonoBehaviour
                     BatteryData bd = localDataList[i];
                     if (holeDic.ContainsKey(bd.index))
                     {
-                        if (BatteryDataLibrary.dic.ContainsKey(bd.batteryType))
+                        if (BatteryDataConfigTable.dic.ContainsKey(bd.batteryType))
                         {
-                            BatteryInfo info = BatteryDataLibrary.dic[bd.batteryType];
+                            BatteryInfo info = BatteryDataConfigTable.dic[bd.batteryType];
                             GameObject hole = holeDic[bd.index];
                             InstanceObj(info, hole);
                         }

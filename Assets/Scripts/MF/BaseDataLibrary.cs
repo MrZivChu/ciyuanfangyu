@@ -19,4 +19,9 @@ public class BaseDataLibrary
 
     //佣兵币
     public static int mercenaryMoney;
+
+    //背景音乐的声音大小
+    public static double musicVolume;
+    //选择哪首歌
+    public static int musicIndex;
 }
