@@ -52,7 +52,7 @@ public class BatteryDataConfigTable : MonoBehaviour
     {
         BatteryInfo batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "加农炮";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/CannonBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.CannonBattery;
         batteryInfo.blood = 500;
@@ -67,7 +67,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "雷克斯加农炮";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/RexCannonBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.RexCannonBattery;
         batteryInfo.blood = 1000;
@@ -82,7 +82,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "新星加农炮";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/NovaCannonBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.NovaCannonBattery;
         batteryInfo.blood = 2000;
@@ -97,7 +97,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "加特林枪";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/GatlinGunBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.GatlinGunBattery;
         batteryInfo.blood = 400;
@@ -112,7 +112,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "导弹";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/MissileBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.MissileBattery;
         batteryInfo.blood = 600;
@@ -127,7 +127,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "雷克斯导弹";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/RexMissileBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.RexMissileBattery;
         batteryInfo.blood = 1200;
@@ -142,7 +142,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "新星导弹";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/NovaMissileBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.NovaMissileBattery;
         batteryInfo.blood = 2400;
@@ -157,7 +157,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "雷克斯激光";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/RexLaserBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.RexLaserBattery;
         batteryInfo.blood = 1400;
@@ -172,7 +172,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "反击导弹B";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/CounterattackMissileBBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.CounterattackMissileBBattery;
         batteryInfo.blood = 1000;
@@ -187,7 +187,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "狙击手";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/SniperBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.SniperBattery;
         batteryInfo.blood = 700;
@@ -202,7 +202,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "新星狙击手";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/NovaSniperBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.NovaSniperBattery;
         batteryInfo.blood = 2800;
@@ -217,7 +217,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "驻地(S)";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/ResidentSBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.ResidentSBattery;
         batteryInfo.blood = 800;
@@ -232,7 +232,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "驻地(M)";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/ResidentMBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.ResidentMBattery;
         batteryInfo.blood = 1600;
@@ -247,7 +247,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "休闲公园";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/LeisureParkBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.LeisureParkBattery;
         batteryInfo.blood = 600;
@@ -262,7 +262,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "多厂";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/MultiPlantBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.MultiPlantBattery;
         batteryInfo.blood = 1000;
@@ -277,7 +277,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 
         batteryInfo = new BatteryInfo();
         batteryInfo.batteryName = "购物中心";
-        batteryInfo.icon = "Battery/icon";
+        batteryInfo.icon = "UI/Battery/ShoppingMallBattery";
         batteryInfo.model = "Battery/model";
         batteryInfo.battleType = BatteryType.ShoppingMallBattery;
         batteryInfo.blood = 1500;

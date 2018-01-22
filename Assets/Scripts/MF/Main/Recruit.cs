@@ -20,7 +20,6 @@ public class Recruit : MonoBehaviour
 
     void BackClick(GameObject go, object data)
     {
-        GameJsonDataHelper.WriteMercenaryData();
         hudScript.ResetTweenPlay();
         Destroy(gameObject);
     }
@@ -78,7 +77,7 @@ public class Recruit : MonoBehaviour
         List<object> list = (List<object>)param;
         MessageBox.Instance.PopYesNo("是否雇佣此佣兵", null, () =>
         {
-            GameJsonDataHelper.AddMercenaryData((int)list[0]);
+            BaseDataLibrary.mercenaryList.Add((int)list[0]);
             ((Transform)list[1]).GetChild(12).gameObject.SetActive(false);
             ((Transform)list[1]).GetChild(3).GetComponent<Text>().text = "已雇佣";
 

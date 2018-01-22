@@ -15,7 +15,9 @@ public class BaseDataLibrary
     public static int engry;
 
     //拥有的佣兵集合
-    public static List<int> mercenaryList;
+    public static List<int> mercenaryList = new List<int>();
+    //上阵的佣兵集合
+    public static List<int> battleMercenaryList = new List<int>();
 
     //佣兵币
     public static int mercenaryMoney;

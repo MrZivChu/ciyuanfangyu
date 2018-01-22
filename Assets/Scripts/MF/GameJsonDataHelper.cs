@@ -64,62 +64,6 @@ public class GameJsonDataHelper
         }
     }
 
-    //佣兵数据处理
-    static string mercenaryDataSaveFile = Application.persistentDataPath + "/mercenaryData.data";
-    static List<int> mercenaryDataList = new List<int>();
-
-    public static List<int> ReadMercenaryData()
-    {
-        if (File.Exists(mercenaryDataSaveFile))
-        {
-            string jsonData = File.ReadAllText(mercenaryDataSaveFile);
-            mercenaryDataList = JsonMapper.ToObject<List<int>>(jsonData);
-        }
-        return mercenaryDataList;
-    }
-
-    public static void WriteMercenaryData()
-    {
-        if (mercenaryDataList != null)
-        {
-            string content = JsonMapper.ToJson(mercenaryDataList);
-            if (!string.IsNullOrEmpty(content))
-            {
-                if (!File.Exists(mercenaryDataSaveFile))
-                {
-                    using (File.Create(mercenaryDataSaveFile))
-                    { }
-                }
-                File.WriteAllText(mercenaryDataSaveFile, content);
-            }
-        }
-    }
-
-    public static void AddMercenaryData(int index)
-    {
-        int count = mercenaryDataList.FindAll(item => { return item == index; }).Count;
-        if (count <= 0)
-        {
-            mercenaryDataList.Add(index);
-        }
-    }
-
-    public static void DeleteMercenaryData(int index)
-    {
-        if (mercenaryDataList != null && mercenaryDataList.Count > 0)
-        {
-            for (int i = 0; i < mercenaryDataList.Count; i++)
-            {
-                if (mercenaryDataList[i] == index)
-                {
-                    mercenaryDataList.Remove(mercenaryDataList[i]);
-                    return;
-                }
-            }
-        }
-    }
-
-
     //基础数据处理
     static string baseDataSaveFile = Application.persistentDataPath + "/baseData.data";
     static ServerBaseDataLibrary baseData = new ServerBaseDataLibrary();
@@ -131,6 +75,8 @@ public class GameJsonDataHelper
             string jsonData = File.ReadAllText(baseDataSaveFile);
             baseData = JsonMapper.ToObject<ServerBaseDataLibrary>(jsonData);
         }
+        baseData.mercenaryList = baseData.mercenaryList == null ? new List<int>() : baseData.mercenaryList;
+        baseData.battleMercenaryList = baseData.battleMercenaryList == null ? new List<int>() : baseData.battleMercenaryList;
         return baseData;
     }
 
@@ -177,6 +123,8 @@ public class ServerBaseDataLibrary
 
     //拥有的佣兵集合
     public List<int> mercenaryList;
+    //上阵的佣兵集合
+    public List<int> battleMercenaryList;
 
     //佣兵币
     public int mercenaryMoney;

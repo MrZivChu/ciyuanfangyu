@@ -20,7 +20,6 @@ public class BuildOperate : MonoBehaviour
     public GameObject starParent;
     public Image icon;
 
-    public bool isOpen = false;
     void Start()
     {
         closeBtn.onClick.AddListener(CloseClick);
@@ -50,18 +49,8 @@ public class BuildOperate : MonoBehaviour
 
     void CloseClick()
     {
-        if (LeftPanelIsOpen)
-        {
-            LeftPanelIsOpen = false;
-            uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
-            tuTweenPosition[1].Reset();
-            return;
-        }
-        if (isOpen)
-        {
-            isOpen = false;
-            PlayBuildOperateTween(true);
-        }
+        Destroy(gameObject);
+        HUM.uiIsShow = false;
     }
 
     void StrengthenClick()
@@ -99,58 +88,6 @@ public class BuildOperate : MonoBehaviour
 
     void MoveClick()
     {
-
         CloseClick();
     }
-
-    bool LeftPanelIsOpen = false;
-    public void PlayBuildOperateTween(bool isHide)
-    {
-        uTweenPosition[] tuTweenPosition = transform.GetComponents<uTweenPosition>();
-        if (isHide)
-        {
-            //退出
-            tuTweenPosition[2].Reset();
-            tuTweenPosition[3].Reset();
-        }
-        else
-        {
-            //进入
-            InitData();
-            isOpen = true;
-            tuTweenPosition[0].Reset();
-            tuTweenPosition[1].Reset();
-        }
-    }
-
-    public void BuildOperatePanelHideOver()
-    {
-        isOpen = false;
-        leftInfoPanel.SetActive(false);
-        gameObject.SetActive(false);
-    }
-
-    public void BuildOperatePanelShowOver()
-    {
-        LookInfo(null, null);
-    }
-
-    public void LeftInfoPanelHideOver()
-    {
-        PlayBuildOperateTween(true);
-    }
-
-    public GameObject leftInfoPanel;
-    void LookInfo(GameObject go, object param)
-    {
-        if (!LeftPanelIsOpen)
-        {
-            LeftPanelIsOpen = true;
-            leftInfoPanel.SetActive(true);
-            uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
-            tuTweenPosition[0].Reset();
-        }
-    }
-
-
 }

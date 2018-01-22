@@ -15,7 +15,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         Mercenary mercenary = new Mercenary();
         mercenary.ID = 1;
         mercenary.mercenaryName = "霍根";
-        mercenary.iconPath = "Mercenary/girl01";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm01";
         mercenary.star = 1;
         mercenary.price = 100;
         mercenary.talent = "加农炮";
@@ -26,7 +26,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 2;
         mercenary.mercenaryName = "慕得";
-        mercenary.iconPath = "Mercenary/girl02";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm02";
         mercenary.star = 2;
         mercenary.price = 200;
         mercenary.talent = "雷克斯加农炮";
@@ -37,7 +37,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 3;
         mercenary.mercenaryName = "艾比盖";
-        mercenary.iconPath = "Mercenary/girl03";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm03";
         mercenary.star = 3;
         mercenary.price = 300;
         mercenary.talent = "新星加农炮";
@@ -48,7 +48,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 4;
         mercenary.mercenaryName = "珍尼丝";
-        mercenary.iconPath = "Mercenary/girl04";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm04";
         mercenary.star = 1;
         mercenary.price = 100;
         mercenary.talent = "加特林枪";
@@ -59,7 +59,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 5;
         mercenary.mercenaryName = "葛莱蒂丝";
-        mercenary.iconPath = "Mercenary/girl05";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm05";
         mercenary.star = 1;
         mercenary.price = 100;
         mercenary.talent = "导弹";
@@ -70,7 +70,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 6;
         mercenary.mercenaryName = "丽莎";
-        mercenary.iconPath = "Mercenary/girl06";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm06";
         mercenary.star = 2;
         mercenary.price = 200;
         mercenary.talent = "雷克斯导弹";
@@ -81,7 +81,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 7;
         mercenary.mercenaryName = "费滋";
-        mercenary.iconPath = "Mercenary/girl07";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm07";
         mercenary.star = 3;
         mercenary.price = 300;
         mercenary.talent = "新星导弹";
@@ -92,7 +92,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 8;
         mercenary.mercenaryName = "多莉丝";
-        mercenary.iconPath = "Mercenary/girl08";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm08";
         mercenary.star = 1;
         mercenary.price = 100;
         mercenary.talent = "雷克斯激光";
@@ -103,7 +103,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 9;
         mercenary.mercenaryName = "奥萝拉";
-        mercenary.iconPath = "Mercenary/girl09";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm09";
         mercenary.star = 2;
         mercenary.price = 200;
         mercenary.talent = "反击导弹B";
@@ -114,7 +114,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary = new Mercenary();
         mercenary.ID = 10;
         mercenary.mercenaryName = "艾谱莉";
-        mercenary.iconPath = "Mercenary/girl10";
+        mercenary.iconPath = "UI/Mercenary/Texture/zm10";
         mercenary.star = 3;
         mercenary.price = 300;
         mercenary.talent = "狙击手";
@@ -123,16 +123,16 @@ public class MercenaryDataConfigTable : MonoBehaviour
         MercenaryList.Add(mercenary);
 
 
-        mercenary = new Mercenary();
-        mercenary.ID = 11;
-        mercenary.mercenaryName = "亚莉克希亚";
-        mercenary.iconPath = "Mercenary/girl11";
-        mercenary.star = 4;
-        mercenary.price = 400;
-        mercenary.talent = "新星狙击手";
-        mercenary.shootDistance = "4";
-        mercenary.shootPower = "12";
-        MercenaryList.Add(mercenary);
+        //mercenary = new Mercenary();
+        //mercenary.ID = 11;
+        //mercenary.mercenaryName = "亚莉克希亚";
+        //mercenary.iconPath = "UI/Mercenary/Texture/zm11";
+        //mercenary.star = 4;
+        //mercenary.price = 400;
+        //mercenary.talent = "新星狙击手";
+        //mercenary.shootDistance = "4";
+        //mercenary.shootPower = "12";
+        //MercenaryList.Add(mercenary);
     }
 }
 

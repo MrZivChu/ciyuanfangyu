@@ -14,10 +14,11 @@ public class BatteryCell : MonoBehaviour
     public Text rangeText;
     public Text mwText;
 
-    public GameObject starParent;
+    public Image shape1;
+    public Image shape2;
+    public Image shape3;
 
-    public Image icon;
-    public Image model;
+    public GameObject starParent;
 
     private void Start()
     {
@@ -28,9 +29,13 @@ public class BatteryCell : MonoBehaviour
         rangeText.text = batteryInfo.maxAttackDistance.ToString();
         mwText.text = batteryInfo.MW.ToString();
 
-        icon.sprite = Resources.Load<Sprite>(batteryInfo.icon);
-        model.sprite = Resources.Load<Sprite>(batteryInfo.model);
+        Sprite sprite1 = Resources.Load<Sprite>(batteryInfo.icon + "01");
+        Sprite sprite2 = Resources.Load<Sprite>(batteryInfo.icon + "02");
+        Sprite sprite3 = Resources.Load<Sprite>(batteryInfo.icon + "03");
 
+        shape1.sprite = sprite1 == null ? Resources.Load<Sprite>("UI/Battery/CannonBattery01") : sprite1;
+        shape2.sprite = sprite2 == null ? Resources.Load<Sprite>("UI/Battery/CannonBattery02") : sprite2;
+        shape3.sprite = sprite3 == null ? Resources.Load<Sprite>("UI/Battery/CannonBattery03") : sprite3;
     }
 
     void setStar()

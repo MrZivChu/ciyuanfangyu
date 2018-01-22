@@ -2302,8 +2302,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 939509885}
-  - component: {fileID: 939509887}
-  - component: {fileID: 939509886}
   m_Layer: 0
   m_Name: Advertisement
   m_TagString: Untagged
@@ -2319,7 +2317,7 @@ RectTransform:
   m_GameObject: {fileID: 939509884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -634, y: -386, z: 0}
-  m_LocalScale: {x: 1, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2013845648}
   - {fileID: 1202912179}
@@ -2333,88 +2331,6 @@ RectTransform:
   m_AnchoredPosition: {x: -634, y: -386}
   m_SizeDelta: {x: 545, y: 250.4}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &939509886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 939509884}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207c3eaacd40617469992a3f0e10c623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  easeType: 22
-  loopStyle: 0
-  delay: 0
-  duration: 0.2
-  ignoreTimeScale: 1
-  onFinished:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  from: {x: 1, y: 1, z: 1}
-  to: {x: 1, y: 0, z: 1}
---- !u!114 &939509887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 939509884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207c3eaacd40617469992a3f0e10c623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  easeType: 22
-  loopStyle: 0
-  delay: 0
-  duration: 1
-  ignoreTimeScale: 1
-  onFinished:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  from: {x: 1, y: 0, z: 1}
-  to: {x: 1, y: 1, z: 1}
 --- !u!1 &957691153
 GameObject:
   m_ObjectHideFlags: 0

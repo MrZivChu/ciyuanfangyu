@@ -10,7 +10,6 @@ public class CoroutineHelper : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         RecoverBaseData();
-        RecoverMercenaryData();
         RecoverMusic();
     }
 
@@ -37,12 +36,8 @@ public class CoroutineHelper : MonoBehaviour
         BaseDataLibrary.musicVolume = serverBaseDataLibrary.musicVolume;
         BaseDataLibrary.people = serverBaseDataLibrary.people;
         BaseDataLibrary.musicIndex = serverBaseDataLibrary.musicIndex;
-    }
-
-    //恢复佣兵数据
-    void RecoverMercenaryData()
-    {
-        BaseDataLibrary.mercenaryList = GameJsonDataHelper.ReadMercenaryData();
+        BaseDataLibrary.mercenaryList = serverBaseDataLibrary.mercenaryList;
+        BaseDataLibrary.battleMercenaryList = serverBaseDataLibrary.battleMercenaryList;
     }
 
     void OnApplicationQuit()
@@ -62,7 +57,6 @@ public class CoroutineHelper : MonoBehaviour
     void SaveData()
     {
         GameJsonDataHelper.WriteBaseData();
-        GameJsonDataHelper.WriteMercenaryData();
         GameJsonDataHelper.WriteBatteryData();
     }
 }

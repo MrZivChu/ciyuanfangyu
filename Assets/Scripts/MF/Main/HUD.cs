@@ -17,7 +17,6 @@ public class HUD : MonoBehaviour
     public Button leftBtn;
     public Button rightBtn;
     public Scrollbar activityScrollbar;
-    public GameObject Advertisement;
 
     Object recruitResource;
     Object worldMapResource;
@@ -32,7 +31,7 @@ public class HUD : MonoBehaviour
         worldMapResource = Resources.Load("UI/Main/WorldMap");
         personInfoResource = Resources.Load("UI/Main/PersonInfo");
         settingResource = Resources.Load("UI/Main/Setting");
-        mercenaryBagResource = Resources.Load("UI/Main/MercenaryBag");
+        mercenaryBagResource = Resources.Load("UI/Mercenary/MercenaryBag");
 
         EventTriggerListener.Get(technologyDevelopmentBtn.gameObject).onClick = TechnologyDevelopmentClick;
         EventTriggerListener.Get(recruitBtn.gameObject).onClick = RecruitClick;
@@ -69,7 +68,6 @@ public class HUD : MonoBehaviour
     uTweenPosition[] rightTweenPosition;
     uTweenAlpha[] rightTweenAlpha;
     uTweenPosition[] bottomBtnsTweenPosition;
-    uTweenScale[] AdvertisementTweenScale;
     void GetTween()
     {
         girlTweenAlpha = girlTweenAlphaObj.GetComponents<uTweenAlpha>();
@@ -83,7 +81,6 @@ public class HUD : MonoBehaviour
         rightTweenPosition = rightTweenPositionObj.GetComponents<uTweenPosition>();
         rightTweenAlpha = rightTweenPositionObj.GetComponents<uTweenAlpha>();
         bottomBtnsTweenPosition = bottomBtnsTweenPositionObj.GetComponents<uTweenPosition>();
-        AdvertisementTweenScale = advertisementTweenScaleObj.GetComponents<uTweenScale>();
     }
 
     void TechnologyDevelopmentClick(GameObject go, object data)
@@ -133,6 +130,7 @@ public class HUD : MonoBehaviour
         GameObject obj = Instantiate(settingResource) as GameObject;
         Utils.SpawnUIObj(obj.transform, parent);
         obj.GetComponent<Setting>().hudScript = this;
+        obj.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
         ResetTweenToBack();
     }
 
@@ -159,7 +157,6 @@ public class HUD : MonoBehaviour
         rightTweenPosition[1].Reset();
         rightTweenAlpha[1].Reset();
         bottomBtnsTweenPosition[1].Reset();
-        AdvertisementTweenScale[1].Reset();
     }
 
     public void ResetTweenPlay()
@@ -175,6 +172,5 @@ public class HUD : MonoBehaviour
         rightTweenPosition[0].Reset();
         rightTweenAlpha[0].Reset();
         bottomBtnsTweenPosition[0].Reset();
-        AdvertisementTweenScale[0].Reset();
     }
 }

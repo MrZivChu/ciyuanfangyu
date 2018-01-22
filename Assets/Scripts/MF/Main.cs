@@ -73,8 +73,10 @@ public class Main : MonoBehaviour
         else
         {
             currentCheckStatus = CheckStatus.CheckVersioning;
-            string fields = "name&Tom&age&18";
-            Utils.PostHttp(AppConfig.ServerURL + "Login.ashx", fields, onRequestSuccess, onRequestFailed);
+            JsonData jd = new JsonData();
+            jd["name"] = "Tom";
+            jd["age"] = 18;
+            Utils.PostHttp(AppConfig.ServerURL + "Login.ashx", jd, onRequestSuccess, onRequestFailed);
         }
     }
 

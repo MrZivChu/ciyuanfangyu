@@ -10,67 +10,25 @@ public class BuildSelected : MonoBehaviour
     public List<Toggle> toggleList;
     public Button closeBtn;
     public GameObject cellParent;
+    public Text titleText;
     [HideInInspector]
     public GameObject targetBuild;
-    
-    public bool isOpen = false;
+
     GameObject BatteryCell;
 
     void Start()
     {
-        BatteryCell = Resources.Load("BatteryCell") as GameObject;
+        BatteryCell = Resources.Load("UI/BuildSelected/BatteryCell") as GameObject;
         RegisterEventForToggle();
         FirstToggleClick();
 
         closeBtn.onClick.AddListener(CloseThisPanel);
     }
 
-    bool LeftPanelIsOpen = false;
     void CloseThisPanel()
     {
-        if (LeftPanelIsOpen)
-        {
-            LeftPanelIsOpen = false;
-            uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
-            tuTweenPosition[1].Reset();
-            return;
-        }
-        if (isOpen)
-        {
-            isOpen = false;
-            PlayBuildSelectedTween(true);
-        }
-    }
-
-    public void PlayBuildSelectedTween(bool isHide)
-    {
-        uTweenPosition[] tuTweenPosition = transform.GetComponents<uTweenPosition>();
-        if (isHide)
-        {
-            //退出
-            tuTweenPosition[2].Reset();
-            tuTweenPosition[3].Reset();
-        }
-        else
-        {
-            //进入
-            isOpen = true;
-            tuTweenPosition[0].Reset();
-            tuTweenPosition[1].Reset();
-        }
-    }
-
-    public void BuildSelectedPanelHideOver()
-    {
-        isOpen = false;
-        leftInfoPanel.SetActive(false);
-        gameObject.SetActive(false);
-    }
-
-    public void LeftInfoPanelHideOver()
-    {
-        LeftPanelIsOpen = false;
-        PlayBuildSelectedTween(true);
+        Destroy(gameObject);
+        HUM.uiIsShow = false;
     }
 
     void RegisterEventForToggle()
@@ -110,28 +68,10 @@ public class BuildSelected : MonoBehaviour
             BatteryCell batteryCell = go.GetComponent<BatteryCell>();
             batteryCell.batteryInfo = info;
 
-            GameObject okBtn = go.transform.GetChild(7).gameObject;
+            GameObject okBtn = go.transform.GetChild(14).gameObject;
             EventTriggerListener.Get(okBtn, info).onClick = PlaceBattery;
-
-            EventTriggerListener.Get(go, info).onClick = LookInfo;
         }
     }
-
-    public GameObject leftInfoPanel;
-    void LookInfo(GameObject go, object param)
-    {
-        BatteryInfo info = (BatteryInfo)param;
-        LeftInfo leftInfoScript = leftInfoPanel.GetComponent<LeftInfo>();
-        leftInfoScript.SetData(info);
-        if (!LeftPanelIsOpen)
-        {
-            LeftPanelIsOpen = true;
-            leftInfoPanel.SetActive(true);
-            uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
-            tuTweenPosition[0].Reset();
-        }
-    }
-
 
     void PlaceBattery(GameObject go, object param)
     {
@@ -172,6 +112,7 @@ public class BuildSelected : MonoBehaviour
         }
     }
 
+    List<string> titleList = new List<string>() { "所有", "加农炮", "加特林枪", "导弹", "暂时", "特殊", "公共" };
     void Selected(GameObject obj, object param)
     {
         Toggle toggle = obj.GetComponent<Toggle>();
@@ -179,6 +120,7 @@ public class BuildSelected : MonoBehaviour
         {
             ClearChildren(cellParent.transform);
             int index = (int)param;
+            titleText.text = "单位（" + titleList[index] + "）";
             if (index == 0)
             {
                 SpawnCell(BatteryDataConfigTable.allList);
