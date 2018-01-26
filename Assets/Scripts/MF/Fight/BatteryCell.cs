@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BatteryCell : MonoBehaviour
 {
 
-    public BatteryInfo batteryInfo;
+    public BatteryConfigInfo batteryInfo;
 
     public Text nameText;
     public Text bloodText;

@@ -10,5 +10,6 @@ public class BuildConfig : MonoBehaviour
 
     public BatteryParent currentBP;
 
-   
+    public BatteryConfigInfo batteryConfigInfo;
+
 }

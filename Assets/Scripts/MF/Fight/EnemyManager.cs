@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
             ewc.startTime = 2;
             ewc.point = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.enemyTypelist = new List<EnemyParent>() {
-                new InfantryEnemy() { blood = 100, maxAttackDistance = 5, walkSpeed = 2, attackRepeatRateTime = 2 }
+                new InfantryEnemy() { blood = 100, maxAttackDistance = 15, walkSpeed = 2, attackRepeatRateTime = 2 }
             };
             eachWaveConfigList.Add(ewc);
 
@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour
             ewc.startTime = 5;
             ewc.point = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.enemyTypelist = new List<EnemyParent>() {
-                new InfantryEnemy() { blood = 100, maxAttackDistance = 1,  walkSpeed = 5, attackRepeatRateTime = 2 }
+                new InfantryEnemy() { blood = 100, maxAttackDistance = 11,  walkSpeed = 5, attackRepeatRateTime = 2 }
             };
             eachWaveConfigList.Add(ewc);
 
@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
             ewc.startTime = 12;
             ewc.point = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.enemyTypelist = new List<EnemyParent>(){
-                new InfantryEnemy() { blood = 100, maxAttackDistance = 1,  walkSpeed = 10, attackRepeatRateTime = 2 }
+                new InfantryEnemy() { blood = 100, maxAttackDistance = 11,  walkSpeed = 10, attackRepeatRateTime = 2 }
             };
             eachWaveConfigList.Add(ewc);
         }

@@ -33,24 +33,24 @@ public class BatteryDataConfigTable : MonoBehaviour
         InitData();
     }
 
-    public static Dictionary<BatteryType, BatteryInfo> dic = new Dictionary<BatteryType, BatteryInfo>();
+    public static Dictionary<BatteryType, BatteryConfigInfo> dic = new Dictionary<BatteryType, BatteryConfigInfo>();
 
     //所有
-    public static List<BatteryInfo> allList = new List<BatteryInfo>();
+    public static List<BatteryConfigInfo> allList = new List<BatteryConfigInfo>();
     //加农炮
-    public static List<BatteryInfo> cannonList = new List<BatteryInfo>();
+    public static List<BatteryConfigInfo> cannonList = new List<BatteryConfigInfo>();
     //加特林枪
-    public static List<BatteryInfo> gatlinGunList = new List<BatteryInfo>();
+    public static List<BatteryConfigInfo> gatlinGunList = new List<BatteryConfigInfo>();
     //导弹
-    public static List<BatteryInfo> missileList = new List<BatteryInfo>();
+    public static List<BatteryConfigInfo> missileList = new List<BatteryConfigInfo>();
     //特殊
-    public static List<BatteryInfo> specialList = new List<BatteryInfo>();
+    public static List<BatteryConfigInfo> specialList = new List<BatteryConfigInfo>();
     //公共
-    public static List<BatteryInfo> publicList = new List<BatteryInfo>();
+    public static List<BatteryConfigInfo> publicList = new List<BatteryConfigInfo>();
 
     void InitData()
     {
-        BatteryInfo batteryInfo = new BatteryInfo();
+        BatteryConfigInfo batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "加农炮";
         batteryInfo.icon = "UI/Battery/CannonBattery";
         batteryInfo.model = "Battery/model";
@@ -65,7 +65,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         cannonList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "雷克斯加农炮";
         batteryInfo.icon = "UI/Battery/RexCannonBattery";
         batteryInfo.model = "Battery/model";
@@ -80,7 +80,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         cannonList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "新星加农炮";
         batteryInfo.icon = "UI/Battery/NovaCannonBattery";
         batteryInfo.model = "Battery/model";
@@ -95,7 +95,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         cannonList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "加特林枪";
         batteryInfo.icon = "UI/Battery/GatlinGunBattery";
         batteryInfo.model = "Battery/model";
@@ -110,7 +110,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         gatlinGunList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "导弹";
         batteryInfo.icon = "UI/Battery/MissileBattery";
         batteryInfo.model = "Battery/model";
@@ -125,7 +125,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         missileList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "雷克斯导弹";
         batteryInfo.icon = "UI/Battery/RexMissileBattery";
         batteryInfo.model = "Battery/model";
@@ -140,7 +140,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         missileList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "新星导弹";
         batteryInfo.icon = "UI/Battery/NovaMissileBattery";
         batteryInfo.model = "Battery/model";
@@ -155,7 +155,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         missileList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "雷克斯激光";
         batteryInfo.icon = "UI/Battery/RexLaserBattery";
         batteryInfo.model = "Battery/model";
@@ -170,7 +170,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         specialList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "反击导弹B";
         batteryInfo.icon = "UI/Battery/CounterattackMissileBBattery";
         batteryInfo.model = "Battery/model";
@@ -185,7 +185,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         specialList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "狙击手";
         batteryInfo.icon = "UI/Battery/SniperBattery";
         batteryInfo.model = "Battery/model";
@@ -200,7 +200,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         specialList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "新星狙击手";
         batteryInfo.icon = "UI/Battery/NovaSniperBattery";
         batteryInfo.model = "Battery/model";
@@ -215,7 +215,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         specialList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "驻地(S)";
         batteryInfo.icon = "UI/Battery/ResidentSBattery";
         batteryInfo.model = "Battery/model";
@@ -230,7 +230,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         publicList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "驻地(M)";
         batteryInfo.icon = "UI/Battery/ResidentMBattery";
         batteryInfo.model = "Battery/model";
@@ -245,7 +245,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         publicList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "休闲公园";
         batteryInfo.icon = "UI/Battery/LeisureParkBattery";
         batteryInfo.model = "Battery/model";
@@ -260,7 +260,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         publicList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "多厂";
         batteryInfo.icon = "UI/Battery/MultiPlantBattery";
         batteryInfo.model = "Battery/model";
@@ -275,7 +275,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         publicList.Add(batteryInfo);
         dic[batteryInfo.battleType] = batteryInfo;
 
-        batteryInfo = new BatteryInfo();
+        batteryInfo = new BatteryConfigInfo();
         batteryInfo.batteryName = "购物中心";
         batteryInfo.icon = "UI/Battery/ShoppingMallBattery";
         batteryInfo.model = "Battery/model";
@@ -299,7 +299,7 @@ public class BatteryDataConfigTable : MonoBehaviour
 }
 
 
-public class BatteryInfo
+public class BatteryConfigInfo
 {
     public BatteryType battleType;
 

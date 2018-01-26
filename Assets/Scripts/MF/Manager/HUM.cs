@@ -19,8 +19,8 @@ public class HUM : MonoBehaviour
     public List<GameObject> mercenaryGameobjectList;
     private void Start()
     {
-        buildSelectedResource = Resources.Load("UI/BuildSelected/BuildSelected");
-        buildOperateResource = Resources.Load("UI/BuildSelected/BuildOperate");
+        buildSelectedResource = Resources.Load("UI/Manager/BuildSelected");
+        buildOperateResource = Resources.Load("UI/Manager/BuildOperate");
         backBtn.onClick.AddListener(BackClick);
         InitMercenary();
     }
@@ -76,7 +76,8 @@ public class HUM : MonoBehaviour
 
     public static bool uiIsShow = false;
 
-    bool isChangePosition = false;
+    public bool isChangePosition = false;
+    public Transform currentHitObj;
     private void Update()
     {
         if (uiIsShow)
@@ -104,40 +105,35 @@ public class HUM : MonoBehaviour
                     {
                         if (hit.transform.CompareTag("build"))
                         {
+
                             BuildConfig bc = hit.transform.GetComponent<BuildConfig>();
                             if (bc != null)
                             {
-                                if (bc.currentBP == null)
+                                if (isChangePosition)
                                 {
-                                    if (isChangePosition)
-                                    {
-                                        //BuildSelectedScript.SpawnBattery();
-                                        isChangePosition = false;
-                                    }
-                                    else
+                                    isChangePosition = false;
+                                    ChangePosition(currentHitObj, hit.transform);
+                                    currentHitObj = hit.transform;
+                                }
+                                else
+                                {
+                                    currentHitObj = hit.transform;
+                                    if (bc.currentBP == null)
                                     {
                                         uiIsShow = true;
                                         GameObject go = Instantiate(buildSelectedResource) as GameObject;
                                         Utils.SpawnUIObj(go.transform, parent);
-                                        go.GetComponent<BuildSelected>().targetBuild = hit.transform.gameObject;
-                                    }
-                                }
-                                else
-                                {
-                                    if (isChangePosition)
-                                    {
-
-                                        isChangePosition = false;
+                                        BuildSelected buildSelected = go.GetComponent<BuildSelected>();
+                                        buildSelected.humScript = this;
                                     }
                                     else
                                     {
                                         uiIsShow = true;
                                         GameObject go = Instantiate(buildOperateResource) as GameObject;
                                         Utils.SpawnUIObj(go.transform, parent);
-                                        BuildOperate BuildOperateScript = go.GetComponent<BuildOperate>();
-                                        BuildOperateScript.currentBattery = bc.currentBP;
-                                        BuildOperateScript.buildConfig = bc;
-                                        BuildOperateScript.battleTarget = hit.transform.GetChild(0).gameObject;
+                                        BuildOperate buildOperateScript = go.GetComponent<BuildOperate>();
+                                        buildOperateScript.humScript = this;
+                                        buildOperateScript.currentBattery = bc.currentBP;
                                     }
                                 }
                             }
@@ -146,5 +142,80 @@ public class HUM : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public void SpawnBattery(BatteryConfigInfo info, Transform hole)
+    {
+        if (hole != null && info != null)
+        {
+            Object obj = Resources.Load(info.battleType.ToString() + "Lv1");
+            if (obj != null)
+            {
+                GameObject tempGO = Instantiate(obj) as GameObject;
+                tempGO.transform.parent = hole;
+                tempGO.transform.localScale = Vector3.one;
+                tempGO.transform.localPosition = Vector3.zero;
+                BatteryParent bp = tempGO.GetComponent<BatteryParent>();
+                bp.batteryName = info.batteryName;
+                bp.attack = info.attack;
+                bp.attackRepeatRateTime = 2;
+                bp.blood = info.blood;
+                bp.desc = info.desc;
+                bp.icon = info.icon;
+                bp.maxAttackDistance = info.maxAttackDistance;
+                bp.model = info.model;
+                bp.MW = info.MW;
+                bp.starLevel = info.starLevel;
+                bp.wood = info.wood;
+                BuildConfig bc = hole.GetComponent<BuildConfig>();
+                bc.currentBP = bp;
+                bc.batteryConfigInfo = info;
+
+                BatteryData bd = new BatteryData();
+                bd.batteryLevel = 1;
+                bd.batteryType = info.battleType;
+                bd.index = bc.index;
+                GameJsonDataHelper.AddBatteryData(bd);
+            }
+        }
+    }
+
+    public void DestoryBattery(Transform hold)
+    {
+        if (hold != null)
+        {
+            BuildConfig tBuildConfig = hold.GetComponent<BuildConfig>();
+            if (tBuildConfig != null && tBuildConfig.currentBP != null)
+            {
+                GameObject tBattleTarget = hold.GetChild(0).gameObject;
+                tBuildConfig.currentBP = null;
+                Destroy(tBattleTarget);
+                BatteryData bd = new BatteryData();
+                bd.batteryLevel = 1;
+                bd.index = tBuildConfig.index;
+                GameJsonDataHelper.DeleteBatteryData(bd);
+            }
+        }
+    }
+
+    public void ChangePosition(Transform firstHole, Transform secondHole)
+    {
+        if (firstHole == secondHole)
+        {
+            return;
+        }
+        BuildConfig b1 = firstHole.GetComponent<BuildConfig>();
+        BuildConfig b2 = secondHole.GetComponent<BuildConfig>();
+        bool needSpawn1 = b1.currentBP != null;
+        bool needSpawn2 = b2.currentBP != null;
+
+        DestoryBattery(firstHole);
+        DestoryBattery(secondHole);
+
+        if (needSpawn2)
+            SpawnBattery(b2.batteryConfigInfo, firstHole);
+        if (needSpawn1)
+            SpawnBattery(b1.batteryConfigInfo, secondHole);
     }
 }

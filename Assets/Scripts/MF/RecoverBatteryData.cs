@@ -43,7 +43,7 @@ public class RecoverBatteryData : MonoBehaviour
                     {
                         if (BatteryDataConfigTable.dic.ContainsKey(bd.batteryType))
                         {
-                            BatteryInfo info = BatteryDataConfigTable.dic[bd.batteryType];
+                            BatteryConfigInfo info = BatteryDataConfigTable.dic[bd.batteryType];
                             GameObject hole = holeDic[bd.index];
                             InstanceObj(info, hole);
                         }
@@ -53,7 +53,7 @@ public class RecoverBatteryData : MonoBehaviour
         }
     }
 
-    void InstanceObj(BatteryInfo info, GameObject parent)
+    void InstanceObj(BatteryConfigInfo info, GameObject parent)
     {
         UnityEngine.Object obj = Resources.Load(info.battleType.ToString() + "Lv1");
         if (obj != null)
@@ -77,6 +77,7 @@ public class RecoverBatteryData : MonoBehaviour
             bp.wood = info.wood;
             BuildConfig bc = parent.transform.GetComponent<BuildConfig>();
             bc.currentBP = bp;
+            bc.batteryConfigInfo = info;
         }
     }
    

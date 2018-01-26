@@ -6,9 +6,7 @@ using uTools;
 
 public class BuildOperate : MonoBehaviour
 {
-    public GameObject battleTarget;
-    public BuildConfig buildConfig;
-    public BatteryParent currentBattery;
+
     public Button closeBtn;
     public Button strengthenBtn;//demo版本强化先不做
     public Button levelupBtn;
@@ -16,12 +14,17 @@ public class BuildOperate : MonoBehaviour
     public Button destoryBtn;
     public Button moveBtn;
 
+    public BatteryParent currentBattery;
+    public HUM humScript;
+
     public Text nameText;
+    public Text descText;
     public GameObject starParent;
     public Image icon;
 
     void Start()
     {
+        InitData();
         closeBtn.onClick.AddListener(CloseClick);
         strengthenBtn.onClick.AddListener(StrengthenClick);
         levelupBtn.onClick.AddListener(LevelUpClick);
@@ -35,6 +38,8 @@ public class BuildOperate : MonoBehaviour
         if (currentBattery != null)
         {
             nameText.text = currentBattery.batteryName;
+            descText.text = currentBattery.desc;
+            icon.sprite = Resources.Load<Sprite>(currentBattery.icon + "01");
             int star = currentBattery.starLevel;
             for (int i = 0; i < star; i++)
             {
@@ -71,23 +76,13 @@ public class BuildOperate : MonoBehaviour
 
     void DestoryClick()
     {
-        DestoryBattery(buildConfig, battleTarget, currentBattery);
+        humScript.DestoryBattery(humScript.currentHitObj);
         CloseClick();
-    }
-
-    public void DestoryBattery(BuildConfig tBuildConfig, GameObject tBattleTarget, BatteryParent tCurrentBattery)
-    {
-        tBuildConfig.currentBP = null;
-        Destroy(tBattleTarget);
-        BatteryData bd = new BatteryData();
-        bd.batteryLevel = 1;
-        bd.batteryType = tCurrentBattery.battleType;
-        bd.index = tBuildConfig.index;
-        GameJsonDataHelper.DeleteBatteryData(bd);
     }
 
     void MoveClick()
     {
+        humScript.isChangePosition = true;
         CloseClick();
     }
 }
