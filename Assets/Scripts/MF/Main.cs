@@ -1,5 +1,4 @@
 ﻿using LitJson;
-using LuaInterface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,19 +53,6 @@ public class Main : MonoBehaviour
     {
         Loading.sceneName = "Story";
         SceneManager.LoadScene("Loading");
-
-        //AppGlobal.Start();
-
-        //LuaState lua = new LuaState();
-        //string fullPath = Application.dataPath.Replace("Assets", "Lua");
-        //lua.AddSearchPath(fullPath);
-        //LuaBinder.Bind(lua);
-        //lua.Start();
-        //lua.DoFile("Others/main.lua");
-        ////lua.Collect();
-        ////lua.CheckTop();
-        ////lua.Dispose();
-        ////lua = null;
     }
 
     /// <summary>
@@ -87,8 +73,10 @@ public class Main : MonoBehaviour
         else
         {
             currentCheckStatus = CheckStatus.CheckVersioning;
-            string fields = "name&Tom&age&18";
-            Utils.PostHttp(AppConfig.ServerURL + "Login.ashx", fields, onRequestSuccess, onRequestFailed);
+            JsonData jd = new JsonData();
+            jd["name"] = "Tom";
+            jd["age"] = 18;
+            Utils.PostHttp(AppConfig.ServerURL + "Login.ashx", jd, onRequestSuccess, onRequestFailed);
         }
     }
 

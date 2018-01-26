@@ -17,11 +17,11 @@ public class MessageBox : MonoBehaviour
         {
             if (canvas == null)
             {
-                canvas = GameObject.Find("GUI/Canvas");
+                canvas = GameObject.Find("Canvas");
             }
             if (messageBoxObj == null)
             {
-                UnityEngine.Object obj = Resources.Load("MessageBox");
+                UnityEngine.Object obj = Resources.Load("UI/Common/MessageBox");
                 messageBoxObj = Instantiate(obj) as GameObject;
                 messageBoxObj.transform.parent = canvas.transform;
                 messageBoxObj.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
@@ -69,7 +69,8 @@ public class MessageBox : MonoBehaviour
             {
                 leftCallback();
             }
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         };
         EventTriggerListener.Get(rightBtn.gameObject).onClick = (go, data) =>
         {
@@ -77,7 +78,8 @@ public class MessageBox : MonoBehaviour
             {
                 rightCallback();
             }
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         };
     }
 }

@@ -28,12 +28,16 @@ public class Story : MonoBehaviour
     void Start()
     {
         SkipBtn.onClick.AddListener(Skip);
-        Skip();
+        zhuanchangTweenPosition.Reset();
+        contentText.text = msgList[0];
+        peopleTweenScale.Reset();
+        descTweenScale.Reset();
+        //Skip();
     }
 
     public Image bgImage1;
     public Image bgImage2;
-    int index = 0;
+    int index = 1;
     GameObject tempObj;
     void Skip()
     {
@@ -41,26 +45,10 @@ public class Story : MonoBehaviour
         {
             peopleTransform.localScale = Vector3.zero;
             descTransform.localScale = new Vector3(1, 0, 1);
-            if (index == 1)
-                zhuanchangTweenPosition.Reset();
-            if (index % 2 != 0)
-            {
-                bgImage1.sprite = bgSpriteList[index];
-                bgImage2.sprite = bgSpriteList[index + 1];
-            }
-            if (bgImage1.gameObject == tempObj)
-            {
-                bgImage1.gameObject.SetActive(false);
-                bgImage2.gameObject.SetActive(true);
-                tempObj = bgImage2.gameObject;
-            }
-            else
-            {
-                bgImage1.gameObject.SetActive(true);
-                bgImage2.gameObject.SetActive(false);
-                tempObj = bgImage1.gameObject;
-            }
-            tempObj.GetComponent<uTweenPosition>().Reset();
+
+            bgImage1.gameObject.SetActive(false);
+            bgImage2.gameObject.SetActive(true);
+            bgImage2.sprite = bgSpriteList[index];
 
             if (index < msgList.Count)
             {

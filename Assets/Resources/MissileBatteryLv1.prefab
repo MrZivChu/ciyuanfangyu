@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4177829261136204}
   - component: {fileID: 114126315016486724}
+  - component: {fileID: 65462258267081150}
   m_Layer: 0
   m_Name: MissileBatteryLv1
   m_TagString: Battery
@@ -64,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1871420262583006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.25, y: 3.94, z: 0}
+  m_LocalPosition: {x: -14.790733, y: 5.211776, z: 24.034428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4085211171332450}
@@ -112,6 +113,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1235278106652030}
   m_Mesh: {fileID: 4300000, guid: f2e40a1f2934be848a4e629065bb9c52, type: 3}
+--- !u!65 &65462258267081150
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871420262583006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6133633, y: 4.610276, z: 4.258795}
+  m_Center: {x: 0.08824062, y: 2.0381627, z: 0.04693699}
 --- !u!114 &114126315016486724
 MonoBehaviour:
   m_ObjectHideFlags: 1

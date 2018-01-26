@@ -14,7 +14,7 @@ public class TechnologyDevelopment : MonoBehaviour
 
     void BackClick(GameObject go, object data)
     {
-        gameObject.SetActive(false);
         hudScript.ResetTweenPlay();
+        Destroy(gameObject);
     }
 }

@@ -5,8 +5,6 @@ using UnityEngine;
 //恢复设置的炮塔数据
 public class RecoverBatteryData : MonoBehaviour
 {
-    public BatteryDataLibrary batteryDataLibrary;
-
     public List<GameObject> batteryHoleList;
     public Dictionary<int, GameObject> holeDic = new Dictionary<int, GameObject>();
 
@@ -43,9 +41,9 @@ public class RecoverBatteryData : MonoBehaviour
                     BatteryData bd = localDataList[i];
                     if (holeDic.ContainsKey(bd.index))
                     {
-                        if (batteryDataLibrary.dic.ContainsKey(bd.batteryType))
+                        if (BatteryDataConfigTable.dic.ContainsKey(bd.batteryType))
                         {
-                            BatteryInfo info = batteryDataLibrary.dic[bd.batteryType];
+                            BatteryConfigInfo info = BatteryDataConfigTable.dic[bd.batteryType];
                             GameObject hole = holeDic[bd.index];
                             InstanceObj(info, hole);
                         }
@@ -55,7 +53,7 @@ public class RecoverBatteryData : MonoBehaviour
         }
     }
 
-    void InstanceObj(BatteryInfo info, GameObject parent)
+    void InstanceObj(BatteryConfigInfo info, GameObject parent)
     {
         UnityEngine.Object obj = Resources.Load(info.battleType.ToString() + "Lv1");
         if (obj != null)
@@ -74,15 +72,13 @@ public class RecoverBatteryData : MonoBehaviour
             bp.maxAttackDistance = info.maxAttackDistance;
             bp.model = info.model;
             bp.MW = info.MW;
+            bp.battleType = info.battleType;
             bp.starLevel = info.starLevel;
             bp.wood = info.wood;
             BuildConfig bc = parent.transform.GetComponent<BuildConfig>();
             bc.currentBP = bp;
+            bc.batteryConfigInfo = info;
         }
     }
-
-    void OnApplicationQuit()
-    {
-        GameJsonDataHelper.WriteBatteryData();
-    }
+   
 }

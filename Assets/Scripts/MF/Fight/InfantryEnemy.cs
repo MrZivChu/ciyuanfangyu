@@ -10,6 +10,7 @@ public class InfantryEnemy : EnemyParent
     private void Start()
     {
         boss = GameObject.Find("boss");
+        transform.LookAt(boss.transform);
         attackTargetList.Add(boss);
         getTarget();
     }
@@ -31,6 +32,7 @@ public class InfantryEnemy : EnemyParent
                     if (!attacking)
                     {
                         attacking = true;
+                        print("hahah"+attackRepeatRateTime);
                         InvokeRepeating("Attack", 0, attackRepeatRateTime);
                     }
                 }
@@ -92,7 +94,6 @@ public class InfantryEnemy : EnemyParent
                 }
             }
             target = tCurrentTarget;
-            transform.LookAt(target.transform);
         }
         else
         {

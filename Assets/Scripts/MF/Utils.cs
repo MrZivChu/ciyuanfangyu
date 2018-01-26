@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LitJson;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -66,35 +67,20 @@ public class Utils
     /// <param name="fields"></param>
     /// <param name="onSuccess"></param>
     /// <param name="onFailed"></param>
-    public static void PostHttp(string url, string fields, System.Action<string> onSuccess, System.Action<string> onFailed)
+    public static void PostHttp(string url, JsonData jsonData, System.Action<string> onSuccess, System.Action<string> onFailed)
     {
-        Dictionary<string, string> dict = new Dictionary<string, string>();
-        if (!string.IsNullOrEmpty(fields))
-        {
-            string[] str = fields.Split('&');
-            for (int i = 0; i + 1 < str.Length; i += 2)
-            {
-                dict[str[i]] = str[i + 1];
-            }
-        }
-        GameObject go = GameObject.Find("CoroutineHelper");
-        go.GetComponent<CoroutineHelper>().StartCoroutine(HttpPost(url, dict, onSuccess, onFailed));
+        GameObject go = GameObject.Find("DontDestroyOnLoad");
+        go.GetComponent<CoroutineHelper>().StartCoroutine(HttpPost(url, jsonData, onSuccess, onFailed));
     }
 
-    private static IEnumerator HttpPost(string url, Dictionary<string, string> fields, System.Action<string> onSuccess, System.Action<string> onFailed)
+    private static IEnumerator HttpPost(string url, JsonData jsonData, System.Action<string> onSuccess, System.Action<string> onFailed)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("appId", AppConfig.APP_ID.ToString());
-        form.AddField("channelId", AppConfig.CHANNEL_ID.ToString());
-        form.AddField("clientFoceVersion", AppConfig.APP_VERSION);
-        if (fields != null)
-        {
-            foreach (var item in fields)
-            {
-                form.AddField(item.Key, item.Value);
-            }
-        }
-        WWW www = new WWW(url, form);
+        Dictionary<string, string> head = new Dictionary<string, string>();
+        head.Add("Content-Type", "application/json");
+        jsonData = jsonData == null ? new JsonData() : jsonData;
+        jsonData["appId"] = AppConfig.APP_ID.ToString();//jsonData不能为空，随便给个值保证不能为空即可！
+        byte[] postBytes = Encoding.UTF8.GetBytes(jsonData.ToJson());
+        WWW www = new WWW(url, postBytes, head);
         yield return www;
 
         if (www.isDone && string.IsNullOrEmpty(www.error))
@@ -312,5 +298,12 @@ public class Utils
             }
         }
         return false;
+    }
+
+    public static void SpawnUIObj(Transform child, Transform parent)
+    {
+        child.parent = parent;
+        child.localScale = Vector3.one;
+        child.localPosition = Vector3.zero;
     }
 }

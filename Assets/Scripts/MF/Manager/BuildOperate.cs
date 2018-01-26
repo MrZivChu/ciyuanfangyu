@@ -6,7 +6,7 @@ using uTools;
 
 public class BuildOperate : MonoBehaviour
 {
-    public BatteryParent currentBattery;
+
     public Button closeBtn;
     public Button strengthenBtn;//demo版本强化先不做
     public Button levelupBtn;
@@ -14,21 +14,23 @@ public class BuildOperate : MonoBehaviour
     public Button destoryBtn;
     public Button moveBtn;
 
+    public BatteryParent currentBattery;
+    public HUM humScript;
+
     public Text nameText;
+    public Text descText;
     public GameObject starParent;
     public Image icon;
 
-    bool isOpen = false;
     void Start()
     {
+        InitData();
         closeBtn.onClick.AddListener(CloseClick);
         strengthenBtn.onClick.AddListener(StrengthenClick);
         levelupBtn.onClick.AddListener(LevelUpClick);
         modifyBtn.onClick.AddListener(ModifyClick);
         destoryBtn.onClick.AddListener(DestoryClick);
         moveBtn.onClick.AddListener(MoveClick);
-
-        InitData();
     }
 
     void InitData()
@@ -36,6 +38,8 @@ public class BuildOperate : MonoBehaviour
         if (currentBattery != null)
         {
             nameText.text = currentBattery.batteryName;
+            descText.text = currentBattery.desc;
+            icon.sprite = Resources.Load<Sprite>(currentBattery.icon + "01");
             int star = currentBattery.starLevel;
             for (int i = 0; i < star; i++)
             {
@@ -50,19 +54,13 @@ public class BuildOperate : MonoBehaviour
 
     void CloseClick()
     {
-        if (leftInfoPanel.activeSelf)
-        {
-            uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
-            tuTweenPosition[1].Reset();
-        }
-        else
-        {
-            PlayBuildOperateTween(true);
-        }
+        Destroy(gameObject);
+        HUM.uiIsShow = false;
     }
 
     void StrengthenClick()
     {
+
         CloseClick();
     }
 
@@ -78,59 +76,13 @@ public class BuildOperate : MonoBehaviour
 
     void DestoryClick()
     {
+        humScript.DestoryBattery(humScript.currentHitObj);
         CloseClick();
     }
 
     void MoveClick()
     {
+        humScript.isChangePosition = true;
         CloseClick();
     }
-
-    public void PlayBuildOperateTween(bool isHide)
-    {
-        uTweenPosition[] tuTweenPosition = transform.GetComponents<uTweenPosition>();
-        if (isHide)
-        {
-            //退出
-            tuTweenPosition[2].Reset();
-            tuTweenPosition[3].Reset();
-        }
-        else
-        {
-            //进入
-            isOpen = true;
-            tuTweenPosition[0].Reset();
-            tuTweenPosition[1].Reset();
-        }
-    }
-
-    public void BuildOperatePanelHideOver()
-    {
-        isOpen = false;
-        leftInfoPanel.SetActive(false);
-        gameObject.SetActive(false);
-    }
-
-    public void BuildOperatePanelShowOver()
-    {
-        LookInfo(null, null);
-    }
-
-    public void LeftInfoPanelHideOver()
-    {
-        PlayBuildOperateTween(true);
-    }
-
-    public GameObject leftInfoPanel;
-    void LookInfo(GameObject go, object param)
-    {
-        if (!leftInfoPanel.activeSelf)
-        {
-            leftInfoPanel.SetActive(true);
-            uTweenPosition[] tuTweenPosition = leftInfoPanel.GetComponents<uTweenPosition>();
-            tuTweenPosition[0].Reset();
-        }
-    }
-
-
 }

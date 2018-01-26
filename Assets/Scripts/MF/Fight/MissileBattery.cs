@@ -91,10 +91,10 @@ public class MissileBattery : BatteryParent
             {
                 GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
                 bullet.transform.position = transform.position;
-                bullet.transform.localScale = Vector3.one;
+                //bullet.transform.localScale = Vector3.one;
                 BulletParent bp = bullet.GetComponent<BulletParent>();
                 bp.target = currentTarget;
-                bp.speed = 20;
+                bp.speed = 5;
                 bp.damage = 10;
             }
         }
