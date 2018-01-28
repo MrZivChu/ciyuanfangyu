@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseDataLibrary
+public class LocalBaseData
 {
     public static int coins;
     public static int diamond;

@@ -27,12 +27,12 @@ public class Setting : MonoBehaviour
             closeBtn.onClick.AddListener(ClosePanel);
             slider.onValueChanged.AddListener(AudioSourceChanged);
             closeMusicToggle.onValueChanged.AddListener(CloseMusic);
-            slider.value = Convert.ToSingle(BaseDataLibrary.musicVolume);
+            slider.value = Convert.ToSingle(LocalBaseData.musicVolume);
 
             leftBtn.onClick.AddListener(leftClick);
             rightBtn.onClick.AddListener(rightClick);
 
-            index = BaseDataLibrary.musicIndex;
+            index = LocalBaseData.musicIndex;
             musicName.text = audioClipList[index].name;
         }
     }
@@ -49,8 +49,8 @@ public class Setting : MonoBehaviour
             }
             audioSource.clip = audioClipList[index];
             musicName.text = audioClipList[index].name;
-            BaseDataLibrary.musicIndex = index;
-            GameJsonDataHelper.UpdateBaseDataMusicIndex(index);
+            LocalBaseData.musicIndex = index;
+            ServerDataHelper.UpdateServerBaseDataMusicIndex(index);
             audioSource.Play();
         }
     }
@@ -66,8 +66,8 @@ public class Setting : MonoBehaviour
             }
             audioSource.clip = audioClipList[index];
             musicName.text = audioClipList[index].name;
-            BaseDataLibrary.musicIndex = index;
-            GameJsonDataHelper.UpdateBaseDataMusicIndex(index);
+            LocalBaseData.musicIndex = index;
+            ServerDataHelper.UpdateServerBaseDataMusicIndex(index);
             audioSource.Play();
         }
     }
@@ -88,8 +88,8 @@ public class Setting : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.volume = value;
-            BaseDataLibrary.musicVolume = value;
-            GameJsonDataHelper.UpdateBaseDataMusicVolume(value);
+            LocalBaseData.musicVolume = value;
+            ServerDataHelper.UpdateServerBaseDataMusicVolume(value);
         }
     }
 }

@@ -200,13 +200,13 @@ public class NewRotateWheel : MonoBehaviour
         if (tNowDisk != null)
         {
             float maxValue = whichDisk == 1 ? 1.4f : whichDisk == 2 ? 1.9f : whichDisk == 3 ? 1.35f : 0.55f;
-            if (tNowDisk.localPosition.z < maxValue)
+            if (tNowDisk.localPosition.y < maxValue)
             {
                 Vector3 v = tNowDisk.localPosition;
-                v.z += deltaTime * upDownSpeed;
-                if (v.z >= maxValue)
+                v.y += deltaTime * upDownSpeed;
+                if (v.y >= maxValue)
                 {
-                    v.z = maxValue;
+                    v.y = maxValue;
                 }
                 tNowDisk.localPosition = v;
             }
@@ -219,13 +219,13 @@ public class NewRotateWheel : MonoBehaviour
         if (tNowDisk != null)
         {
             float minValue = whichDisk == 1 ? 0.85f : whichDisk == 2 ? 1.35f : whichDisk == 3 ? 0.8f : 0;
-            if (tNowDisk.localPosition.z > minValue)
+            if (tNowDisk.localPosition.y > minValue)
             {
                 Vector3 v = tNowDisk.localPosition;
-                v.z -= deltaTime * upDownSpeed;
-                if (v.z <= minValue)
+                v.y -= deltaTime * upDownSpeed;
+                if (v.y <= minValue)
                 {
-                    v.z = minValue;
+                    v.y = minValue;
                 }
                 tNowDisk.localPosition = v;
             }

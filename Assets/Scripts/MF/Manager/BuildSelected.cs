@@ -111,7 +111,7 @@ public class BuildSelected : MonoBehaviour
     void PlaceBattery(GameObject go, object param)
     {
         BatteryConfigInfo info = (BatteryConfigInfo)param;
-        humScript.SpawnBattery(info, humScript.currentHitObj);
+        humScript.SpawnBattery(info, humScript.currentHitHoleObj);
         CloseThisPanel();
     }
 }

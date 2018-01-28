@@ -7,9 +7,4 @@ using UnityEngine.EventSystems;
 public class BuildConfig : MonoBehaviour
 {
     public int index;
-
-    public BatteryParent currentBP;
-
-    public BatteryConfigInfo batteryConfigInfo;
-
 }

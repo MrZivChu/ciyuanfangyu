@@ -19,6 +19,9 @@ public class BuildOperate : MonoBehaviour
 
     public Text nameText;
     public Text descText;
+    public Text bloodText;
+    public Text attackText;
+    public Text rangeText;
     public GameObject starParent;
     public Image icon;
 
@@ -39,6 +42,9 @@ public class BuildOperate : MonoBehaviour
         {
             nameText.text = currentBattery.batteryName;
             descText.text = currentBattery.desc;
+            bloodText.text = currentBattery.blood.ToString();
+            attackText.text = currentBattery.attack.ToString();
+            rangeText.text = currentBattery.maxAttackDistance.ToString();
             icon.sprite = Resources.Load<Sprite>(currentBattery.icon + "01");
             int star = currentBattery.starLevel;
             for (int i = 0; i < star; i++)
@@ -76,7 +82,7 @@ public class BuildOperate : MonoBehaviour
 
     void DestoryClick()
     {
-        humScript.DestoryBattery(humScript.currentHitObj);
+        humScript.DestoryBattery(humScript.currentHitHoleObj);
         CloseClick();
     }
 
