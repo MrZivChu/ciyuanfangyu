@@ -109,7 +109,7 @@ public class RotateCamera : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (!hit.transform.CompareTag("build") && !hit.transform.CompareTag("inLand"))
+                if (!hit.transform.CompareTag("build") && !hit.transform.CompareTag("inLand") && !hit.transform.CompareTag("Battery"))
                 {
                     isRotating = true;
                 }

@@ -48,6 +48,17 @@ public class HUE : MonoBehaviour
         }
     }
 
+    public List<GroupCheck> groupCheckList = new List<GroupCheck>();
+    void CheckGroup()
+    {
+        if (groupCheckList != null && groupCheckList.Count > 0)
+        {
+            for (int i = 0; i < groupCheckList.Count; i++)
+            {
+                groupCheckList[i].Check();
+            }
+        }
+    }
 }
 
 
