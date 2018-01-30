@@ -134,13 +134,13 @@ public class HUM : MonoBehaviour
                                         Utils.SpawnUIObj(go.transform, parent);
                                         BuildOperate buildOperateScript = go.GetComponent<BuildOperate>();
                                         buildOperateScript.humScript = this;
-                                        buildOperateScript.currentBattery = currentHitHoleObj.GetChild(0).gameObject.GetComponent<BatteryParent>();
+                                        buildOperateScript.currentBattery = currentHitHoleObj.GetChild(2).gameObject.GetComponent<BatteryParent>();
 
                                         if (preBatteryObj != null)
                                         {
                                             Utils.SetObjectHighLight(preBatteryObj, false, Color.clear, Color.clear);
                                         }
-                                        currentBatteryObj = currentHitHoleObj.GetChild(0).gameObject;
+                                        currentBatteryObj = currentHitHoleObj.GetChild(2).gameObject;
                                         preBatteryObj = currentBatteryObj;
                                         Utils.SetObjectHighLight(currentBatteryObj, true, new Color(1, 0, 0, 1), new Color(1, 1, 0, 1));
                                     }
@@ -186,7 +186,7 @@ public class HUM : MonoBehaviour
             {
                 Utils.SetObjectHighLight(preBatteryObj, false, Color.clear, Color.clear);
             }
-            currentBatteryObj = hole.GetChild(0).gameObject;
+            currentBatteryObj = hole.GetChild(2).gameObject;
             preBatteryObj = currentBatteryObj;
             Utils.SetObjectHighLight(currentBatteryObj, true, new Color(1, 0, 0, 1), new Color(1, 1, 0, 1));
             CheckGroup();
@@ -202,7 +202,7 @@ public class HUM : MonoBehaviour
             {
                 recoverBatteryDataScript.hasDic.Remove(tBuildConfig.index);
 
-                GameObject tBattleTarget = hold.GetChild(0).gameObject;
+                GameObject tBattleTarget = hold.GetChild(2).gameObject;
                 Destroy(tBattleTarget);
                 ServerBatteryData bd = new ServerBatteryData();
                 bd.batteryLevel = 1;

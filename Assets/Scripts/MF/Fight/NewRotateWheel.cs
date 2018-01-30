@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class NewRotateWheel : MonoBehaviour
 {
-
     public float upDownSpeed;
     public Transform centerObj;
-
 
     bool isRotating = false;
     Transform preDisk;
@@ -29,14 +27,14 @@ public class NewRotateWheel : MonoBehaviour
             RaycastHit hit;
             Vector2 mousePosition = Input.mousePosition;
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            int layMask = 1 << LayerMask.NameToLayer("Build");
-            if (Physics.Raycast(ray, out hit, layMask))
+            int layMask = 1 << LayerMask.NameToLayer("CheckWheel");
+            if (Physics.Raycast(ray, out hit, 1000, layMask))
             {
                 nowDisk = null;
-                if (hit.transform.CompareTag("build"))
+                //if (hit.transform.CompareTag("build"))
                 {
-                    hitBuild = hit.transform;
-                    nowDisk = hit.transform.parent.parent;
+                    hitBuild = hit.transform.parent;
+                    nowDisk = hit.transform.parent.parent.parent;
                 }
                 if (nowDisk != null)
                 {
@@ -99,7 +97,7 @@ public class NewRotateWheel : MonoBehaviour
         }
         else
         {
-            Down(nowDisk, Time.deltaTime);
+            //Down(nowDisk, Time.deltaTime);
         }
     }
 
@@ -128,6 +126,7 @@ public class NewRotateWheel : MonoBehaviour
                 preAngle = 0;
                 nowAngle = 0;
                 leftNeedRotateAngle = 0;
+                Down(nowDisk, Time.deltaTime);
             }
         }
     }

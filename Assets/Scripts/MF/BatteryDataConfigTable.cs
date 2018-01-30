@@ -106,7 +106,7 @@ public class BatteryDataConfigTable : MonoBehaviour
         batteryInfo.attack = 257;
         batteryInfo.maxAttackDistance = 45;
         batteryInfo.starLevel = 1;
-        batteryInfo.desc = "快读连射武器，火力强大且能压制敌人，但是耐用性不高";
+        batteryInfo.desc = "快速连射武器，火力强大且能压制敌人，但是耐用性不高";
         batteryInfo.wood = 10;
         batteryInfo.MW = 150;
         gatlinGunList.Add(batteryInfo);

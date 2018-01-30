@@ -302,7 +302,7 @@ public class Utils
 
     public static void SpawnUIObj(Transform child, Transform parent)
     {
-        child.parent = parent;
+        child.SetParent(parent);
         child.localScale = Vector3.one;
         child.localPosition = Vector3.zero;
     }
