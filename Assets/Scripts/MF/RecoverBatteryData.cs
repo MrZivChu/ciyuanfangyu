@@ -12,7 +12,7 @@ public class RecoverBatteryData : MonoBehaviour
     //坑对应炮塔类型
     public Dictionary<int, BatteryType> hasDic = new Dictionary<int, BatteryType>();
 
-    void Awake()
+    void Start()
     {
         HandleHoleList();
         HandleRecoverData();
@@ -89,5 +89,4 @@ public class RecoverBatteryData : MonoBehaviour
         }
         return null;
     }
-
 }

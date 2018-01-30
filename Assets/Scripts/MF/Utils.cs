@@ -306,4 +306,21 @@ public class Utils
         child.localScale = Vector3.one;
         child.localPosition = Vector3.zero;
     }
+
+    public static void SetObjectEmissionColor(GameObject tObj, Color color)
+    {
+        MeshRenderer mr = tObj.GetComponent<MeshRenderer>();
+        if (mr != null)
+        {
+            Material[] materials = mr.sharedMaterials;
+            if (materials != null && materials.Length > 0)
+            {
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    Material item = materials[i];
+                    item.SetColor("_EmissionColor", color);
+                }
+            }
+        }
+    }
 }

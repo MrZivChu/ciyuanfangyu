@@ -9,9 +9,10 @@ public class GroupCheck : MonoBehaviour
 
     private void Start()
     {
-
     }
 
+
+    public static bool canCheck = true;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("checkGroup"))
@@ -21,7 +22,10 @@ public class GroupCheck : MonoBehaviour
             {
                 list.Add(hole);
                 //print("触发器" + gameObject.name);
-                Check();
+                if (canCheck)
+                {
+                    Check();
+                }
             }
         }
     }

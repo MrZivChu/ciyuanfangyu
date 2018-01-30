@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUE : MonoBehaviour
-{   
+{
     public GameObject result;
     public Button okBtn;
 
