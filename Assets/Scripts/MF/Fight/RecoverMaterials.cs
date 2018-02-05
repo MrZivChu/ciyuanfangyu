@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RecoverMaterials : MonoBehaviour
 {
-
     public GameObject diskBottom1;
     public GameObject diskBottom2;
     public GameObject diskBottom3;
