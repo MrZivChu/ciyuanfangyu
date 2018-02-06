@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class NewRotateWheel : MonoBehaviour
 {
-
     public float upDownSpeed;
     public Transform centerObj;
 
-
     bool isRotating = false;
-    Transform preDisk;
-    Transform nowDisk;
-    Transform hitBuild;
+    Transform preHitBuild;
+    Transform nowHitBuild;
+    Transform currentDisk;
 
     Vector3 preEulerAngles = Vector2.zero;
     Vector3 nowEulerAngles = Vector2.zero;
@@ -22,48 +20,56 @@ public class NewRotateWheel : MonoBehaviour
     float rotateDiskDirection = 1;//负值为顺时针，正值为逆时针
     int whichDisk = 1;
 
+    private void Start()
+    {
+
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            GroupCheck.canCheck = false;
             RaycastHit hit;
             Vector2 mousePosition = Input.mousePosition;
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            int layMask = 1 << LayerMask.NameToLayer("Build");
-            if (Physics.Raycast(ray, out hit, layMask))
+            int layMask = 1 << LayerMask.NameToLayer("CheckWheel");
+            if (Physics.Raycast(ray, out hit, 1000, layMask))
             {
-                nowDisk = null;
-                if (hit.transform.CompareTag("build"))
+                currentDisk = null;
+                //if (hit.transform.CompareTag("build"))
                 {
-                    hitBuild = hit.transform;
-                    nowDisk = hit.transform.parent.parent;
+                    nowHitBuild = hit.transform.parent;
+                    currentDisk = hit.transform.parent.parent.parent;
                 }
-                if (nowDisk != null)
+                if (currentDisk != null)
                 {
-                    if (preDisk != null)
+                    if (preHitBuild != null)
                     {
-                        Utils.SetObjectHighLight(preDisk.gameObject, false, Color.clear, Color.clear);
+                        Utils.SetObjectEmissionColor(preHitBuild.gameObject, new Color(0, 0, 0));
+                        //Utils.SetObjectHighLight(preDisk.gameObject, false, Color.clear, Color.clear);
                     }
-                    Utils.SetObjectHighLight(nowDisk.gameObject, true, new Color(1, 164f / 255, 0, 1), new Color(212f / 255, 153f / 255, 47f / 255, 1));
-                    preDisk = nowDisk;
-                    preEulerAngles = nowDisk.eulerAngles;
+                    Utils.SetObjectEmissionColor(nowHitBuild.gameObject, new Color(0.35f, 0.31f, 0.16f));
+                    //Utils.SetObjectHighLight(nowDisk.gameObject, true, new Color(1, 164f / 255, 0, 1), new Color(212f / 255, 153f / 255, 47f / 255, 1));
+                    preHitBuild = nowHitBuild;
+                    preEulerAngles = currentDisk.eulerAngles;
                     nowEulerAngles = preEulerAngles;
-                    if (nowDisk.CompareTag("oneInLand"))
+                    if (currentDisk.CompareTag("oneInLand"))
                     {
                         diskEveryTimeNeedRotateAngle = 45f;
                         whichDisk = 1;
                     }
-                    else if (nowDisk.CompareTag("twoInLand"))
+                    else if (currentDisk.CompareTag("twoInLand"))
                     {
                         diskEveryTimeNeedRotateAngle = 22.5f;
                         whichDisk = 2;
                     }
-                    else if (nowDisk.CompareTag("threeInLand"))
+                    else if (currentDisk.CompareTag("threeInLand"))
                     {
                         diskEveryTimeNeedRotateAngle = 15f;
                         whichDisk = 3;
                     }
-                    else if (nowDisk.CompareTag("fourInLand"))
+                    else if (currentDisk.CompareTag("fourInLand"))
                     {
                         diskEveryTimeNeedRotateAngle = 11.25f;
                         whichDisk = 4;
@@ -93,13 +99,13 @@ public class NewRotateWheel : MonoBehaviour
             }
 #else
             hasTouchMove = true;
-            FollowRotate(nowDisk, hitBuild, centerObj);
+            FollowRotate(currentDisk, nowHitBuild, centerObj);
 #endif
-            Up(nowDisk, Time.deltaTime);
+            Up(currentDisk, Time.deltaTime);
         }
         else
         {
-            Down(nowDisk, Time.deltaTime);
+            //Down(nowDisk, Time.deltaTime);
         }
     }
 
@@ -112,22 +118,23 @@ public class NewRotateWheel : MonoBehaviour
     //旋转结束后的处理
     void RotateEndHandle()
     {
-        if (leftNeedRotateAngle > 0 && nowDisk != null)
+        if (leftNeedRotateAngle > 0 && currentDisk != null)
         {
             tempTime = tempTime + Time.deltaTime;
             if (tempTime <= homingTime)
             {
                 nowAngle = Mathf.Lerp(0, leftNeedRotateAngle, tempTime * (1 / homingTime));
-                nowDisk.Rotate(Vector3.forward, -rotateDiskDirection * (nowAngle - preAngle));
+                currentDisk.Rotate(Vector3.forward, -rotateDiskDirection * (nowAngle - preAngle));
                 preAngle = nowAngle;
             }
             else
             {
-                nowDisk.Rotate(Vector3.forward, -rotateDiskDirection * (leftNeedRotateAngle - preAngle));
+                currentDisk.Rotate(Vector3.forward, -rotateDiskDirection * (leftNeedRotateAngle - preAngle));
                 tempTime = 0;
                 preAngle = 0;
                 nowAngle = 0;
                 leftNeedRotateAngle = 0;
+                Down(currentDisk, Time.deltaTime);
             }
         }
     }
@@ -135,10 +142,10 @@ public class NewRotateWheel : MonoBehaviour
     private void CalcLeftAngle()
     {
         leftNeedRotateAngle = 0;
-        if (nowDisk != null && hasTouchMove)
+        if (currentDisk != null && hasTouchMove)
         {
             float hasRotateAngle = 0;
-            nowEulerAngles = nowDisk.eulerAngles;
+            nowEulerAngles = currentDisk.eulerAngles;
             //print(preEulerAngles.y + " = " + nowEulerAngles.y + " = " + rotateDiskDirection);
             if (nowEulerAngles.y > preEulerAngles.y)
             {
@@ -200,13 +207,13 @@ public class NewRotateWheel : MonoBehaviour
         if (tNowDisk != null)
         {
             float maxValue = whichDisk == 1 ? 1.4f : whichDisk == 2 ? 1.9f : whichDisk == 3 ? 1.35f : 0.55f;
-            if (tNowDisk.localPosition.z < maxValue)
+            if (tNowDisk.localPosition.y < maxValue)
             {
                 Vector3 v = tNowDisk.localPosition;
-                v.z += deltaTime * upDownSpeed;
-                if (v.z >= maxValue)
+                v.y += deltaTime * upDownSpeed;
+                if (v.y >= maxValue)
                 {
-                    v.z = maxValue;
+                    v.y = maxValue;
                 }
                 tNowDisk.localPosition = v;
             }
@@ -219,15 +226,29 @@ public class NewRotateWheel : MonoBehaviour
         if (tNowDisk != null)
         {
             float minValue = whichDisk == 1 ? 0.85f : whichDisk == 2 ? 1.35f : whichDisk == 3 ? 0.8f : 0;
-            if (tNowDisk.localPosition.z > minValue)
+            if (tNowDisk.localPosition.y > minValue)
             {
                 Vector3 v = tNowDisk.localPosition;
-                v.z -= deltaTime * upDownSpeed;
-                if (v.z <= minValue)
+                v.y -= deltaTime * upDownSpeed;
+                if (v.y <= minValue)
                 {
-                    v.z = minValue;
+                    v.y = minValue;
                 }
                 tNowDisk.localPosition = v;
+            }
+            GroupCheck.canCheck = true;
+            CheckGroup();
+        }
+    }
+
+    public List<GroupCheck> groupCheckList = new List<GroupCheck>();
+    void CheckGroup()
+    {
+        if (groupCheckList != null && groupCheckList.Count > 0)
+        {
+            for (int i = 0; i < groupCheckList.Count; i++)
+            {
+                groupCheckList[i].Check();
             }
         }
     }

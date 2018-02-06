@@ -18,26 +18,26 @@ public class CoroutineHelper : MonoBehaviour
     void RecoverMusic()
     {
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-        audioSource.volume = Convert.ToSingle(BaseDataLibrary.musicVolume);
-        audioSource.clip = audioClipList[BaseDataLibrary.musicIndex];
+        audioSource.volume = Convert.ToSingle(LocalBaseData.musicVolume);
+        audioSource.clip = audioClipList[LocalBaseData.musicIndex];
         audioSource.Play();
     }
 
     //恢复用户数据
     void RecoverBaseData()
     {
-        ServerBaseDataLibrary serverBaseDataLibrary = GameJsonDataHelper.ReadBaseData();
-        BaseDataLibrary.coins = serverBaseDataLibrary.coins;
-        BaseDataLibrary.diamond = serverBaseDataLibrary.diamond;
-        BaseDataLibrary.engry = serverBaseDataLibrary.engry;
-        BaseDataLibrary.focus = serverBaseDataLibrary.focus;
-        BaseDataLibrary.happinessDegree = serverBaseDataLibrary.happinessDegree;
-        BaseDataLibrary.mercenaryMoney = serverBaseDataLibrary.mercenaryMoney;
-        BaseDataLibrary.musicVolume = serverBaseDataLibrary.musicVolume;
-        BaseDataLibrary.people = serverBaseDataLibrary.people;
-        BaseDataLibrary.musicIndex = serverBaseDataLibrary.musicIndex;
-        BaseDataLibrary.mercenaryList = serverBaseDataLibrary.mercenaryList;
-        BaseDataLibrary.battleMercenaryList = serverBaseDataLibrary.battleMercenaryList;
+        ServerBaseData serverBaseDataLibrary = ServerDataHelper.GetServerBaseData();
+        LocalBaseData.coins = serverBaseDataLibrary.coins;
+        LocalBaseData.diamond = serverBaseDataLibrary.diamond;
+        LocalBaseData.engry = serverBaseDataLibrary.engry;
+        LocalBaseData.focus = serverBaseDataLibrary.focus;
+        LocalBaseData.happinessDegree = serverBaseDataLibrary.happinessDegree;
+        LocalBaseData.mercenaryMoney = serverBaseDataLibrary.mercenaryMoney;
+        LocalBaseData.musicVolume = serverBaseDataLibrary.musicVolume;
+        LocalBaseData.people = serverBaseDataLibrary.people;
+        LocalBaseData.musicIndex = serverBaseDataLibrary.musicIndex;
+        LocalBaseData.mercenaryList = serverBaseDataLibrary.mercenaryList;
+        LocalBaseData.battleMercenaryList = serverBaseDataLibrary.battleMercenaryList;
     }
 
     void OnApplicationQuit()
@@ -56,7 +56,7 @@ public class CoroutineHelper : MonoBehaviour
 
     void SaveData()
     {
-        GameJsonDataHelper.WriteBaseData();
-        GameJsonDataHelper.WriteBatteryData();
+        ServerDataHelper.UpdateServerBaseData();
+        ServerDataHelper.UpdateServerBatteryData();
     }
 }

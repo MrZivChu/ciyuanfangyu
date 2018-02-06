@@ -11,10 +11,6 @@ public class MissileBattery : BatteryParent
     private void Start()
     {
         blood = 100;
-
-        Vector3 direction = transform.position - Vector3.zero;
-        direction.z = transform.position.z;
-        transform.LookAt(-direction);
     }
 
     void OnTriggerEnter(Collider other)

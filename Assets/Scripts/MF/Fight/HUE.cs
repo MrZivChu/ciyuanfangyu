@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUE : MonoBehaviour
-{   
+{
     public GameObject result;
     public Button okBtn;
 
@@ -24,11 +24,11 @@ public class HUE : MonoBehaviour
 
     void InitMercenary()
     {
-        if (BaseDataLibrary.battleMercenaryList != null && BaseDataLibrary.battleMercenaryList.Count > 0)
+        if (LocalBaseData.battleMercenaryList != null && LocalBaseData.battleMercenaryList.Count > 0)
         {
-            for (int i = 0; i < BaseDataLibrary.battleMercenaryList.Count; i++)
+            for (int i = 0; i < LocalBaseData.battleMercenaryList.Count; i++)
             {
-                Mercenary mer = MercenaryDataConfigTable.MercenaryList.Find(it => it.ID == BaseDataLibrary.battleMercenaryList[i]);
+                MercenaryConfigInfo mer = MercenaryDataConfigTable.MercenaryList.Find(it => it.ID == LocalBaseData.battleMercenaryList[i]);
                 if (mer != null)
                 {
                     GameObject go = mercenaryGameobjectList[i];
@@ -41,13 +41,24 @@ public class HUE : MonoBehaviour
             }
         }
 
-        int count = BaseDataLibrary.battleMercenaryList == null ? mercenaryGameobjectList.Count : BaseDataLibrary.battleMercenaryList.Count;
+        int count = LocalBaseData.battleMercenaryList == null ? mercenaryGameobjectList.Count : LocalBaseData.battleMercenaryList.Count;
         for (int i = count; i < mercenaryGameobjectList.Count; i++)
         {
             mercenaryGameobjectList[i].SetActive(false);
         }
     }
 
+    public List<GroupCheck> groupCheckList = new List<GroupCheck>();
+    void CheckGroup()
+    {
+        if (groupCheckList != null && groupCheckList.Count > 0)
+        {
+            for (int i = 0; i < groupCheckList.Count; i++)
+            {
+                groupCheckList[i].Check();
+            }
+        }
+    }
 }
 
 

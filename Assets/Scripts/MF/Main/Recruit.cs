@@ -27,7 +27,7 @@ public class Recruit : MonoBehaviour
     int index = 0;
     void RefreshClick(GameObject go, object data)
     {
-        List<Mercenary> mercenaryList = MercenaryDataConfigTable.MercenaryList;
+        List<MercenaryConfigInfo> mercenaryList = MercenaryDataConfigTable.MercenaryList;
 
         if (itemList != null && itemList.Count > 0)
         {
@@ -48,7 +48,7 @@ public class Recruit : MonoBehaviour
                 {
                     itemList[i].GetChild(2).GetChild(j).gameObject.SetActive(false);
                 }
-                if (BaseDataLibrary.mercenaryList != null && BaseDataLibrary.mercenaryList.Contains(mercenaryList[index].ID))
+                if (LocalBaseData.mercenaryList != null && LocalBaseData.mercenaryList.Contains(mercenaryList[index].ID))
                 {
                     itemList[i].GetChild(12).gameObject.SetActive(false);
                     itemList[i].GetChild(3).GetComponent<Text>().text = "已雇佣";
@@ -77,7 +77,7 @@ public class Recruit : MonoBehaviour
         List<object> list = (List<object>)param;
         MessageBox.Instance.PopYesNo("是否雇佣此佣兵", null, () =>
         {
-            BaseDataLibrary.mercenaryList.Add((int)list[0]);
+            LocalBaseData.mercenaryList.Add((int)list[0]);
             ((Transform)list[1]).GetChild(12).gameObject.SetActive(false);
             ((Transform)list[1]).GetChild(3).GetComponent<Text>().text = "已雇佣";
 

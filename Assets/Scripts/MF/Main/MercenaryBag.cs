@@ -18,7 +18,7 @@ public class MercenaryBag : MonoBehaviour
 
     void InitData()
     {
-        List<int> idList = BaseDataLibrary.mercenaryList;
+        List<int> idList = LocalBaseData.mercenaryList;
         if (idList != null && idList.Count > 0)
         {
             for (int i = 0; i < idList.Count; i++)
@@ -27,7 +27,7 @@ public class MercenaryBag : MonoBehaviour
                 go.transform.parent = parent;
                 go.transform.localScale = Vector3.one;
                 go.transform.localPosition = Vector3.zero;
-                Mercenary mer = MercenaryDataConfigTable.MercenaryList.Find(it => it.ID == idList[i]);
+                MercenaryConfigInfo mer = MercenaryDataConfigTable.MercenaryList.Find(it => it.ID == idList[i]);
                 if (mer != null)
                 {
                     go.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(mer.iconPath.Replace("zm", "bb"));
@@ -40,12 +40,12 @@ public class MercenaryBag : MonoBehaviour
         }
     }
 
-    void ChangeStatus(GameObject go, Mercenary mer)
+    void ChangeStatus(GameObject go, MercenaryConfigInfo mer)
     {
         Button upBtn = go.transform.GetChild(6).GetComponent<Button>();
         Button downBtn = go.transform.GetChild(7).GetComponent<Button>();
         List<object> list = new List<object>() { go, mer };
-        if (BaseDataLibrary.battleMercenaryList.Contains(mer.ID))
+        if (LocalBaseData.battleMercenaryList.Contains(mer.ID))
         {
             upBtn.gameObject.SetActive(false);
             downBtn.gameObject.SetActive(true);
@@ -68,16 +68,16 @@ public class MercenaryBag : MonoBehaviour
     //上阵
     void UpClick(GameObject go, object data)
     {
-        if (BaseDataLibrary.battleMercenaryList.Count >= 6)
+        if (LocalBaseData.battleMercenaryList.Count >= 6)
         {
             MessageBox.Instance.PopOK("上阵佣兵已经满6人\n请下阵其他佣兵后方可上阵此佣兵", null, "确定");
         }
         else
         {
             List<object> list = (List<object>)data;
-            Mercenary mer = (Mercenary)list[1];
+            MercenaryConfigInfo mer = (MercenaryConfigInfo)list[1];
             GameObject goes = (GameObject)list[0];
-            BaseDataLibrary.battleMercenaryList.Add(mer.ID);
+            LocalBaseData.battleMercenaryList.Add(mer.ID);
             ChangeStatus(goes, mer);
         }
     }
@@ -86,9 +86,9 @@ public class MercenaryBag : MonoBehaviour
     void DownClick(GameObject go, object data)
     {
         List<object> list = (List<object>)data;
-        Mercenary mer = (Mercenary)list[1];
+        MercenaryConfigInfo mer = (MercenaryConfigInfo)list[1];
         GameObject goes = (GameObject)list[0];
-        BaseDataLibrary.battleMercenaryList.Remove(mer.ID);
+        LocalBaseData.battleMercenaryList.Remove(mer.ID);
         ChangeStatus(goes, mer);
     }
 }

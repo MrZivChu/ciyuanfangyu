@@ -97,7 +97,7 @@ public class BuildSelected : MonoBehaviour
         for (int i = 0; i < infoList.Count; i++)
         {
             GameObject go = Instantiate(BatteryCell);
-            go.transform.parent = cellParent.transform;
+            go.transform.SetParent(cellParent.transform);
             go.transform.localScale = Vector3.one;
             BatteryConfigInfo info = infoList[i];
             BatteryCell batteryCell = go.GetComponent<BatteryCell>();
@@ -111,7 +111,7 @@ public class BuildSelected : MonoBehaviour
     void PlaceBattery(GameObject go, object param)
     {
         BatteryConfigInfo info = (BatteryConfigInfo)param;
-        humScript.SpawnBattery(info, humScript.currentHitObj);
+        humScript.SpawnBattery(info, humScript.currentHitHoleObj);
         CloseThisPanel();
     }
 }

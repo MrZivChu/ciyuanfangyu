@@ -20,7 +20,7 @@ namespace Tone.UI {
                 return;
             }
 
-            Camera cam = UI3D.transform.FindChild(CameraName).GetComponent<Camera>();
+            Camera cam = UI3D.transform.Find(CameraName).GetComponent<Camera>();
             if (cam == null) {
 				Debug.LogError("Cannot find 3DCamera.");
                 return;

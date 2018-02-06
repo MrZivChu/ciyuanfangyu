@@ -36,7 +36,7 @@ public class RotateWheel : MonoBehaviour
                 nowBuild = null;
                 if (hit.transform.CompareTag("build"))
                 {
-                    nowBuild = hit.transform.parent;
+                    nowBuild = hit.transform.parent.parent;
                 }
                 if (nowBuild != null)
                 {

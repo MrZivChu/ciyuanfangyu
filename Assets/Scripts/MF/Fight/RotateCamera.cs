@@ -107,12 +107,10 @@ public class RotateCamera : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            int layMask = 1 << LayerMask.NameToLayer("inLand");
+            if (Physics.Raycast(ray, out hit, 1000, layMask))
             {
-                if (!hit.transform.CompareTag("build") && !hit.transform.CompareTag("inLand"))
-                {
-                    isRotating = true;
-                }
+                isRotating = false;
             }
             else
             {

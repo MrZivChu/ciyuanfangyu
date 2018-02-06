@@ -9,10 +9,10 @@ public class MercenaryDataConfigTable : MonoBehaviour
         InitData();
     }
 
-    public static List<Mercenary> MercenaryList = new List<Mercenary>();
+    public static List<MercenaryConfigInfo> MercenaryList = new List<MercenaryConfigInfo>();
     void InitData()
     {
-        Mercenary mercenary = new Mercenary();
+        MercenaryConfigInfo mercenary = new MercenaryConfigInfo();
         mercenary.ID = 1;
         mercenary.mercenaryName = "霍根";
         mercenary.iconPath = "UI/Mercenary/Texture/zm01";
@@ -23,7 +23,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "7";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 2;
         mercenary.mercenaryName = "慕得";
         mercenary.iconPath = "UI/Mercenary/Texture/zm02";
@@ -34,7 +34,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "9";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 3;
         mercenary.mercenaryName = "艾比盖";
         mercenary.iconPath = "UI/Mercenary/Texture/zm03";
@@ -45,7 +45,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "11";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 4;
         mercenary.mercenaryName = "珍尼丝";
         mercenary.iconPath = "UI/Mercenary/Texture/zm04";
@@ -56,7 +56,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "10";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 5;
         mercenary.mercenaryName = "葛莱蒂丝";
         mercenary.iconPath = "UI/Mercenary/Texture/zm05";
@@ -67,7 +67,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "4";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 6;
         mercenary.mercenaryName = "丽莎";
         mercenary.iconPath = "UI/Mercenary/Texture/zm06";
@@ -78,7 +78,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "7";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 7;
         mercenary.mercenaryName = "费滋";
         mercenary.iconPath = "UI/Mercenary/Texture/zm07";
@@ -89,7 +89,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "14";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 8;
         mercenary.mercenaryName = "多莉丝";
         mercenary.iconPath = "UI/Mercenary/Texture/zm08";
@@ -100,7 +100,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "2";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 9;
         mercenary.mercenaryName = "奥萝拉";
         mercenary.iconPath = "UI/Mercenary/Texture/zm09";
@@ -111,7 +111,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
         mercenary.shootPower = "5";
         MercenaryList.Add(mercenary);
 
-        mercenary = new Mercenary();
+        mercenary = new MercenaryConfigInfo();
         mercenary.ID = 10;
         mercenary.mercenaryName = "艾谱莉";
         mercenary.iconPath = "UI/Mercenary/Texture/zm10";
@@ -136,7 +136,7 @@ public class MercenaryDataConfigTable : MonoBehaviour
     }
 }
 
-public class Mercenary
+public class MercenaryConfigInfo
 {
     public int ID;
     public string mercenaryName;
