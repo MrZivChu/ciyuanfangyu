@@ -241,43 +241,43 @@ public class Utils
     /// <param name="color"></param>
     public static void SetObjectHighLight(GameObject go, bool isLight, Color startColor, Color endColor, float flashingDelay = 0, float flashingFrequency = 2)
     {
-        if (isLight)
-        {
-            FlashingController flashingController = go.GetComponent<FlashingController>();
-            if (flashingController == null)
-            {
-                flashingController = go.AddComponent<FlashingController>();
-                flashingController.flashingDelay = flashingDelay;
-                flashingController.flashingFrequency = flashingFrequency;
-            }
-            else
-            {
-                if (startColor == Color.clear)
-                {
-                    startColor = flashingController.flashingStartColor;
-                }
-                if (endColor == Color.clear)
-                {
-                    endColor = flashingController.flashingEndColor;
-                }
-            }
-            flashingController.flashingStartColor = startColor;
-            flashingController.flashingEndColor = endColor;
-            HighlightableObject highlightableObject = go.GetComponent<HighlightableObject>();
-            if (highlightableObject)
-            {
-                highlightableObject.FlashingParams(startColor, endColor, flashingFrequency);
-                highlightableObject.FlashingOn();
-            }
-        }
-        else
-        {
-            HighlightableObject highlightableObject = go.GetComponent<HighlightableObject>();
-            if (highlightableObject)
-            {
-                highlightableObject.FlashingOff();
-            }
-        }
+        //if (isLight)
+        //{
+        //    FlashingController flashingController = go.GetComponent<FlashingController>();
+        //    if (flashingController == null)
+        //    {
+        //        flashingController = go.AddComponent<FlashingController>();
+        //        flashingController.flashingDelay = flashingDelay;
+        //        flashingController.flashingFrequency = flashingFrequency;
+        //    }
+        //    else
+        //    {
+        //        if (startColor == Color.clear)
+        //        {
+        //            startColor = flashingController.flashingStartColor;
+        //        }
+        //        if (endColor == Color.clear)
+        //        {
+        //            endColor = flashingController.flashingEndColor;
+        //        }
+        //    }
+        //    flashingController.flashingStartColor = startColor;
+        //    flashingController.flashingEndColor = endColor;
+        //    HighlightableObject highlightableObject = go.GetComponent<HighlightableObject>();
+        //    if (highlightableObject)
+        //    {
+        //        highlightableObject.FlashingParams(startColor, endColor, flashingFrequency);
+        //        highlightableObject.FlashingOn();
+        //    }
+        //}
+        //else
+        //{
+        //    HighlightableObject highlightableObject = go.GetComponent<HighlightableObject>();
+        //    if (highlightableObject)
+        //    {
+        //        highlightableObject.FlashingOff();
+        //    }
+        //}
     }
 
     public static bool CheckGuiRaycastObjects()
