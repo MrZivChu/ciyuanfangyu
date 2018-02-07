@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,12 +8,19 @@ public class HUE : MonoBehaviour
 {
     public GameObject result;
     public Button okBtn;
+    public Button leftBtn;
+    public Button rightBtn;
+
 
     public List<GameObject> mercenaryGameobjectList;
 
     private void Start()
     {
         EventTriggerListener.Get(okBtn.gameObject).onClick = FightOverClick;
+        EventTriggerListener.Get(leftBtn.gameObject).onClick = LeftClick;
+        EventTriggerListener.Get(leftBtn.gameObject).onDown = LeftDown;
+        EventTriggerListener.Get(leftBtn.gameObject).onUp = LeftUp;
+        EventTriggerListener.Get(rightBtn.gameObject).onClick = RightClick;
 
         InitMercenary();
     }
@@ -20,6 +28,50 @@ public class HUE : MonoBehaviour
     void FightOverClick(GameObject go, object data)
     {
         result.SetActive(true);
+    }
+
+    //是否长按
+    bool isPressing = false;
+    public NewRotateWheel newRotateWheel;
+    void LeftClick(GameObject go, object data)
+    {
+        if (!isPressing)
+        {
+            print("click");
+            newRotateWheel.Rotate(true);
+        }
+        newRotateWheel.isStop = true;
+    }
+
+    void LeftDown(GameObject go, object data)
+    {
+        print("down");
+        isPressing = false;
+        newRotateWheel.isStop = false;
+        Invoke("RepeatLeftClick", 0.2f);
+    }
+
+    void RepeatLeftClick()
+    {
+        print("pressing");
+        isPressing = true;
+        InvokeRepeating("SingleClick", 0, 0.5f);
+    }
+
+    void SingleClick()
+    {
+        newRotateWheel.Rotate(true);
+    }
+
+    void LeftUp(GameObject go, object data)
+    {
+        print("up");
+        CancelInvoke();
+    }
+
+    void RightClick(GameObject go, object data)
+    {
+        newRotateWheel.Rotate(false);
     }
 
     void InitMercenary()
