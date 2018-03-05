@@ -15,16 +15,18 @@ public class NewRotateWheel : MonoBehaviour
     float rotateDiskDirection = 1;//负值为顺时针，正值为逆时针
     int whichDisk = 1;
 
-    private void Start()
+    void Start()
     {
-
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GroupCheck.canCheck = false;
+            bool isClickUI = Utils.CheckGuiRaycastObjects();
+            if (isClickUI)
+                return;
+
             RaycastHit hit;
             Vector2 mousePosition = Input.mousePosition;
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
@@ -70,30 +72,39 @@ public class NewRotateWheel : MonoBehaviour
             }
         }
 
-        RotateEndHandle();
-
-        if (isRotating)
+        if (canRotate)
+        {
+            circleCheckManager.Check();
+            RotateEndHandle();
+        }
+        if (canUp)
         {
             Up(currentDisk, Time.deltaTime);
         }
-        if (isStop)
+        if (canDown)
         {
             Down(currentDisk, Time.deltaTime);
         }
     }
-
     [HideInInspector]
-    public bool isStop = false;
-    bool isRotating = false;
+    public bool clickOver = false;
+
+    public CircleCheckManager circleCheckManager;
+
+    bool canDown = false;
+    bool canUp = false;
+    bool canRotate = false;
+    bool isPlaying = false;
+
     float tempTime = 0;
     float preAngle = 0;
     float nowAngle = 0;
-    float homingTime = 0.2f;
+    float homingTime = 0.3f;
     float leftNeedRotateAngle = 0;
     //旋转结束后的处理
     void RotateEndHandle()
     {
-        if (leftNeedRotateAngle > 0 && currentDisk != null && isRotating)
+        if (leftNeedRotateAngle > 0 && currentDisk != null)
         {
             tempTime = tempTime + Time.deltaTime;
             if (tempTime <= homingTime)
@@ -108,7 +119,13 @@ public class NewRotateWheel : MonoBehaviour
                 tempTime = 0;
                 preAngle = 0;
                 nowAngle = 0;
-                isRotating = false;
+
+                canRotate = false;
+                isPlaying = false;
+                if (clickOver)
+                {
+                    canDown = true;
+                }
             }
         }
     }
@@ -116,9 +133,11 @@ public class NewRotateWheel : MonoBehaviour
     //isClockwise是否顺时针
     public void Rotate(bool isClockwise)
     {
-        if (isRotating)
+        canDown = false;
+        if (isPlaying || currentDisk == null)
             return;
-        isRotating = true;
+        isPlaying = true;
+        canUp = true;
         rotateDiskDirection = isClockwise ? -1 : 1;
     }
 
@@ -127,7 +146,7 @@ public class NewRotateWheel : MonoBehaviour
     {
         if (tNowDisk != null)
         {
-            float maxValue = whichDisk == 1 ? 1.5f : whichDisk == 2 ? 2f : whichDisk == 3 ? 1.45f : 0.65f;
+            float maxValue = whichDisk == 1 ? 1.559f : whichDisk == 2 ? 2.043f : whichDisk == 3 ? 1.509f : 1.025f;
             if (tNowDisk.localPosition.y < maxValue)
             {
                 Vector3 v = tNowDisk.localPosition;
@@ -135,8 +154,15 @@ public class NewRotateWheel : MonoBehaviour
                 if (v.y >= maxValue)
                 {
                     v.y = maxValue;
+                    canRotate = true;
+                    canUp = false;
                 }
                 tNowDisk.localPosition = v;
+            }
+            else
+            {
+                canRotate = true;
+                canUp = false;
             }
         }
     }
@@ -146,7 +172,7 @@ public class NewRotateWheel : MonoBehaviour
     {
         if (tNowDisk != null)
         {
-            float minValue = whichDisk == 1 ? 0.85f : whichDisk == 2 ? 1.35f : whichDisk == 3 ? 0.8f : 0;
+            float minValue = whichDisk == 1 ? 0.859f : whichDisk == 2 ? 1.343f : whichDisk == 3 ? 0.809f : 0.325f;
             if (tNowDisk.localPosition.y > minValue)
             {
                 Vector3 v = tNowDisk.localPosition;
@@ -159,8 +185,9 @@ public class NewRotateWheel : MonoBehaviour
             }
             else
             {
-                isStop = false;
+                canDown = false;
                 CheckGroup();
+                circleCheckManager.Check();
             }
         }
     }
@@ -168,7 +195,6 @@ public class NewRotateWheel : MonoBehaviour
     public List<GroupCheck> groupCheckList = new List<GroupCheck>();
     void CheckGroup()
     {
-        GroupCheck.canCheck = true;
         if (groupCheckList != null && groupCheckList.Count > 0)
         {
             for (int i = 0; i < groupCheckList.Count; i++)

@@ -30,6 +30,20 @@ public class Bomb : BulletParent
         moveDirection = target.transform.position - transform.position;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("terrain"))
+            DestoryOwn();
+    }
+
+    void DestoryOwn()
+    {
+        if (gameObject)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     float time;
     void FixedUpdate()
     {
@@ -49,7 +63,7 @@ public class Bomb : BulletParent
                             Destroy(target);
                         }
                     }
-                    Destroy(gameObject);
+                    DestoryOwn();
                 }
                 else
                 {
@@ -64,10 +78,9 @@ public class Bomb : BulletParent
                                 Destroy(target);
                             }
                         }
-                        Destroy(gameObject);
+                        DestoryOwn();
                     }
                 }
-
                 return;
             }
             if (gameObject)

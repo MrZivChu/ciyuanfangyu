@@ -27,7 +27,6 @@ public abstract class BatteryParent : MonoBehaviour
     public float MW;
 
     //几秒攻击一次
-    [HideInInspector]
     public float attackRepeatRateTime;
 
     public BatteryType battleType;
@@ -35,7 +34,6 @@ public abstract class BatteryParent : MonoBehaviour
     //射击行为
     public abstract void Shoot();
 
-    [HideInInspector]
     public GameObject boss;
 
 }

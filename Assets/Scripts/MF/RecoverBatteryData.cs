@@ -5,6 +5,9 @@ using UnityEngine;
 //恢复设置的炮塔数据
 public class RecoverBatteryData : MonoBehaviour
 {
+    public bool isFight = false;
+    bool startChangeAttackBattle = false;
+
     //坑
     public List<GameObject> batteryHoleList = new List<GameObject>();
     //索引对应坑
@@ -15,6 +18,33 @@ public class RecoverBatteryData : MonoBehaviour
     void Start()
     {
         HandleHoleList();
+        HandleRecoverData();
+        CheckGroup();
+
+        if (isFight)
+        {
+            Invoke("ChangeAttackBattle", 2);
+        }
+    }
+
+    public List<GroupCheck> groupCheckList = new List<GroupCheck>();
+    void CheckGroup()
+    {
+        if (groupCheckList != null && groupCheckList.Count > 0)
+        {
+            for (int i = 0; i < groupCheckList.Count; i++)
+            {
+                groupCheckList[i].Check();
+            }
+        }
+    }
+
+    void ChangeAttackBattle()
+    {
+        foreach (GameObject item in tempObjList)
+        {
+            Destroy(item);
+        }
         HandleRecoverData();
     }
 
@@ -32,7 +62,9 @@ public class RecoverBatteryData : MonoBehaviour
             }
         }
     }
+    public CircleCheckManager circleCheckManager;
 
+    List<GameObject> tempObjList = new List<GameObject>();
     void HandleRecoverData()
     {
         List<ServerBatteryData> serverDataList = ServerDataHelper.GetServerBatteryData();
@@ -49,23 +81,45 @@ public class RecoverBatteryData : MonoBehaviour
                         {
                             BatteryConfigInfo info = BatteryDataConfigTable.dic[bd.batteryType];
                             GameObject hole = holeDic[bd.index];
-                            InstanceBatteryObj(info, hole.transform);
+                            GameObject go = InstanceManagerBatteryObj(info, hole.transform);
+                            if (isFight)
+                            {
+                                tempObjList.Add(go);
+                            }
                             hasDic[bd.index] = bd.batteryType;
                         }
                     }
                 }
             }
         }
+        if (circleCheckManager != null)
+            circleCheckManager.Check();
     }
 
-    public GameObject InstanceBatteryObj(BatteryConfigInfo info, Transform parent, int level = 1)
+    public GameObject InstanceManagerBatteryObj(BatteryConfigInfo info, Transform parent, int level = 1)
     {
-        Object obj = Resources.Load(info.battleType + "Lv" + level);
+        Object obj = null;
+        if (isFight)
+        {
+            if (startChangeAttackBattle)
+            {
+                obj = Resources.Load(info.battleType + "AttackLv" + level);
+            }
+            else
+            {
+                startChangeAttackBattle = true;
+                obj = Resources.Load(info.battleType + "DeformationLv" + level);
+            }
+        }
+        else
+        {
+            obj = Resources.Load(info.battleType + "Lv" + level);
+        }
         if (obj != null)
         {
             GameObject tempGO = Instantiate(obj) as GameObject;
             tempGO.transform.parent = parent;
-            tempGO.transform.localScale = Vector3.one;
+            //tempGO.transform.localScale = Vector3.one;
             tempGO.transform.localPosition = Vector3.zero;
             BatteryParent bp = tempGO.GetComponent<BatteryParent>();
             bp.batteryName = info.batteryName;
@@ -81,12 +135,16 @@ public class RecoverBatteryData : MonoBehaviour
             bp.starLevel = info.starLevel;
             bp.wood = info.wood;
 
-            Vector3 direction = tempGO.transform.position - Vector3.zero;
-            direction.z = tempGO.transform.position.z;
-            tempGO.transform.LookAt(-direction);
+            Vector3 vv = Vector3.zero;
+            vv.y = tempGO.transform.position.y;
+            tempGO.transform.LookAt(vv);
+            tempGO.transform.Rotate(Vector3.up, 180);
+
 
             return tempGO;
         }
         return null;
     }
+
+
 }

@@ -20,7 +20,7 @@ public class RotateCamera : MonoBehaviour
     {
         //transform.LookAt(player.position);
         offsetPosition = transform.position - player.position;
-    }
+    }   
 
     void Update()
     {
@@ -39,6 +39,10 @@ public class RotateCamera : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            bool isClickUI = Utils.CheckGuiRaycastObjects();
+            if (isClickUI)
+                return;
+
             t2 = Time.realtimeSinceStartup;
             if (t2 - t1 < 0.3f)
             {

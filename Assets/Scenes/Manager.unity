@@ -689,6 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e55ac5b4f2d00749a1435599e2f7b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFight: 0
   batteryHoleList:
   - {fileID: 1140258071}
   - {fileID: 1140258070}
@@ -751,6 +752,15 @@ MonoBehaviour:
   - {fileID: 1140258013}
   - {fileID: 1140258012}
   - {fileID: 1140258011}
+  groupCheckList:
+  - {fileID: 387933675}
+  - {fileID: 387933674}
+  - {fileID: 387933673}
+  - {fileID: 387933672}
+  - {fileID: 387933671}
+  - {fileID: 387933670}
+  - {fileID: 387933669}
+  - {fileID: 387933668}
 --- !u!1 &303721431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,7 +2735,6 @@ GameObject:
   - component: {fileID: 1141412267}
   - component: {fileID: 1141412268}
   - component: {fileID: 1141412269}
-  - component: {fileID: 1141412270}
   - component: {fileID: 1141412271}
   m_Layer: 0
   m_Name: Camera
@@ -2849,23 +2858,6 @@ MonoBehaviour:
   humScript: {fileID: 1763072688}
   rotateCameraScript: {fileID: 1141412267}
   animator: {fileID: 1141412268}
---- !u!114 &1141412270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1141412262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c11fc24807cfa642acf94cc7d4d4a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stencilZBufferDepth: 0
-  _downsampleFactor: 4
-  iterations: 1
-  blurMinSpread: 0.65
-  blurSpread: 0.25
-  _blurIntensity: 1
 --- !u!114 &1141412271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2879,6 +2871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upDownSpeed: 3
   centerObj: {fileID: 1140258010}
+  clickOver: 0
   groupCheckList: []
 --- !u!1 &1148847922
 GameObject:

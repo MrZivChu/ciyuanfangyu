@@ -172,7 +172,7 @@ public class HUM : MonoBehaviour
     {
         if (hole != null && info != null)
         {
-            recoverBatteryDataScript.InstanceBatteryObj(info, hole);
+            recoverBatteryDataScript.InstanceManagerBatteryObj(info, hole);
             int index = hole.GetComponent<BuildConfig>().index;
             recoverBatteryDataScript.hasDic[index] = info.battleType;
 

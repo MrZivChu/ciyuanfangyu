@@ -32,7 +32,6 @@ public class InfantryEnemy : EnemyParent
                     if (!attacking)
                     {
                         attacking = true;
-                        print("hahah"+attackRepeatRateTime);
                         InvokeRepeating("Attack", 0, attackRepeatRateTime);
                     }
                 }
@@ -112,7 +111,7 @@ public class InfantryEnemy : EnemyParent
                 bullet.transform.localScale = Vector3.one;
                 BulletParent bp = bullet.GetComponent<BulletParent>();
                 bp.target = target;
-                bp.speed = 20;
+                bp.speed = 5;
                 bp.damage = 5;
             }
             else

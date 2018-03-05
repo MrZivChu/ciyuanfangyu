@@ -12,7 +12,7 @@ public class GroupCheck : MonoBehaviour
     }
 
 
-    public static bool canCheck = true;
+    public static bool canCheck = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("checkGroup"))
@@ -54,6 +54,7 @@ public class GroupCheck : MonoBehaviour
     Transform battery3;
     public void Check()
     {
+        return;
         if (list.Count == 3)
         {
             Transform hole1 = list[0];
@@ -104,7 +105,7 @@ public class GroupCheck : MonoBehaviour
                     {
                         //print("所有炮塔类型都一样");
                         //生成Lv3的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole2, 3);
+                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole2, 3);
                         //三个炮塔隐藏                          
                         battery1.gameObject.SetActive(false);
                         battery2.gameObject.SetActive(false);
@@ -114,8 +115,8 @@ public class GroupCheck : MonoBehaviour
                     {
                         //print("第一个炮塔和第二个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
-                        groupObj.transform.Translate(-groupObj.transform.forward * 3, Space.World);
+                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
+                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第一个和第二个的炮塔隐藏
                         battery1.gameObject.SetActive(false);
                         battery2.gameObject.SetActive(false);
@@ -124,8 +125,8 @@ public class GroupCheck : MonoBehaviour
                     {
                         //print("第二个炮塔和第三个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceBatteryObj(BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
-                        groupObj.transform.Translate(-groupObj.transform.forward * 3, Space.World);
+                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
+                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第二个和第三个的炮塔隐藏
                         battery2.gameObject.SetActive(false);
                         battery3.gameObject.SetActive(false);
@@ -142,8 +143,8 @@ public class GroupCheck : MonoBehaviour
                     {
                         //print("第一个炮塔和第二个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
-                        groupObj.transform.Translate(-groupObj.transform.forward * 3, Space.World);
+                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
+                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第一个和第二个的炮塔隐藏
                         battery1.gameObject.SetActive(false);
                         battery2.gameObject.SetActive(false);
@@ -163,8 +164,8 @@ public class GroupCheck : MonoBehaviour
                     {
                         //print("第二个炮塔和第三个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceBatteryObj(BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
-                        groupObj.transform.Translate(-groupObj.transform.forward * 3, Space.World);
+                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
+                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第二个和第三个的炮塔隐藏
                         battery2.gameObject.SetActive(false);
                         battery3.gameObject.SetActive(false);
@@ -226,8 +227,8 @@ public class GroupCheck : MonoBehaviour
                         {
                             //print("所有炮塔类型都一样");
                             //生成Lv2的炮塔
-                            groupObj = recoverBatteryDataScript.InstanceBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
-                            groupObj.transform.Translate(-groupObj.transform.forward * 3, Space.World);
+                            groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
+                            groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                             //两个炮塔隐藏                          
                             battery1.gameObject.SetActive(false);
                             battery2.gameObject.SetActive(false);

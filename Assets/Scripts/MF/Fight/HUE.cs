@@ -20,7 +20,11 @@ public class HUE : MonoBehaviour
         EventTriggerListener.Get(leftBtn.gameObject).onClick = LeftClick;
         EventTriggerListener.Get(leftBtn.gameObject).onDown = LeftDown;
         EventTriggerListener.Get(leftBtn.gameObject).onUp = LeftUp;
+
+
         EventTriggerListener.Get(rightBtn.gameObject).onClick = RightClick;
+        EventTriggerListener.Get(rightBtn.gameObject).onDown = RightDown;
+        EventTriggerListener.Get(rightBtn.gameObject).onUp = RightUp;
 
         InitMercenary();
     }
@@ -32,46 +36,61 @@ public class HUE : MonoBehaviour
 
     //是否长按
     bool isPressing = false;
+    bool isClockwise = false;
     public NewRotateWheel newRotateWheel;
     void LeftClick(GameObject go, object data)
     {
         if (!isPressing)
         {
-            print("click");
-            newRotateWheel.Rotate(true);
+            newRotateWheel.Rotate(isClockwise);
         }
-        newRotateWheel.isStop = true;
+        newRotateWheel.clickOver = true;
     }
 
     void LeftDown(GameObject go, object data)
     {
-        print("down");
+        isClockwise = true;
         isPressing = false;
-        newRotateWheel.isStop = false;
+        newRotateWheel.clickOver = false;
         Invoke("RepeatLeftClick", 0.2f);
     }
 
     void RepeatLeftClick()
     {
-        print("pressing");
         isPressing = true;
-        InvokeRepeating("SingleClick", 0, 0.5f);
+        InvokeRepeating("SingleClick", 0, 0.6f);
     }
 
     void SingleClick()
     {
-        newRotateWheel.Rotate(true);
+        newRotateWheel.Rotate(isClockwise);
     }
 
     void LeftUp(GameObject go, object data)
     {
-        print("up");
         CancelInvoke();
     }
 
     void RightClick(GameObject go, object data)
     {
-        newRotateWheel.Rotate(false);
+        if (!isPressing)
+        {
+            newRotateWheel.Rotate(isClockwise);
+        }
+        newRotateWheel.clickOver = true;
+    }
+
+    void RightDown(GameObject go, object data)
+    {
+        isClockwise = false;
+        isPressing = false;
+        newRotateWheel.clickOver = false;
+        Invoke("RepeatLeftClick", 0.2f);
+    }
+
+    void RightUp(GameObject go, object data)
+    {
+        CancelInvoke();
     }
 
     void InitMercenary()
@@ -97,18 +116,6 @@ public class HUE : MonoBehaviour
         for (int i = count; i < mercenaryGameobjectList.Count; i++)
         {
             mercenaryGameobjectList[i].SetActive(false);
-        }
-    }
-
-    public List<GroupCheck> groupCheckList = new List<GroupCheck>();
-    void CheckGroup()
-    {
-        if (groupCheckList != null && groupCheckList.Count > 0)
-        {
-            for (int i = 0; i < groupCheckList.Count; i++)
-            {
-                groupCheckList[i].Check();
-            }
         }
     }
 }

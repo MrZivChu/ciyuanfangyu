@@ -46,7 +46,8 @@ public class Main : MonoBehaviour
         hotUpdateHelper = GameObject.Find("HotUpdateHelper").GetComponent<HotUpdateHelper>();
 
         EventTriggerListener.Get(startBtn.gameObject).onClick = StartGame;
-        RequestNet();
+        startBtn.gameObject.SetActive(true);
+        //RequestNet();
     }
 
     void StartGame(GameObject obj, object param)

@@ -8,9 +8,14 @@ public class MissileBattery : BatteryParent
     public List<GameObject> canAttackEnemyList = new List<GameObject>();
     public GameObject currentTarget;
 
+    public List<GameObject> barrelList = new List<GameObject>();
+
+    Animator animator;
     private void Start()
     {
-        blood = 100;
+        animator = GetComponent<Animator>();
+        InvokeRepeating("ChooseNewTarget", 0, 0.5f);
+        InvokeRepeating("Shoot", 0, attackRepeatRateTime);
     }
 
     void OnTriggerEnter(Collider other)
@@ -36,99 +41,69 @@ public class MissileBattery : BatteryParent
                 if (canAttackEnemyList.Contains(other.gameObject))
                 {
                     canAttackEnemyList.Remove(other.gameObject);
+                    if (currentTarget != null && currentTarget == other.gameObject)
+                    {
+                        currentTarget = null;
+                    }
                 }
             }
         }
     }
 
-    void Update()
+    //为炮塔选择新的目标
+    void ChooseNewTarget()
     {
-        if (boss != null)
+        if (currentTarget == null)
         {
-            if (blood > 0)
-            {
-                if (currentTarget != null)
-                {
-                    if (currentTarget.GetComponent<EnemyParent>().blood > 0)
-                    {
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            RaycastHit hit;
-                            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                            if (Physics.Raycast(ray, out hit))
-                            {
-                                if (hit.transform.CompareTag("Battery"))
-                                {
-                                    Shoot();
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        RemoveEnemy(currentTarget);
-                        currentTarget = null;
-                        GetEnemy();
-                    }
-                }
-                else
-                {
-                    GetEnemy();
-                }
-            }
+            currentTarget = GetEnemy();
         }
     }
 
     public override void Shoot()
     {
-        if (boss != null)
+        if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
         {
-            if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
+            if (barrelList != null && barrelList.Count > 0)
             {
-                GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
-                bullet.transform.position = transform.position;
-                //bullet.transform.localScale = Vector3.one;
-                BulletParent bp = bullet.GetComponent<BulletParent>();
-                bp.target = currentTarget;
-                bp.speed = 5;
-                bp.damage = 10;
-            }
-        }
-    }
-
-    //获取一个敌人
-    void GetEnemy()
-    {
-        if (currentTarget == null)
-        {
-            if (canAttackEnemyList != null && canAttackEnemyList.Count > 0)
-            {
-                GameObject item = null;
-                for (int i = 0; i < canAttackEnemyList.Count; i++)
+                for (int i = 0; i < barrelList.Count; i++)
                 {
-                    item = canAttackEnemyList[i];
-                    if (item.GetComponent<EnemyParent>().blood <= 0)
-                    {
-                        canAttackEnemyList.Remove(item);
-                    }
-                    else
-                    {
-                        currentTarget = item;
-                    }
+                    Transform tt = barrelList[i].transform;
+                    GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
+                    bullet.transform.position = tt.position;
+                    //bullet.transform.localScale = Vector3.one;
+                    BulletParent bp = bullet.GetComponent<BulletParent>();
+                    bp.target = currentTarget;
+                    bp.speed = 5;
+                    bp.damage = 1;
+                    animator.SetTrigger("shootTrigger");
                 }
             }
         }
     }
 
-    //移除一个敌人
-    void RemoveEnemy(GameObject item)
+    //获取一个敌人
+    GameObject GetEnemy()
     {
         if (canAttackEnemyList != null && canAttackEnemyList.Count > 0)
         {
-            if (canAttackEnemyList.Contains(item))
+            GameObject item = null;
+            for (int i = 0; i < canAttackEnemyList.Count; i++)
             {
-                canAttackEnemyList.Remove(item);
+                item = canAttackEnemyList[i];
+                if (item == null)
+                {
+                    canAttackEnemyList.Remove(item);
+                }
+                else if (item.GetComponent<EnemyParent>().blood <= 0)
+                {
+                    canAttackEnemyList.Remove(item);
+                }
+                else
+                {
+                    return item;
+                }
             }
         }
+        return null;
     }
 }
