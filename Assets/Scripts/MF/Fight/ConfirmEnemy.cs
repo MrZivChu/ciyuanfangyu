@@ -8,7 +8,6 @@ public class ConfirmEnemy : MonoBehaviour
     public List<GameObject> canAttackList = new List<GameObject>();
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
         if (other.CompareTag("enemyConfirm"))
         {
             Transform pos = other.transform.GetChild(0);

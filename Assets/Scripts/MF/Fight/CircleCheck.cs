@@ -14,8 +14,15 @@ public class CircleCheck : MonoBehaviour
 {
     public Part part;
 
+    CircleCheckManager circleCheckManager = null;
+    void Awake()
+    {
+        GameObject go = GameObject.Find("Manager");
+        if (go != null)
+            circleCheckManager = go.GetComponent<CircleCheckManager>();
+    }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("circleCheck"))
         {
@@ -30,11 +37,15 @@ public class CircleCheck : MonoBehaviour
             {
                 rangeScript.rightIndex = index;
             }
+            CheckCircle();
+        }
+    }
 
-            if (!CircleCheckManager.rangList.Contains(rangeScript))
-            {
-                CircleCheckManager.rangList.Add(rangeScript);
-            }
+    void CheckCircle()
+    {
+        if (circleCheckManager != null)
+        {
+            circleCheckManager.Check();
         }
     }
 }

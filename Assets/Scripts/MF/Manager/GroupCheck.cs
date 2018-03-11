@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroupCheck : MonoBehaviour
 {
-    public RecoverBatteryData recoverBatteryDataScript;
+    public RecoverFightBatteryData recoverBatteryDataScript;
     public List<Transform> list = new List<Transform>();
 
     private void Start()

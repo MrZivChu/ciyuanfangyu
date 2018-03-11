@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //恢复设置的炮塔数据
-public class RecoverBatteryData : MonoBehaviour
+public class RecoverFightBatteryData : MonoBehaviour
 {
     public bool isFight = false;
     bool startChangeAttackBattle = false;
