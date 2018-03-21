@@ -3,117 +3,102 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //恢复设置的炮塔数据
-public class RecoverFightBatteryData : MonoBehaviour
+public class RecoverFightBatteryData : RecoverBatteryDataBase
 {
-    public bool isFight = false;
-    bool startChangeAttackBattle = false;
-
-    //坑
-    public List<GameObject> batteryHoleList = new List<GameObject>();
-    //索引对应坑
-    public Dictionary<int, GameObject> holeDic = new Dictionary<int, GameObject>();
-    //坑对应炮塔类型
-    public Dictionary<int, BatteryType> hasDic = new Dictionary<int, BatteryType>();
-
     void Start()
     {
-        HandleHoleList();
-        HandleRecoverData();
-        CheckGroup();
+        base.BaseStart();
 
-        if (isFight)
-        {
-            Invoke("ChangeAttackBattle", 2);
-        }
-    }
-
-    public List<GroupCheck> groupCheckList = new List<GroupCheck>();
-    void CheckGroup()
-    {
-        if (groupCheckList != null && groupCheckList.Count > 0)
-        {
-            for (int i = 0; i < groupCheckList.Count; i++)
-            {
-                groupCheckList[i].Check();
-            }
-        }
+        Invoke("ChangeAttackBattle", 2);
     }
 
     void ChangeAttackBattle()
     {
-        foreach (GameObject item in tempObjList)
+        foreach (Transform item in tempHoleList)
         {
-            Destroy(item);
+            int count = item.childCount;
+            if (count > 3)
+            {
+                GameObject groupObj = item.GetChild(count - 1).gameObject;
+                if (groupObj != null)
+                {
+                    int num = groupObj.transform.childCount;
+                    if (num > 0)
+                    {
+                        Transform tt = groupObj.transform.GetChild(num - 1);
+                        if (tt != null)
+                        {
+                            Range range = tt.GetComponent<Range>();
+                            if (range != null)
+                            {
+                                if (RangeCheckManager.rangList.Contains(range))
+                                    RangeCheckManager.rangList.Remove(range);
+                            }
+                        }
+                    }
+                    DestroyImmediate(groupObj);
+                }
+            }
+            DestoryBattery(item);
         }
+        print("*************开始换战斗炮塔*************");
         HandleRecoverData();
     }
 
-    void HandleHoleList()
+    public List<Transform> tempHoleList = new List<Transform>();
+    public override GameObject SpawnBattery(BatteryConfigInfo info, Transform hole, int level = 1)
     {
-        if (batteryHoleList != null && batteryHoleList.Count > 0)
+        GameObject go = null;
+        if (hole != null && info != null)
         {
-            for (int i = 0; i < batteryHoleList.Count; i++)
+            go = InstanceManagerBatteryObj(info, hole, level);
+            if (go != null)
             {
-                BuildConfig bc = batteryHoleList[i].GetComponent<BuildConfig>();
-                if (!holeDic.ContainsKey(bc.index))
-                {
-                    holeDic[bc.index] = batteryHoleList[i];
-                }
-            }
-        }
-    }
-    public CircleCheckManager circleCheckManager;
+                int index = hole.GetComponent<BuildConfig>().index;
 
-    List<GameObject> tempObjList = new List<GameObject>();
-    void HandleRecoverData()
-    {
-        List<ServerBatteryData> serverDataList = ServerDataHelper.GetServerBatteryData();
-        if (batteryHoleList != null && batteryHoleList.Count > 0)
-        {
-            if (serverDataList != null && serverDataList.Count > 0)
-            {
-                for (int i = 0; i < serverDataList.Count; i++)
+                ServerBatteryData bd = new ServerBatteryData();
+                bd.batteryLevel = level;
+                bd.batteryType = info.battleType;
+                bd.index = index;
+
+                if (level == 1)
                 {
-                    ServerBatteryData bd = serverDataList[i];
-                    if (holeDic.ContainsKey(bd.index))
+                    tempHoleList.Add(hole);
+                    hasHoleWithTypeDic[index] = info.battleType;
+                    ServerDataHelper.AddSingleServerBatteryData(bd);
+
+                    SpawnSingleRange(bd, go.transform);
+
+                    CheckGroup();
+                    CheckRange();
+                }
+                else
+                {
+                    if (level == 2)
                     {
-                        if (BatteryDataConfigTable.dic.ContainsKey(bd.batteryType))
-                        {
-                            BatteryConfigInfo info = BatteryDataConfigTable.dic[bd.batteryType];
-                            GameObject hole = holeDic[bd.index];
-                            GameObject go = InstanceManagerBatteryObj(info, hole.transform);
-                            if (isFight)
-                            {
-                                tempObjList.Add(go);
-                            }
-                            hasDic[bd.index] = bd.batteryType;
-                        }
+                        go.transform.Translate(go.transform.forward * 3, Space.World);
                     }
+
+                    SpawnSingleRange(bd, go.transform);
+                    CheckRange();
                 }
             }
         }
-        if (circleCheckManager != null)
-            circleCheckManager.Check();
+        return go;
     }
 
-    public GameObject InstanceManagerBatteryObj(BatteryConfigInfo info, Transform parent, int level = 1)
+    bool startChangeAttackBattle = false;
+    public override GameObject InstanceManagerBatteryObj(BatteryConfigInfo info, Transform parent, int level = 1)
     {
         Object obj = null;
-        if (isFight)
+        if (startChangeAttackBattle)
         {
-            if (startChangeAttackBattle)
-            {
-                obj = Resources.Load(info.battleType + "AttackLv" + level);
-            }
-            else
-            {
-                startChangeAttackBattle = true;
-                obj = Resources.Load(info.battleType + "DeformationLv" + level);
-            }
+            obj = Resources.Load(info.battleType + "AttackLv" + level);
         }
         else
         {
-            obj = Resources.Load(info.battleType + "Lv" + level);
+            startChangeAttackBattle = true;
+            obj = Resources.Load(info.battleType + "DeformationLv" + level);
         }
         if (obj != null)
         {
@@ -140,11 +125,8 @@ public class RecoverFightBatteryData : MonoBehaviour
             tempGO.transform.LookAt(vv);
             tempGO.transform.Rotate(Vector3.up, 180);
 
-
             return tempGO;
         }
         return null;
     }
-
-
 }

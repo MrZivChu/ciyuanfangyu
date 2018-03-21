@@ -36,4 +36,6 @@ public abstract class BatteryParent : MonoBehaviour
 
     public GameObject boss;
 
+    public List<GameObject> singleHoleList;
+
 }

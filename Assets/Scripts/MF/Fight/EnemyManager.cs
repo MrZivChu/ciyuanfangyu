@@ -21,6 +21,7 @@ public class EachWaveConfig
 
 public class EnemyManager : MonoBehaviour
 {
+    public RecoverBatteryDataBase recoverBatteryDataBase;
     //敌人出生点
     public List<Transform> enemySpawnPointList = new List<Transform>();
 
@@ -41,27 +42,27 @@ public class EnemyManager : MonoBehaviour
             Transform pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.point = pos;
             ewc.enemyTypelist = new List<EnemyParent>() {
-                new InfantryEnemy() { blood = 100, maxAttackDistance = 35, walkSpeed = 2, attackRepeatRateTime = 2 }
+                new InfantryEnemy() { blood = 100, maxAttackDistance = 35, walkSpeed = 4, attackRepeatRateTime = 4,model="InfantryEnemy",attackValue=100 ,recoverBatteryDataBase =recoverBatteryDataBase }
             };
             eachWaveConfigList.Add(ewc);
 
-            ewc = new EachWaveConfig();
-            ewc.startTime = 5;
-            pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
-            ewc.point = pos;
-            ewc.enemyTypelist = new List<EnemyParent>() {
-                new InfantryEnemy() { blood = 100, maxAttackDistance = 31,  walkSpeed = 5, attackRepeatRateTime = 2 }
-            };
-            eachWaveConfigList.Add(ewc);
+            //ewc = new EachWaveConfig();
+            //ewc.startTime = 5;
+            //pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
+            //ewc.point = pos;
+            //ewc.enemyTypelist = new List<EnemyParent>() {
+            //    new InfantryEnemy() { blood = 100, maxAttackDistance = 31,  walkSpeed = 5, attackRepeatRateTime = 2 ,model="InfantryEnemy" ,attackValue=100,recoverBatteryDataBase =recoverBatteryDataBase}
+            //};
+            //eachWaveConfigList.Add(ewc);
 
-            ewc = new EachWaveConfig();
-            ewc.startTime = 12;
-            pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
-            ewc.point = pos;
-            ewc.enemyTypelist = new List<EnemyParent>(){
-                new InfantryEnemy() { blood = 100, maxAttackDistance = 31,  walkSpeed = 10, attackRepeatRateTime = 2 }
-            };
-            eachWaveConfigList.Add(ewc);
+            //ewc = new EachWaveConfig();
+            //ewc.startTime = 12;
+            //pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
+            //ewc.point = pos;
+            //ewc.enemyTypelist = new List<EnemyParent>(){
+            //    new InfantryEnemy() { blood = 100, maxAttackDistance = 31,  walkSpeed = 10, attackRepeatRateTime = 2,model="InfantryEnemy" ,attackValue=100,recoverBatteryDataBase =recoverBatteryDataBase }
+            //};
+            //eachWaveConfigList.Add(ewc);
         }
 
         if (eachWaveConfigList != null && eachWaveConfigList.Count > 0)
@@ -100,21 +101,18 @@ public class EnemyManager : MonoBehaviour
         foreach (var item in ewc.enemyTypelist)
         {
             string resourceName = string.Empty;
-            Type type;
-            if (item is InfantryEnemy)
-            {
-                type = typeof(InfantryEnemy);
-                resourceName = type.ToString();
-                go = Instantiate(Resources.Load(resourceName)) as GameObject;
-                InfantryEnemy infantryEnemy = go.AddComponent<InfantryEnemy>();
-                infantryEnemy.blood = item.blood;
-                infantryEnemy.maxAttackDistance = item.maxAttackDistance;
-                infantryEnemy.walkSpeed = item.walkSpeed;
-                infantryEnemy.attackRepeatRateTime = item.attackRepeatRateTime;
-                go.transform.position = ewc.point.position;
+            go = Instantiate(Resources.Load(item.model)) as GameObject;
+            EnemyParent enemyParent = go.GetComponent<EnemyParent>();
+            enemyParent.blood = item.blood;
+            enemyParent.maxAttackDistance = item.maxAttackDistance;
+            enemyParent.walkSpeed = item.walkSpeed;
+            enemyParent.attackRepeatRateTime = item.attackRepeatRateTime;
+            enemyParent.attackValue = item.attackValue;
+            enemyParent.recoverBatteryDataBase = item.recoverBatteryDataBase;
 
-                HandleDic(ewc.point, go);
-            }
+            go.transform.position = ewc.point.position;
+
+            HandleDic(ewc.point, go);
         }
     }
 

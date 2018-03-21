@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EnemyParent : MonoBehaviour
-{  
+{
+    public void BaseAwake()
+    {
+        boss = GameObject.Find("boss");
+    }
+
+    //敌人的模型
+    public string model;
+
     //血量
     public float blood;
 
@@ -13,6 +21,9 @@ public abstract class EnemyParent : MonoBehaviour
     //行走速度
     public float walkSpeed;
 
+    //攻击伤害
+    public float attackValue;
+
     //攻击距离
     public float maxAttackDistance;
 
@@ -21,7 +32,12 @@ public abstract class EnemyParent : MonoBehaviour
 
     //攻击行为
     public abstract void Attack();
-    
+
+    //死亡行为
+    public abstract void Die();
+
     public GameObject boss;
+
+    public RecoverBatteryDataBase recoverBatteryDataBase;
 
 }

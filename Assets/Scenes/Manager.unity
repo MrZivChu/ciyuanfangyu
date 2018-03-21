@@ -751,7 +751,7 @@ MonoBehaviour:
   - {fileID: 1140258013}
   - {fileID: 1140258012}
   - {fileID: 1140258011}
-  circleCheckManager: {fileID: 278056702}
+  rangeCheckManager: {fileID: 278056702}
   groupCheckList:
   - {fileID: 387933675}
   - {fileID: 387933674}
@@ -1176,6 +1176,46 @@ Prefab:
       propertyPath: recoverBatteryDataScript
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114073893078175948, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114724022690931890, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114977249090906614, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114819441577839188, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114769981291680808, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114371765713008780, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114089625413828692, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
+    - target: {fileID: 114628924810545086, guid: 6151ac76eb6da634eb341ff647e79d2c,
+        type: 2}
+      propertyPath: recoverBatteryDataBase
+      value: 
+      objectReference: {fileID: 278056701}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6151ac76eb6da634eb341ff647e79d2c, type: 2}
   m_IsPrefabParent: 0
@@ -3460,7 +3500,6 @@ MonoBehaviour:
   upDownSpeed: 3
   centerObj: {fileID: 1140258010}
   clickOver: 0
-  circleCheckManager: {fileID: 0}
   groupCheckList: []
 --- !u!1 &1148847922
 GameObject:
@@ -5148,7 +5187,7 @@ MonoBehaviour:
   - {fileID: 394759808}
   - {fileID: 1187317475}
   - {fileID: 1385335823}
-  recoverManagerBatteryDataScript: {fileID: 278056701}
+  recoverBatteryDataBase: {fileID: 278056701}
   isChangePosition: 0
   currentHitHoleObj: {fileID: 0}
   preHitHoleObj: {fileID: 0}

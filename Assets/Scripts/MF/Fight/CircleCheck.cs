@@ -14,12 +14,12 @@ public class CircleCheck : MonoBehaviour
 {
     public Part part;
 
-    CircleCheckManager circleCheckManager = null;
+    RangeCheckManager rangeCheckManager = null;
     void Awake()
     {
         GameObject go = GameObject.Find("Manager");
         if (go != null)
-            circleCheckManager = go.GetComponent<CircleCheckManager>();
+            rangeCheckManager = go.GetComponent<RangeCheckManager>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -37,15 +37,16 @@ public class CircleCheck : MonoBehaviour
             {
                 rangeScript.rightIndex = index;
             }
-            CheckCircle();
+
+            CheckRange();
         }
     }
 
-    void CheckCircle()
+    void CheckRange()
     {
-        if (circleCheckManager != null)
+        if (rangeCheckManager != null)
         {
-            circleCheckManager.Check();
+            rangeCheckManager.Check();
         }
     }
 }

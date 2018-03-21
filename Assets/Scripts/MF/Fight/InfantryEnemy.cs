@@ -5,114 +5,106 @@ using UnityEngine;
 
 public class InfantryEnemy : EnemyParent
 {
-    List<GameObject> attackTargetList = new List<GameObject>();
-
-    private void Start()
+    void Awake()
     {
-        boss = GameObject.Find("boss");
+        base.BaseAwake();
         transform.LookAt(boss.transform);
-        attackTargetList.Add(boss);
-        getTarget();
     }
 
-    //是否正在攻击
-    bool attacking = false;
+    public List<GameObject> attackTargetList = new List<GameObject>();
+    Animator animator;
+
+    System.Random random;
+    private void Start()
+    {
+        random = new System.Random();
+        animator = GetComponent<Animator>();
+
+        InvokeRepeating("getTarget", 0, 0.2f);
+        InvokeRepeating("Attack", 0, attackRepeatRateTime);
+    }
+
     void Update()
     {
         if (boss != null)
         {
-            if (target != null)
+            if (target == null)
             {
-                if (Vector3.Distance(transform.position, target.transform.position) > maxAttackDistance)
+                transform.LookAt(boss.transform);
+                transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+            }
+        }
+    }
+
+    public void getTarget()
+    {
+        if (target == null && blood > 0)
+        {
+            if (attackTargetList.Count > 0)
+            {
+                GameObject temp = null;
+                for (int i = attackTargetList.Count - 1; i >= 0; i--)
                 {
-                    transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
-                }
-                else
-                {
-                    if (!attacking)
+                    temp = attackTargetList[i];
+                    if (temp != null)
                     {
-                        attacking = true;
-                        InvokeRepeating("Attack", 0, attackRepeatRateTime);
-                    }
-                }
-            }
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Battery"))
-        {
-            print("碰到了炮塔" + other.name);
-            if (!attackTargetList.Contains(other.gameObject))
-            {
-                attackTargetList.Add(other.gameObject);
-                //一开始目标是boss，中途遇到和自己最近的炮塔，那么就必须进行攻击
-                attacking = false;
-                getTarget();
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Battery"))
-        {
-            print("炮塔" + other.name + "离开了");
-            if (attackTargetList.Contains(other.gameObject))
-            {
-                attackTargetList.Remove(other.gameObject);
-            }
-            //如果是当前攻击的目标离开了，那么就要重新获取新的目标
-            if (target != null && other.gameObject == target)
-            {
-                attacking = false;
-                getTarget();
-            }
-        }
-    }
-
-    void getTarget()
-    {
-        if (attackTargetList.Count > 0)
-        {
-            float tDistance = Vector3.Distance(transform.position, attackTargetList[0].transform.position);
-            GameObject tCurrentTarget = attackTargetList[0];
-            if (attackTargetList.Count > 1)
-            {
-                for (int i = 1; i < attackTargetList.Count; i++)
-                {
-                    if (attackTargetList[i] != null)
-                    {
-                        float tCurrentDistance = Vector3.Distance(transform.position, attackTargetList[i].transform.position);
-                        if (tCurrentDistance < tDistance)
+                        BatteryParent bp = temp.GetComponent<BatteryParent>();
+                        if (bp != null && bp.blood > 0)
                         {
-                            tCurrentTarget = attackTargetList[i];
+                            target = temp;
+                            animator.SetBool("canWalk", false);
+                            Attack();
+                            return;
+                        }
+                        else
+                        {
+                            HandleDieTarget(temp);
                         }
                     }
+                    else
+                    {
+                        attackTargetList.Remove(temp);
+                    }
                 }
             }
-            target = tCurrentTarget;
+            animator.SetBool("canAttack", false);
+            animator.SetFloat("walkSpeed", walkSpeed);
+            animator.SetBool("canWalk", true);
         }
-        else
+    }
+
+    void HandleDieTarget(GameObject temp)
+    {
+        BatteryParent bp = temp.GetComponent<BatteryParent>();
+        if (bp != null)
         {
-            target = null;
+            List<GameObject> bList = bp.singleHoleList;
+            if (bList != null && bList.Count > 0)
+            {
+                for (int j = 0; j < bList.Count; j++)
+                {
+                    recoverBatteryDataBase.DestoryBattery(bList[j].transform);
+                }
+                recoverBatteryDataBase.DestoryGroupBattery(temp);
+            }
         }
+        attackTargetList.Remove(temp);
     }
 
     public override void Attack()
     {
-        if (boss != null)
+        if (boss != null && target != null && blood > 0)
         {
-            if (target != null && target.GetComponent<BatteryParent>() != null && target.GetComponent<BatteryParent>().blood > 0)
+            BatteryParent batteryScript = target.GetComponent<BatteryParent>();
+            if (target != null && batteryScript != null && batteryScript.blood > 0)
             {
-                GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
-                bullet.transform.position = transform.position;
-                bullet.transform.localScale = Vector3.one;
-                BulletParent bp = bullet.GetComponent<BulletParent>();
-                bp.target = target;
-                bp.speed = 5;
-                bp.damage = 5;
+                animator.SetInteger("attackType", random.Next(1, 3));
+                animator.SetBool("canAttack", true);
+                batteryScript.blood -= attackValue;
+                if (batteryScript.blood <= 0)
+                {
+                    HandleDieTarget(target);
+                }
             }
             else
             {
@@ -120,9 +112,29 @@ public class InfantryEnemy : EnemyParent
                 {
                     attackTargetList.Remove(target);
                 }
-                attacking = false;
                 getTarget();
             }
+        }
+    }
+
+    bool isPlayingDie = false;
+    public override void Die()
+    {
+        if (blood <= 0 && !isPlayingDie)
+        {
+            isPlayingDie = true;
+            animator.SetBool("canAttack", false);
+            animator.SetBool("canWalk", false);
+            animator.SetTrigger("die");
+            Invoke("DestoryOwn", 3.5f);
+        }
+    }
+
+    void DestoryOwn()
+    {
+        if (gameObject)
+        {
+            Destroy(gameObject);
         }
     }
 }

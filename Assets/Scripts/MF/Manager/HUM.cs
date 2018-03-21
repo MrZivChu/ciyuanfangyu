@@ -76,7 +76,7 @@ public class HUM : MonoBehaviour
 
     public static bool uiIsShow = false;
 
-    public RecoverManagerBatteryData recoverManagerBatteryDataScript;
+    public RecoverBatteryDataBase recoverBatteryDataBase;
 
     public bool isChangePosition = false;
     public Transform currentHitHoleObj;
@@ -119,7 +119,7 @@ public class HUM : MonoBehaviour
                                 }
                                 else
                                 {
-                                    if (!recoverManagerBatteryDataScript.hasDic.ContainsKey(bc.index))
+                                    if (!recoverBatteryDataBase.hasHoleWithTypeDic.ContainsKey(bc.index))
                                     {
                                         uiIsShow = true;
                                         GameObject go = Instantiate(buildSelectedResource) as GameObject;
@@ -156,11 +156,11 @@ public class HUM : MonoBehaviour
 
     GameObject preBatteryObj;
     GameObject currentBatteryObj;
-    public void SpawnBattery(BatteryConfigInfo info, Transform hole)
+    public void PlaceBattery(BatteryConfigInfo info, Transform hole)
     {
         if (hole != null && info != null)
         {
-            recoverManagerBatteryDataScript.SpawnBattery(info, hole);
+            recoverBatteryDataBase.SpawnBattery(info, hole);
 
             currentBatteryObj = hole.GetChild(2).gameObject;
             ChangeHighLight();
@@ -181,7 +181,7 @@ public class HUM : MonoBehaviour
     {
         if (hold != null)
         {
-            recoverManagerBatteryDataScript.DestoryBattery(hold);
+            recoverBatteryDataBase.DestoryBattery(hold);
         }
     }
 
@@ -193,19 +193,19 @@ public class HUM : MonoBehaviour
         }
         BuildConfig b1 = firstHole.GetComponent<BuildConfig>();
         BuildConfig b2 = secondHole.GetComponent<BuildConfig>();
-        bool needSpawn1 = recoverManagerBatteryDataScript.hasDic.ContainsKey(b1.index);
-        bool needSpawn2 = recoverManagerBatteryDataScript.hasDic.ContainsKey(b2.index);
+        bool needSpawn1 = recoverBatteryDataBase.hasHoleWithTypeDic.ContainsKey(b1.index);
+        bool needSpawn2 = recoverBatteryDataBase.hasHoleWithTypeDic.ContainsKey(b2.index);
 
-        BatteryType bt1 = needSpawn1 ? recoverManagerBatteryDataScript.hasDic[b1.index] : BatteryType.None;
-        BatteryType bt2 = needSpawn2 ? recoverManagerBatteryDataScript.hasDic[b2.index] : BatteryType.None;
+        BatteryType bt1 = needSpawn1 ? recoverBatteryDataBase.hasHoleWithTypeDic[b1.index] : BatteryType.None;
+        BatteryType bt2 = needSpawn2 ? recoverBatteryDataBase.hasHoleWithTypeDic[b2.index] : BatteryType.None;
 
         DestoryBattery(firstHole);
         DestoryBattery(secondHole);
 
         if (needSpawn2)
-            SpawnBattery(BatteryDataConfigTable.dic[bt2], firstHole);
+            PlaceBattery(BatteryDataConfigTable.dic[bt2], firstHole);
         if (needSpawn1)
-            SpawnBattery(BatteryDataConfigTable.dic[bt1], secondHole);
+            PlaceBattery(BatteryDataConfigTable.dic[bt1], secondHole);
 
     }
 }

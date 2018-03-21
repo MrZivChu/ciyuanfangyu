@@ -16,34 +16,24 @@ public class MissileBattery : BatteryParent
         animator = GetComponent<Animator>();
         InvokeRepeating("ChooseNewTarget", 0, 0.5f);
         InvokeRepeating("Shoot", 0, attackRepeatRateTime);
+
+        ConfirmEnemy();
     }
 
-    void OnTriggerEnter(Collider other)
+    void ConfirmEnemy()
     {
-        if (other.CompareTag("enemy"))
+        if (transform.childCount > 0)
         {
-            if (canAttackEnemyList != null)
+            Transform range = transform.GetChild(transform.childCount - 1);
+            if (range != null && range.childCount > 0)
             {
-                if (!canAttackEnemyList.Contains(other.gameObject))
+                Transform confirmEnemyObj = range.GetChild(range.childCount - 1);
+                if (confirmEnemyObj != null)
                 {
-                    canAttackEnemyList.Add(other.gameObject);
-                }
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("enemy"))
-        {
-            if (canAttackEnemyList != null)
-            {
-                if (canAttackEnemyList.Contains(other.gameObject))
-                {
-                    canAttackEnemyList.Remove(other.gameObject);
-                    if (currentTarget != null && currentTarget == other.gameObject)
+                    ConfirmEnemy cef = confirmEnemyObj.GetComponent<ConfirmEnemy>();
+                    if (cef != null)
                     {
-                        currentTarget = null;
+                        canAttackEnemyList = cef.canAttackList;
                     }
                 }
             }
@@ -73,8 +63,8 @@ public class MissileBattery : BatteryParent
                     //bullet.transform.localScale = Vector3.one;
                     BulletParent bp = bullet.GetComponent<BulletParent>();
                     bp.target = currentTarget;
-                    bp.speed = 5;
-                    bp.damage = 1;
+                    bp.speed = 15;
+                    bp.damage = 0.01f;
                     animator.SetTrigger("shootTrigger");
                 }
             }
@@ -87,20 +77,27 @@ public class MissileBattery : BatteryParent
         if (canAttackEnemyList != null && canAttackEnemyList.Count > 0)
         {
             GameObject item = null;
-            for (int i = 0; i < canAttackEnemyList.Count; i++)
+            for (int i = canAttackEnemyList.Count - 1; i >= 0; i--)
             {
                 item = canAttackEnemyList[i];
-                if (item == null)
+                if (item != null)
                 {
-                    canAttackEnemyList.Remove(item);
-                }
-                else if (item.GetComponent<EnemyParent>().blood <= 0)
-                {
-                    canAttackEnemyList.Remove(item);
+                    EnemyParent ep = item.GetComponent<EnemyParent>();
+                    if (ep != null && ep.blood > 0)
+                    {
+                        if (Vector3.Distance(transform.position, item.transform.position) < (maxAttackDistance - 5))
+                        {
+                            return item;
+                        }
+                    }
+                    else
+                    {
+                        canAttackEnemyList.Remove(item);
+                    }
                 }
                 else
                 {
-                    return item;
+                    canAttackEnemyList.Remove(item);
                 }
             }
         }

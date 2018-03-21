@@ -74,7 +74,6 @@ public class NewRotateWheel : MonoBehaviour
 
         if (canRotate)
         {
-            circleCheckManager.Check();
             RotateEndHandle();
         }
         if (canUp)
@@ -88,8 +87,6 @@ public class NewRotateWheel : MonoBehaviour
     }
     [HideInInspector]
     public bool clickOver = false;
-
-    public CircleCheckManager circleCheckManager;
 
     bool canDown = false;
     bool canUp = false;
@@ -187,7 +184,6 @@ public class NewRotateWheel : MonoBehaviour
             {
                 canDown = false;
                 CheckGroup();
-                circleCheckManager.Check();
             }
         }
     }

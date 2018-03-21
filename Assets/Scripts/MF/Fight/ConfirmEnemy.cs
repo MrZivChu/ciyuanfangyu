@@ -13,7 +13,8 @@ public class ConfirmEnemy : MonoBehaviour
             Transform pos = other.transform.GetChild(0);
             if (EnemyManager.dic.ContainsKey(pos))
             {
-                canAttackList = EnemyManager.dic[pos];
+                canAttackList.Clear();
+                canAttackList.AddRange(EnemyManager.dic[pos]);
             }
         }
     }

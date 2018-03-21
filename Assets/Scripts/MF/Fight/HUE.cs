@@ -40,6 +40,7 @@ public class HUE : MonoBehaviour
     public NewRotateWheel newRotateWheel;
     void LeftClick(GameObject go, object data)
     {
+        GroupCheck.needTriggerEnterCheck = true;
         if (!isPressing)
         {
             newRotateWheel.Rotate(isClockwise);
@@ -49,6 +50,7 @@ public class HUE : MonoBehaviour
 
     void LeftDown(GameObject go, object data)
     {
+        GroupCheck.needTriggerEnterCheck = false;
         isClockwise = true;
         isPressing = false;
         newRotateWheel.clickOver = false;
@@ -73,6 +75,7 @@ public class HUE : MonoBehaviour
 
     void RightClick(GameObject go, object data)
     {
+        GroupCheck.needTriggerEnterCheck = true;
         if (!isPressing)
         {
             newRotateWheel.Rotate(isClockwise);
@@ -82,6 +85,7 @@ public class HUE : MonoBehaviour
 
     void RightDown(GameObject go, object data)
     {
+        GroupCheck.needTriggerEnterCheck = false;
         isClockwise = false;
         isPressing = false;
         newRotateWheel.clickOver = false;

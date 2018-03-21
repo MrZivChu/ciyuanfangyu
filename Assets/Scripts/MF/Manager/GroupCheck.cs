@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class GroupCheck : MonoBehaviour
 {
-    public RecoverFightBatteryData recoverBatteryDataScript;
+    public RecoverBatteryDataBase recoverBatteryDataBase;
     public List<Transform> list = new List<Transform>();
 
     private void Start()
     {
     }
 
-
-    public static bool canCheck = false;
+    public static bool needTriggerEnterCheck = true;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("checkGroup"))
@@ -21,8 +20,9 @@ public class GroupCheck : MonoBehaviour
             if (!list.Contains(hole))
             {
                 list.Add(hole);
-                //print("触发器" + gameObject.name);
-                if (canCheck)
+                print("触发器" + gameObject.name);
+
+                if (needTriggerEnterCheck)
                 {
                     Check();
                 }
@@ -37,7 +37,7 @@ public class GroupCheck : MonoBehaviour
             Transform hole = other.transform.parent;
             if (list.Contains(hole))
             {
-                //print(other.name + "离开了");
+                print(other.name + "离开了");
                 if (hole.childCount > 2)
                 {
                     hole.GetChild(2).gameObject.SetActive(true);
@@ -54,7 +54,7 @@ public class GroupCheck : MonoBehaviour
     Transform battery3;
     public void Check()
     {
-        return;
+        print(gameObject.name);
         if (list.Count == 3)
         {
             Transform hole1 = list[0];
@@ -69,16 +69,16 @@ public class GroupCheck : MonoBehaviour
             index1 = indexList[0];
             index2 = indexList[1];
             index3 = indexList[2];
-
-            Dictionary<int, BatteryType> dic = recoverBatteryDataScript.hasDic;
+            Dictionary<int, BatteryType> dic = recoverBatteryDataBase.hasHoleWithTypeDic;
             if (dic != null && dic.Count > 0)
             {
-                hole1 = recoverBatteryDataScript.holeDic[index1].transform;
-                hole2 = recoverBatteryDataScript.holeDic[index2].transform;
-                hole3 = recoverBatteryDataScript.holeDic[index3].transform;
+                hole1 = recoverBatteryDataBase.holeDic[index1].transform;
+                hole2 = recoverBatteryDataBase.holeDic[index2].transform;
+                hole3 = recoverBatteryDataBase.holeDic[index3].transform;
 
                 //之前的组合炮塔销毁
-                DestoryGroupBattery();
+                recoverBatteryDataBase.DestoryGroupBattery(groupObj);
+
                 if (hole1.childCount > 2)
                 {
                     battery1 = hole1.GetChild(2);
@@ -103,9 +103,10 @@ public class GroupCheck : MonoBehaviour
                 {
                     if (dic[index1] == dic[index2] && dic[index2] == dic[index3])
                     {
-                        //print("所有炮塔类型都一样");
+                        print("所有炮塔类型都一样");
                         //生成Lv3的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole2, 3);
+                        List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject, hole3.gameObject };
+                        groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole2, 3);
                         //三个炮塔隐藏                          
                         battery1.gameObject.SetActive(false);
                         battery2.gameObject.SetActive(false);
@@ -113,76 +114,79 @@ public class GroupCheck : MonoBehaviour
                     }
                     else if (dic[index1] == dic[index2] && dic[index2] != dic[index3])
                     {
-                        //print("第一个炮塔和第二个炮塔类型一样");
+                        print("第一个炮塔和第二个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
-                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
+                        List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject };
+                        groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
+                        //groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第一个和第二个的炮塔隐藏
                         battery1.gameObject.SetActive(false);
                         battery2.gameObject.SetActive(false);
                     }
                     else if (dic[index2] == dic[index3] && dic[index1] != dic[index2])
                     {
-                        //print("第二个炮塔和第三个炮塔类型一样");
+                        print("第二个炮塔和第三个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
-                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
+                        List<GameObject> list = new List<GameObject>() { hole2.gameObject, hole3.gameObject };
+                        groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
+                        //groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第二个和第三个的炮塔隐藏
                         battery2.gameObject.SetActive(false);
                         battery3.gameObject.SetActive(false);
                     }
                     else
                     {
-                        //print("第一个和第三个的炮塔无法进行组合");
+                        print("第一个和第三个的炮塔无法进行组合");
                     }
-
                 }
                 else if (hasBattery1 && hasBattery2)
                 {
                     if (dic[index1] == dic[index2])
                     {
-                        //print("第一个炮塔和第二个炮塔类型一样");
+                        print("第一个炮塔和第二个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
-                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
+                        List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject };
+                        groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
+                        //groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第一个和第二个的炮塔隐藏
                         battery1.gameObject.SetActive(false);
                         battery2.gameObject.SetActive(false);
                     }
                     else
                     {
-                        //print("第一个和第二个的炮塔类型不一样");
+                        print("第一个和第二个的炮塔类型不一样");
                     }
                 }
                 else if (hasBattery1 && hasBattery3)
                 {
-                    //print("第一个和第三个的炮塔无法进行组合");
+                    print("第一个和第三个的炮塔无法进行组合");
                 }
                 else if (hasBattery2 && hasBattery3)
                 {
                     if (dic[index2] == dic[index3])
                     {
-                        //print("第二个炮塔和第三个炮塔类型一样");
+                        print("第二个炮塔和第三个炮塔类型一样");
                         //生成Lv2的炮塔
-                        groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
-                        groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
+                        List<GameObject> list = new List<GameObject>() { hole2.gameObject, hole3.gameObject };
+                        groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
+                        //groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                         //第二个和第三个的炮塔隐藏
                         battery2.gameObject.SetActive(false);
                         battery3.gameObject.SetActive(false);
                     }
                     else
                     {
-                        //print("第二个和第三个的炮塔类型不一样");
+                        print("第二个和第三个的炮塔类型不一样");
                     }
                 }
                 else
                 {
-                    //print("少于两个炮塔不需要进行任何判定");
+                    print("少于两个炮塔不需要进行任何判定");
                 }
             }
             else
             {
-                //print("没有任何炮塔");
+                print("没有任何炮塔");
             }
         }
         else if (list.Count == 2)
@@ -197,14 +201,14 @@ public class GroupCheck : MonoBehaviour
             index1 = indexList[0];
             index2 = indexList[1];
 
-            Dictionary<int, BatteryType> dic = recoverBatteryDataScript.hasDic;
+            Dictionary<int, BatteryType> dic = recoverBatteryDataBase.hasHoleWithTypeDic;
             if (dic != null && dic.Count > 0)
             {
-                hole1 = recoverBatteryDataScript.holeDic[index1].transform;
-                hole2 = recoverBatteryDataScript.holeDic[index2].transform;
+                hole1 = recoverBatteryDataBase.holeDic[index1].transform;
+                hole2 = recoverBatteryDataBase.holeDic[index2].transform;
 
                 //之前的组合炮塔销毁
-                DestoryGroupBattery();
+                recoverBatteryDataBase.DestoryGroupBattery(groupObj);
                 if (hole1.childCount > 2)
                 {
                     battery1 = hole1.GetChild(2);
@@ -225,56 +229,49 @@ public class GroupCheck : MonoBehaviour
                     {
                         if ((index1 >= 1 && index1 <= 8 && index2 >= 9 && index2 <= 24) || (index1 >= 9 && index1 <= 24 && index2 >= 25 && index2 <= 48))
                         {
-                            //print("所有炮塔类型都一样");
+                            print("所有炮塔类型都一样");
                             //生成Lv2的炮塔
-                            groupObj = recoverBatteryDataScript.InstanceManagerBatteryObj(BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
-                            groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
+                            List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject };
+                            groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
+                            //groupObj.transform.Translate(groupObj.transform.forward * 3, Space.World);
                             //两个炮塔隐藏                          
                             battery1.gameObject.SetActive(false);
                             battery2.gameObject.SetActive(false);
                         }
                         else
                         {
-                            //print("两个炮塔不相邻");
+                            print("两个炮塔不相邻");
                         }
                     }
                     else
                     {
-                        //print("两个炮塔类型不一样");
+                        print("两个炮塔类型不一样");
                     }
                 }
                 else
                 {
-                    //print("只有一个坑有炮塔");
+                    print("只有一个坑有炮塔");
                 }
             }
         }
         else if (list.Count == 1)
         {
-            //print("只有一个坑");
+            print("只有一个坑");
             Transform hole1 = list[0];
             int index1 = hole1.GetComponent<BuildConfig>().index;
 
-            Dictionary<int, BatteryType> dic = recoverBatteryDataScript.hasDic;
+            Dictionary<int, BatteryType> dic = recoverBatteryDataBase.hasHoleWithTypeDic;
             if (dic != null && dic.Count > 0)
             {
-                hole1 = recoverBatteryDataScript.holeDic[index1].transform;
+                hole1 = recoverBatteryDataBase.holeDic[index1].transform;
                 //之前的组合炮塔销毁
-                DestoryGroupBattery();
+                recoverBatteryDataBase.DestoryGroupBattery(groupObj);
                 if (hole1.childCount > 2)
                 {
                     battery1 = hole1.GetChild(2);
                     battery1.gameObject.SetActive(true);
                 }
             }
-        }
-    }
-
-    void DestoryGroupBattery()
-    {
-        if (groupObj != null)
-        {
-            Destroy(groupObj);
         }
     }
 

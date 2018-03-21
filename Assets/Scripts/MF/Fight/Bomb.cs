@@ -33,7 +33,9 @@ public class Bomb : BulletParent
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("terrain"))
+        {
             DestoryOwn();
+        }
     }
 
     void DestoryOwn()
@@ -49,7 +51,8 @@ public class Bomb : BulletParent
     {
         if (target != null)
         {
-            if (transform.position.y < target.transform.position.y)
+            //if (transform.position.y < target.transform.position.y)
+            if (Vector3.Distance(transform.position, target.transform.position) < 3)
             {
                 //finish  
                 BatteryParent bp = target.GetComponent<BatteryParent>();
@@ -73,10 +76,7 @@ public class Bomb : BulletParent
                         ep.blood -= damage;
                         if (ep.blood <= 0)
                         {
-                            if (target.name != "boss")
-                            {
-                                Destroy(target);
-                            }
+                            ep.Die();
                         }
                         DestoryOwn();
                     }
