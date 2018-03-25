@@ -36,8 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4177829261136204}
-  - component: {fileID: 114126315016486724}
   - component: {fileID: 65462258267081150}
+  - component: {fileID: 114126315016486724}
   m_Layer: 0
   m_Name: MissileBatteryLv1
   m_TagString: Battery
@@ -149,5 +149,7 @@ MonoBehaviour:
   attackRepeatRateTime: 0
   battleType: 0
   boss: {fileID: 0}
+  singleHoleList: []
   canAttackEnemyList: []
   currentTarget: {fileID: 0}
+  barrelList: []

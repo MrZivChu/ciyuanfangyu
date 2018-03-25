@@ -12,7 +12,7 @@ public class MissileBattery : BatteryParent
 
     Animator animator;
     private void Start()
-    {
+    {        
         animator = GetComponent<Animator>();
         InvokeRepeating("ChooseNewTarget", 0, 0.5f);
         InvokeRepeating("Shoot", 0, attackRepeatRateTime);
@@ -58,19 +58,19 @@ public class MissileBattery : BatteryParent
                 for (int i = 0; i < barrelList.Count; i++)
                 {
                     Transform tt = barrelList[i].transform;
-                    GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
+                    GameObject bullet = Instantiate(Resources.Load("MissileBomb")) as GameObject;
                     bullet.transform.position = tt.position;
                     //bullet.transform.localScale = Vector3.one;
                     BulletParent bp = bullet.GetComponent<BulletParent>();
                     bp.target = currentTarget;
                     bp.speed = 15;
-                    bp.damage = 0.01f;
+                    bp.damage = attackValue;
                     animator.SetTrigger("shootTrigger");
                 }
             }
         }
     }
-
+  
     //获取一个敌人
     GameObject GetEnemy()
     {

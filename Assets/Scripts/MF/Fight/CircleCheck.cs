@@ -31,10 +31,12 @@ public class CircleCheck : MonoBehaviour
             Range rangeScript = range.GetComponent<Range>();
             if (part == Part.left)
             {
+                print(transform.parent.parent.parent.name + " leftIndex = " + index);
                 rangeScript.leftIndex = index;
             }
             else if (part == Part.right)
             {
+                print(transform.parent.parent.parent.name + " rightIndex = " + index);
                 rangeScript.rightIndex = index;
             }
 

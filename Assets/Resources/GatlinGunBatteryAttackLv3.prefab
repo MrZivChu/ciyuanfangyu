@@ -341,8 +341,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4491109603169832}
   - component: {fileID: 95306662314047852}
-  - component: {fileID: 114134920064475594}
   - component: {fileID: 65305327818615878}
+  - component: {fileID: 114180985679998332}
   m_Layer: 0
   m_Name: GatlinGunBatteryAttackLv3
   m_TagString: Battery
@@ -430,6 +430,24 @@ GameObject:
   - component: {fileID: 199014186104784558}
   m_Layer: 0
   m_Name: Particle System (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1712180948406904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4278329012798198}
+  - component: {fileID: 33369460564436144}
+  - component: {fileID: 65428076563700732}
+  - component: {fileID: 23652505179277286}
+  m_Layer: 0
+  m_Name: hitPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -866,6 +884,19 @@ Transform:
   m_Father: {fileID: 4394201900634838}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4278329012798198
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712180948406904}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.58, z: 5.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4491109603169832}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4287917288765800
 Transform:
   m_ObjectHideFlags: 1
@@ -1091,10 +1122,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1612427643142876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -94.47735, y: 78.34385, z: 11.2236185}
+  m_LocalPosition: {x: 1.7627091, y: 48.69812, z: 67.45227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4051889754468988}
+  - {fileID: 4278329012798198}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1784,6 +1816,40 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23652505179277286
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712180948406904}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23677757331443634
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2201,6 +2267,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607811329049646}
   m_Mesh: {fileID: 4300012, guid: f4171719b5793b64eaa9a0a6f67a7bbf, type: 3}
+--- !u!33 &33369460564436144
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712180948406904}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33455017196192914
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2297,6 +2370,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.526947, y: 9.465858, z: 14.208689}
   m_Center: {x: 0.4385147, y: 3.3179665, z: 0.61610985}
+--- !u!65 &65428076563700732
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712180948406904}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95306662314047852
 Animator:
   serializedVersion: 3
@@ -2314,7 +2399,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114134920064475594
+--- !u!114 &114180985679998332
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2322,22 +2407,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1612427643142876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a749c450148ab3458197d7fdbcca895, type: 3}
+  m_Script: {fileID: 11500000, guid: 132ab6fda81c565438567093d35a3dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteryName: 
   icon: 
   model: 
   blood: 0
-  attack: 0
+  attackValue: 0
   maxAttackDistance: 0
   desc: 
   starLevel: 0
   wood: 0
   MW: 0
   attackRepeatRateTime: 0
-  battleType: 0
+  battleType: 4
   boss: {fileID: 0}
+  singleHoleList: []
+  hitPlace: {fileID: 4278329012798198}
   canAttackEnemyList: []
   currentTarget: {fileID: 0}
   barrelList: []

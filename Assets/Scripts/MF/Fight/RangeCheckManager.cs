@@ -17,11 +17,11 @@ public class RangeCheckManager : MonoBehaviour
 
     private void Awake()
     {
-        if (rangList != null)
-            rangList.Clear();
+        if (rangeList != null)
+            rangeList.Clear();
     }
 
-    public static List<Range> rangList = new List<Range>();
+    public static List<Range> rangeList = new List<Range>();
 
     public void Check()
     {
@@ -33,24 +33,25 @@ public class RangeCheckManager : MonoBehaviour
             }
         }
 
-        for (int y = 0; y < rangList.Count; y++)
-        {
-            Range range = rangList[y];
-            if (range != null)
-            {
-                List<GameObject> leftObjList = range.leftObjList;
-                List<GameObject> rightObjList = range.rightObjList;
-                List<GameObject> topObjList = range.topObjList;
+        //for (int y = 0; y < rangeList.Count; y++)
+        //{
+        //    Range range = rangeList[y];
+        //    if (range != null)
+        //    {
+        //        List<GameObject> leftObjList = range.leftObjList;
+        //        List<GameObject> rightObjList = range.rightObjList;
+        //        List<GameObject> topObjList = range.topObjList;
 
-                leftObjList.ForEach((go) => { go.SetActive(true); });
-                rightObjList.ForEach((go) => { go.SetActive(true); });
-                topObjList.ForEach((go) => { go.SetActive(true); });
-            }
-        }
+        //        leftObjList.ForEach((go) => { go.SetActive(true); });
+        //        rightObjList.ForEach((go) => { go.SetActive(true); });
+        //        topObjList.ForEach((go) => { go.SetActive(true); });
+        //    }
+        //}
 
-        for (int m = 0; m < rangList.Count; m++)
+        print("range的数量" + rangeList.Count);
+        for (int m = 0; m < rangeList.Count; m++)
         {
-            Range range = rangList[m];
+            Range range = rangeList[m];
             if (range != null)
             {
                 HandleThisRangeToOtherRanges(range, m);
@@ -63,15 +64,15 @@ public class RangeCheckManager : MonoBehaviour
     {
         if (currentRange != null)
         {
-            for (int y = 0; y < rangList.Count; y++)
+            for (int y = 0; y < rangeList.Count; y++)
             {
-                Range compareRange1 = rangList[y];
-                //print(currentRange.gameObject.transform.parent.name + "&" + currentIndex + " ******** " + compareRange1.gameObject.transform.parent.name + "&" + y);
+                Range compareRange1 = rangeList[y];
 
                 if (y > currentIndex)
                 {
-                    Range compareRange = rangList[y];
-                    if (compareRange != null && compareRange != currentRange)
+                    print(currentIndex + " ^ " + y);
+                    Range compareRange = rangeList[y];
+                    if (compareRange != null && compareRange != currentRange && currentRange.transform.parent.gameObject.activeSelf && compareRange.transform.parent.gameObject.activeSelf)
                     {
                         int compareLeftIndex = compareRange.leftIndex;
                         int compareRightIndex = compareRange.rightIndex;
@@ -84,6 +85,8 @@ public class RangeCheckManager : MonoBehaviour
                         List<GameObject> currentLeftObjList = currentRange.leftObjList;
                         List<GameObject> currentRightObjList = currentRange.rightObjList;
                         List<GameObject> currentTopObjList = currentRange.topObjList;
+
+                        print(currentRange.gameObject.transform.parent.parent.name + "&" + currentLeftIndex + "=" + currentRightIndex + " ******** " + compareRange1.gameObject.transform.parent.parent.name + "&" + compareLeftIndex + "=" + compareRightIndex);
 
                         if (compareLeftIndex < 1 || compareRightIndex < 1 || currentLeftIndex < 1 || currentRightIndex < 1)
                             continue;
@@ -98,6 +101,7 @@ public class RangeCheckManager : MonoBehaviour
                                     compareLeftObjList.ForEach((go) => { go.SetActive(false); });
                                     compareRightObjList.ForEach((go) => { go.SetActive(false); });
                                     compareTopObjList.ForEach((go) => { go.SetActive(false); });
+
                                 }
                                 else if (currentRange.level == compareRange.level)
                                 {

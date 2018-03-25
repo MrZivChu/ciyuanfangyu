@@ -173,7 +173,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4205624329148932}
   - component: {fileID: 95370273379556002}
-  - component: {fileID: 114074185646779068}
+  - component: {fileID: 65495698561513782}
+  - component: {fileID: 114790070768513264}
   m_Layer: 0
   m_Name: GatlinGunBatteryDeformationLv2
   m_TagString: Battery
@@ -378,7 +379,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1383828624481012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4259415, y: -0.009050369, z: 9.262656}
+  m_LocalPosition: {x: 59.956306, y: 86.59233, z: 33.95477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4261028968311612}
@@ -1212,6 +1213,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868273850582622}
   m_Mesh: {fileID: 4300022, guid: 8f5f922af22d26c4980752dda4ebd8c6, type: 3}
+--- !u!65 &65495698561513782
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1383828624481012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.3346024, y: 7.637886, z: 9.190876}
+  m_Center: {x: -0.04902649, y: 2.7831993, z: 0.8002262}
 --- !u!95 &95370273379556002
 Animator:
   serializedVersion: 3
@@ -1229,7 +1242,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114074185646779068
+--- !u!114 &114790070768513264
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1237,7 +1250,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1383828624481012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a749c450148ab3458197d7fdbcca895, type: 3}
+  m_Script: {fileID: 11500000, guid: 132ab6fda81c565438567093d35a3dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteryName: 
@@ -1251,8 +1264,9 @@ MonoBehaviour:
   wood: 0
   MW: 0
   attackRepeatRateTime: 0
-  battleType: 0
+  battleType: 4
   boss: {fileID: 0}
+  singleHoleList: []
   canAttackEnemyList: []
   currentTarget: {fileID: 0}
   barrelList: []

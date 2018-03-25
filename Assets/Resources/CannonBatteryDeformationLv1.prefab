@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4421824542779638}
   - component: {fileID: 95052188476422134}
-  - component: {fileID: 114845377391080158}
+  - component: {fileID: 65163498964462146}
+  - component: {fileID: 114898200771976912}
   m_Layer: 0
   m_Name: CannonBatteryDeformationLv1
   m_TagString: Battery
@@ -337,7 +338,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1208749607286744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9848483, y: 7.5528965, z: -1.0105762}
+  m_LocalPosition: {x: 61.017788, y: 98.800415, z: 76.62718}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4156755755506718}
@@ -737,6 +738,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1907268529522102}
   m_Mesh: {fileID: 4300012, guid: 4339a581c1b38b94389d41126015b51c, type: 3}
+--- !u!65 &65163498964462146
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1208749607286744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.104946, y: 6.260071, z: 4.864975}
+  m_Center: {x: 0.5954914, y: 2.6300354, z: 0.7292633}
 --- !u!95 &95052188476422134
 Animator:
   serializedVersion: 3
@@ -754,7 +767,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114845377391080158
+--- !u!114 &114898200771976912
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -762,31 +775,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1208749607286744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a749c450148ab3458197d7fdbcca895, type: 3}
+  m_Script: {fileID: 11500000, guid: 30f476ebf717e5e41b3e6b292650aff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteryName: 
   icon: 
   model: 
-  blood: 100
-  attack: 1
-  maxAttackDistance: 200
+  blood: 0
+  attack: 0
+  maxAttackDistance: 0
   desc: 
   starLevel: 0
   wood: 0
   MW: 0
-  attackRepeatRateTime: 2
-  battleType: 5
+  attackRepeatRateTime: 0
+  battleType: 1
   boss: {fileID: 0}
+  singleHoleList: []
   canAttackEnemyList: []
   currentTarget: {fileID: 0}
-  barrelList:
-  - {fileID: 1988130444587344, guid: 7938cba99fc586347818eff27484081e, type: 2}
-  - {fileID: 1624249134883588, guid: 7938cba99fc586347818eff27484081e, type: 2}
-  - {fileID: 1134190760750696, guid: 7938cba99fc586347818eff27484081e, type: 2}
-  - {fileID: 1936698603588954, guid: 7938cba99fc586347818eff27484081e, type: 2}
-  - {fileID: 1546653843936736, guid: 7938cba99fc586347818eff27484081e, type: 2}
-  - {fileID: 1212088045727938, guid: 7938cba99fc586347818eff27484081e, type: 2}
+  barrelList: []
 --- !u!198 &198817331535562392
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -19,9 +19,25 @@ public class InfantryEnemy : EnemyParent
     {
         random = new System.Random();
         animator = GetComponent<Animator>();
+        HandleDistance();
 
         InvokeRepeating("getTarget", 0, 0.2f);
         InvokeRepeating("Attack", 0, attackRepeatRateTime);
+    }
+
+    public BoxCollider boxCollider;
+    void HandleDistance()
+    {
+        float sizeZ = boxCollider.size.z;
+        float span = maxAttackDistance - sizeZ;
+        float addValue = span * 0.5f;
+        Vector3 tCenter = boxCollider.center;
+        tCenter.z += addValue;
+        boxCollider.center = tCenter;
+
+        Vector3 tSize = boxCollider.size;
+        tSize.z = maxAttackDistance;
+        boxCollider.size = tSize;
     }
 
     void Update()
@@ -101,6 +117,7 @@ public class InfantryEnemy : EnemyParent
                 animator.SetInteger("attackType", random.Next(1, 3));
                 animator.SetBool("canAttack", true);
                 batteryScript.blood -= attackValue;
+                batteryScript.BeAttack();
                 if (batteryScript.blood <= 0)
                 {
                     HandleDieTarget(target);
@@ -126,7 +143,7 @@ public class InfantryEnemy : EnemyParent
             animator.SetBool("canAttack", false);
             animator.SetBool("canWalk", false);
             animator.SetTrigger("die");
-            Invoke("DestoryOwn", 3.5f);
+            Invoke("DestoryOwn", 3.7f);
         }
     }
 

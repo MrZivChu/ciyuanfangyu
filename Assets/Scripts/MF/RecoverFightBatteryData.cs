@@ -31,8 +31,8 @@ public class RecoverFightBatteryData : RecoverBatteryDataBase
                             Range range = tt.GetComponent<Range>();
                             if (range != null)
                             {
-                                if (RangeCheckManager.rangList.Contains(range))
-                                    RangeCheckManager.rangList.Remove(range);
+                                if (RangeCheckManager.rangeList.Contains(range))
+                                    RangeCheckManager.rangeList.Remove(range);
                             }
                         }
                     }
@@ -108,7 +108,7 @@ public class RecoverFightBatteryData : RecoverBatteryDataBase
             tempGO.transform.localPosition = Vector3.zero;
             BatteryParent bp = tempGO.GetComponent<BatteryParent>();
             bp.batteryName = info.batteryName;
-            bp.attack = info.attack;
+            bp.attackValue = info.attack;
             bp.attackRepeatRateTime = 2;
             bp.blood = info.blood;
             bp.desc = info.desc;

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4738348119472896}
   - component: {fileID: 65267523334309572}
-  - component: {fileID: 114089135721051418}
+  - component: {fileID: 114817714368733122}
   m_Layer: 0
   m_Name: CannonBatteryLv3
   m_TagString: Battery
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1801603071805562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.38638, y: 2.02, z: -5.234969}
+  m_LocalPosition: {x: 92.70563, y: 114.37074, z: 56.631145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4874259825402028}
@@ -120,12 +120,12 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1801603071805562}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114089135721051418
+  m_Size: {x: 3.4364548, y: 6.1233444, z: 14.338207}
+  m_Center: {x: 0.18603134, y: 2.5616722, z: 0.49746513}
+--- !u!114 &114817714368733122
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801603071805562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a749c450148ab3458197d7fdbcca895, type: 3}
+  m_Script: {fileID: 11500000, guid: 30f476ebf717e5e41b3e6b292650aff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteryName: 
@@ -147,7 +147,9 @@ MonoBehaviour:
   wood: 0
   MW: 0
   attackRepeatRateTime: 0
-  battleType: 0
+  battleType: 1
   boss: {fileID: 0}
+  singleHoleList: []
   canAttackEnemyList: []
   currentTarget: {fileID: 0}
+  barrelList: []

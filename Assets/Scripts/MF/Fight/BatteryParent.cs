@@ -13,7 +13,7 @@ public abstract class BatteryParent : MonoBehaviour
     //血量
     public float blood;
     //炮塔的攻击力
-    public float attack;
+    public float attackValue;
     //炮塔攻击的最大距离
     public float maxAttackDistance;
     //炮塔的描述
@@ -31,11 +31,23 @@ public abstract class BatteryParent : MonoBehaviour
 
     public BatteryType battleType;
 
-    //射击行为
-    public abstract void Shoot();
-
     public GameObject boss;
 
     public List<GameObject> singleHoleList;
 
+    //射击行为
+    public abstract void Shoot();
+
+    //被攻击行为
+    public Transform hitPlace;
+    public virtual void BeAttack()
+    {
+        Object bloodObj = Resources.Load("metalBlood");
+        if (bloodObj != null && hitPlace != null)
+        {
+            GameObject obj = Instantiate(bloodObj) as GameObject;
+            obj.transform.position = hitPlace.position;
+            obj.transform.localScale = Vector3.one;
+        }
+    }
 }

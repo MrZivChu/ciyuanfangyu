@@ -30,14 +30,26 @@ public abstract class EnemyParent : MonoBehaviour
     //几秒攻击一次
     public float attackRepeatRateTime;
 
+    public GameObject boss;
+
+    public RecoverBatteryDataBase recoverBatteryDataBase;
+
     //攻击行为
     public abstract void Attack();
 
     //死亡行为
     public abstract void Die();
 
-    public GameObject boss;
-
-    public RecoverBatteryDataBase recoverBatteryDataBase;
-
+    //被攻击行为
+    public Transform hitPlace;
+    public virtual void BeAttack()
+    {
+        Object bloodObj = Resources.Load("metalBlood");
+        if (bloodObj != null)
+        {
+            GameObject obj = Instantiate(bloodObj) as GameObject;
+            obj.transform.position = hitPlace.position;
+            obj.transform.localScale = Vector3.one;
+        }
+    }
 }

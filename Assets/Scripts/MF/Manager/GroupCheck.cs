@@ -7,7 +7,7 @@ public class GroupCheck : MonoBehaviour
     public RecoverBatteryDataBase recoverBatteryDataBase;
     public List<Transform> list = new List<Transform>();
 
-    private void Start()
+    void Start()
     {
     }
 

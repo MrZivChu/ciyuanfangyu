@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class HUE : MonoBehaviour
 {
-    public GameObject result;
-    public Button okBtn;
     public Button leftBtn;
     public Button rightBtn;
 
@@ -16,22 +14,15 @@ public class HUE : MonoBehaviour
 
     private void Start()
     {
-        EventTriggerListener.Get(okBtn.gameObject).onClick = FightOverClick;
         EventTriggerListener.Get(leftBtn.gameObject).onClick = LeftClick;
         EventTriggerListener.Get(leftBtn.gameObject).onDown = LeftDown;
         EventTriggerListener.Get(leftBtn.gameObject).onUp = LeftUp;
-
 
         EventTriggerListener.Get(rightBtn.gameObject).onClick = RightClick;
         EventTriggerListener.Get(rightBtn.gameObject).onDown = RightDown;
         EventTriggerListener.Get(rightBtn.gameObject).onUp = RightUp;
 
         InitMercenary();
-    }
-
-    void FightOverClick(GameObject go, object data)
-    {
-        result.SetActive(true);
     }
 
     //是否长按

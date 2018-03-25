@@ -43,7 +43,7 @@ public class BuildOperate : MonoBehaviour
             nameText.text = currentBattery.batteryName;
             descText.text = currentBattery.desc;
             bloodText.text = currentBattery.blood.ToString();
-            attackText.text = currentBattery.attack.ToString();
+            attackText.text = currentBattery.attackValue.ToString();
             rangeText.text = currentBattery.maxAttackDistance.ToString();
             icon.sprite = Resources.Load<Sprite>(currentBattery.icon + "01");
             int star = currentBattery.starLevel;

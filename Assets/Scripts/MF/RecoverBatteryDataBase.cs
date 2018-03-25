@@ -114,7 +114,7 @@ public class RecoverBatteryDataBase : MonoBehaviour
             tempGO.transform.localPosition = Vector3.zero;
             BatteryParent bp = tempGO.GetComponent<BatteryParent>();
             bp.batteryName = info.batteryName;
-            bp.attack = info.attack;
+            bp.attackValue = info.attack;
             bp.attackRepeatRateTime = 2;
             bp.blood = info.blood;
             bp.desc = info.desc;
@@ -187,7 +187,7 @@ public class RecoverBatteryDataBase : MonoBehaviour
                     Range rangeScript = go.GetComponent<Range>();
                     if (rangeScript != null)
                     {
-                        List<Range> list = RangeCheckManager.rangList;
+                        List<Range> list = RangeCheckManager.rangeList;
                         if (!list.Contains(rangeScript))
                         {
                             list.Add(rangeScript);
@@ -213,9 +213,9 @@ public class RecoverBatteryDataBase : MonoBehaviour
                 if (tRangeTarget != null)
                 {
                     Range range = tRangeTarget.GetComponent<Range>();
-                    if (range != null && RangeCheckManager.rangList.Contains(range))
+                    if (range != null && RangeCheckManager.rangeList.Contains(range))
                     {
-                        RangeCheckManager.rangList.Remove(range);
+                        RangeCheckManager.rangeList.Remove(range);
                     }
                     DestroyImmediate(tRangeTarget);
                 }
@@ -236,17 +236,18 @@ public class RecoverBatteryDataBase : MonoBehaviour
     {
         if (groupObj != null)
         {
+            print("之前的组合炮塔销毁");
             int count = groupObj.transform.childCount;
             if (count > 0)
             {
-                Transform tt = groupObj.transform.GetChild(count - 1);
-                if (tt != null)
+                Transform range = groupObj.transform.GetChild(count - 1);
+                if (range != null)
                 {
-                    Range range = tt.GetComponent<Range>();
-                    if (range != null)
+                    Range rangeScript = range.GetComponent<Range>();
+                    if (rangeScript != null)
                     {
-                        if (RangeCheckManager.rangList.Contains(range))
-                            RangeCheckManager.rangList.Remove(range);
+                        if (RangeCheckManager.rangeList.Contains(rangeScript))
+                            RangeCheckManager.rangeList.Remove(rangeScript);
                     }
                 }
             }
