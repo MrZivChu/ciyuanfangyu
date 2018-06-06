@@ -13,7 +13,7 @@ public class Login : MonoBehaviour
     }
 
     void EnterGame(GameObject go, object data)
-    {
+    {       
         Loading.sceneName = "Story";
         SceneManager.LoadScene("Loading");
     }

@@ -79,6 +79,7 @@ public class WorldMap : MonoBehaviour
 
     void EnterMap(GameObject obj, object param)
     {
+        RecoverManagerBatteryData.fromFightScene = false;
         Loading.sceneName = "Manager";
         SceneManager.LoadScene("Loading");
     }

@@ -25,7 +25,7 @@ public class BatteryCell : MonoBehaviour
         setStar();
         nameText.text = batteryInfo.batteryName;
         bloodText.text = batteryInfo.blood.ToString();
-        attackText.text = batteryInfo.attack.ToString();
+        attackText.text = batteryInfo.attackValue.ToString();
         rangeText.text = batteryInfo.maxAttackDistance.ToString();
         mwText.text = batteryInfo.MW.ToString();
 

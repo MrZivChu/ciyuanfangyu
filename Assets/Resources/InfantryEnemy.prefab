@@ -504,9 +504,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4655964056085030}
-  - component: {fileID: 65837626993832156}
   - component: {fileID: 114851253429854222}
   - component: {fileID: 54910056638046652}
+  - component: {fileID: 135294141401755698}
   m_Layer: 0
   m_Name: trigger
   m_TagString: Untagged
@@ -958,7 +958,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1321296822764616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.607307, y: 12.002226, z: 27.530363}
+  m_LocalPosition: {x: -118.91745, y: 52.72958, z: 39.57509}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4793221739690508}
@@ -1277,7 +1277,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1674236474226852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 14.26}
+  m_LocalPosition: {x: 0, y: 4.381, z: -2.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4193273676684350}
@@ -1571,18 +1571,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.229912, y: 9.706158, z: 5.821425}
   m_Center: {x: 0.14180374, y: 4.9277916, z: -2.89455}
---- !u!65 &65837626993832156
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1674236474226852}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8, y: 8, z: 5}
-  m_Center: {x: 0.14180374, y: 4.9277916, z: -11}
 --- !u!95 &95780133381969458
 Animator:
   serializedVersion: 3
@@ -1620,9 +1608,8 @@ MonoBehaviour:
   attackRepeatRateTime: 0
   boss: {fileID: 0}
   recoverBatteryDataBase: {fileID: 0}
-  hitPlace: {fileID: 4347835797868756}
   attackTargetList: []
-  boxCollider: {fileID: 65837626993832156}
+  hitPlace: {fileID: 4347835797868756}
 --- !u!114 &114851253429854222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1634,7 +1621,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d081212b396034793066b4a427c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infantryEnemy: {fileID: 114548918253116942}
+  enemy: {fileID: 114548918253116942}
+--- !u!135 &135294141401755698
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1674236474226852}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 40
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137323901451429830
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

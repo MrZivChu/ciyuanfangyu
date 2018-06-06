@@ -5,49 +5,65 @@ using UnityEngine;
 
 public class InfantryEnemy : EnemyParent
 {
+    float spanDistance = 6;
+
     void Awake()
     {
         base.BaseAwake();
         transform.LookAt(boss.transform);
     }
 
-    public List<GameObject> attackTargetList = new List<GameObject>();
     Animator animator;
 
     System.Random random;
+    AnimatorStateInfo animatorStateInfo;
     private void Start()
     {
         random = new System.Random();
         animator = GetComponent<Animator>();
-        HandleDistance();
 
-        InvokeRepeating("getTarget", 0, 0.2f);
+        InvokeRepeating("HandleTarget", 0, 0.3f);
         InvokeRepeating("Attack", 0, attackRepeatRateTime);
-    }
-
-    public BoxCollider boxCollider;
-    void HandleDistance()
-    {
-        float sizeZ = boxCollider.size.z;
-        float span = maxAttackDistance - sizeZ;
-        float addValue = span * 0.5f;
-        Vector3 tCenter = boxCollider.center;
-        tCenter.z += addValue;
-        boxCollider.center = tCenter;
-
-        Vector3 tSize = boxCollider.size;
-        tSize.z = maxAttackDistance;
-        boxCollider.size = tSize;
     }
 
     void Update()
     {
-        if (boss != null)
+        if (blood > 0 && boss != null)
         {
             if (target == null)
             {
+                animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                if (animatorStateInfo.IsName("Base Layer.walk") || animatorStateInfo.IsName("Base Layer.run"))
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+                }
+            }
+            else
+            {
+                transform.LookAt(target.transform);
+            }
+        }
+    }
+
+    public void HandleTarget()
+    {
+        if (target == null)
+        {
+            getTarget();
+            if (target == null && boss != null)
+            {
                 transform.LookAt(boss.transform);
-                transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+                animator.SetFloat("walkSpeed", walkSpeed);
+                animator.SetBool("canAttack", false);
+                animator.SetBool("canWalk", true);
+            }
+            else
+            {
+                if (target != null)
+                {
+                    transform.LookAt(target.transform);
+                    animator.SetBool("canWalk", false);
+                }
             }
         }
     }
@@ -58,34 +74,41 @@ public class InfantryEnemy : EnemyParent
         {
             if (attackTargetList.Count > 0)
             {
-                GameObject temp = null;
-                for (int i = attackTargetList.Count - 1; i >= 0; i--)
+                GameObject nearBattery = attackTargetList[attackTargetList.Count - 1];
+                if (nearBattery != null)
                 {
-                    temp = attackTargetList[i];
-                    if (temp != null)
+                    float tempDistance = Vector3.Distance(transform.position, nearBattery.transform.position);
+                    for (int i = attackTargetList.Count - 2; i >= 0; i--)
                     {
-                        BatteryParent bp = temp.GetComponent<BatteryParent>();
+                        GameObject tempBattery = attackTargetList[i];
+                        if (tempBattery != null)
+                        {
+                            float distance = Vector3.Distance(transform.position, tempBattery.transform.position);
+
+                            if (distance < tempDistance)
+                            {
+                                tempDistance = distance;
+                                nearBattery = tempBattery;
+                            }
+                        }
+                    }
+
+                    float juli = Vector3.Distance(transform.position, nearBattery.transform.position);
+                    if (juli < maxAttackDistance + spanDistance)
+                    {
+                        BatteryParent bp = nearBattery.GetComponent<BatteryParent>();
                         if (bp != null && bp.blood > 0)
                         {
-                            target = temp;
-                            animator.SetBool("canWalk", false);
-                            Attack();
+                            target = nearBattery;
                             return;
                         }
                         else
                         {
-                            HandleDieTarget(temp);
+                            attackTargetList.Remove(nearBattery);
                         }
-                    }
-                    else
-                    {
-                        attackTargetList.Remove(temp);
                     }
                 }
             }
-            animator.SetBool("canAttack", false);
-            animator.SetFloat("walkSpeed", walkSpeed);
-            animator.SetBool("canWalk", true);
         }
     }
 
@@ -94,52 +117,80 @@ public class InfantryEnemy : EnemyParent
         BatteryParent bp = temp.GetComponent<BatteryParent>();
         if (bp != null)
         {
-            List<GameObject> bList = bp.singleHoleList;
+            List<GameObject> bList = bp.holeListForGroupBattery;
             if (bList != null && bList.Count > 0)
             {
                 for (int j = 0; j < bList.Count; j++)
                 {
                     recoverBatteryDataBase.DestoryBattery(bList[j].transform);
                 }
-                recoverBatteryDataBase.DestoryGroupBattery(temp);
             }
+            recoverBatteryDataBase.DestoryGroupBattery(temp);
         }
         attackTargetList.Remove(temp);
+        SpawnPoHuai(temp.transform.parent);
+        target = null;
+    }
+
+    void SpawnPoHuai(Transform hole)
+    {
+        UnityEngine.Object obj = Resources.Load("pohuai");
+        GameObject tempGO = Instantiate(obj) as GameObject;
+        tempGO.transform.parent = hole;
+        tempGO.transform.localPosition = Vector3.zero;
+
+        Vector3 vv = Vector3.zero;
+        vv.y = tempGO.transform.position.y;
+        tempGO.transform.LookAt(vv);
+        tempGO.transform.Rotate(Vector3.up, 180);
+
     }
 
     public override void Attack()
     {
-        if (boss != null && target != null && blood > 0)
+        if (boss != null && blood > 0)
         {
-            BatteryParent batteryScript = target.GetComponent<BatteryParent>();
-            if (target != null && batteryScript != null && batteryScript.blood > 0)
+            if (target != null)
             {
-                animator.SetInteger("attackType", random.Next(1, 3));
-                animator.SetBool("canAttack", true);
-                batteryScript.blood -= attackValue;
-                batteryScript.BeAttack();
-                if (batteryScript.blood <= 0)
+                float juli = Vector3.Distance(transform.position, target.transform.position);
+                if (juli < maxAttackDistance + spanDistance)
                 {
-                    HandleDieTarget(target);
+                    BatteryParent batteryScript = target.GetComponent<BatteryParent>();
+                    if (batteryScript != null && batteryScript.blood > 0)
+                    {
+                        animator.SetInteger("attackType", random.Next(1, 3));
+                        animator.SetBool("canAttack", true);
+                        batteryScript.blood -= attackValue;
+                        batteryScript.BeAttack();
+                        if (batteryScript.blood <= 0)
+                        {
+                            HandleDieTarget(target);
+                        }
+                    }
+                    else
+                    {
+                        HandleDieTarget(target);
+                    }
                 }
-            }
-            else
-            {
-                if (attackTargetList.Contains(target))
+                else
                 {
-                    attackTargetList.Remove(target);
+                    target = null;
                 }
-                getTarget();
             }
         }
     }
 
-    bool isPlayingDie = false;
+    public void PlayCameraShake()
+    {
+        //CameraShake.shakeFor(0.3f, 0.2f);
+    }
+
+    bool nowIsPlayingDie = false;
     public override void Die()
     {
-        if (blood <= 0 && !isPlayingDie)
+        if (blood <= 0 && !nowIsPlayingDie)
         {
-            isPlayingDie = true;
+            nowIsPlayingDie = true;
             animator.SetBool("canAttack", false);
             animator.SetBool("canWalk", false);
             animator.SetTrigger("die");

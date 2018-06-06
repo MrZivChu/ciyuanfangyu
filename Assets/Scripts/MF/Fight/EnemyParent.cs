@@ -40,6 +40,8 @@ public abstract class EnemyParent : MonoBehaviour
     //死亡行为
     public abstract void Die();
 
+    public List<GameObject> attackTargetList = new List<GameObject>();
+
     //被攻击行为
     public Transform hitPlace;
     public virtual void BeAttack()

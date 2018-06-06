@@ -33,10 +33,21 @@ public abstract class BatteryParent : MonoBehaviour
 
     public GameObject boss;
 
-    public List<GameObject> singleHoleList;
+    //记录哪些坑生成的组合炮塔
+    public List<GameObject> holeListForGroupBattery;
 
     //射击行为
     public abstract void Shoot();
+
+    public abstract void ResetNewTarget();
+
+    public virtual void ShowBuildOverCanvas()
+    { }
+
+    //能够攻击的敌人列表
+    public List<GameObject> canAttackEnemyList = new List<GameObject>();
+    //敌人生成的点
+    public Transform enemySpawnPoint;
 
     //被攻击行为
     public Transform hitPlace;

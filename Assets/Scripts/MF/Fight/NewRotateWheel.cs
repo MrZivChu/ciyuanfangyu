@@ -41,11 +41,12 @@ public class NewRotateWheel : MonoBehaviour
                 }
                 if (currentDisk != null)
                 {
+                    MusicManager.Play(MusicType.diskSelected);
                     if (preHitBuild != null)
                     {
                         Utils.SetObjectEmissionColor(preHitBuild.gameObject, new Color(0, 0, 0));
                     }
-                    Utils.SetObjectEmissionColor(nowHitBuild.gameObject, new Color(0.35f, 0.31f, 0.16f));
+                    Utils.SetObjectEmissionColor(nowHitBuild.gameObject, new Color(0.36f, 0.31f, 0.16f));
                     preHitBuild = nowHitBuild;
                     if (currentDisk.CompareTag("oneInLand"))
                     {
@@ -105,7 +106,7 @@ public class NewRotateWheel : MonoBehaviour
         {
             tempTime = tempTime + Time.deltaTime;
             if (tempTime <= homingTime)
-            {
+            {                
                 nowAngle = Mathf.Lerp(0, leftNeedRotateAngle, tempTime * (1 / homingTime));
                 currentDisk.Rotate(Vector3.forward, -rotateDiskDirection * (nowAngle - preAngle));
                 preAngle = nowAngle;
@@ -183,6 +184,8 @@ public class NewRotateWheel : MonoBehaviour
             else
             {
                 canDown = false;
+                CameraShake.shakeFor(0.1f, 0.2f);
+                MusicManager.Play(MusicType.diskUpDown);
                 CheckGroup();
             }
         }

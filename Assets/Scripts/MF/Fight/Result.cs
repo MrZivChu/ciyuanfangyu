@@ -14,14 +14,23 @@ public class Result : MonoBehaviour
         EventTriggerListener.Get(backHeadquartersBtn.gameObject).onClick = BackClick;
     }
 
+    void ResetAudio()
+    {
+        AudioSource mainAudioSource = GameObject.Find("DontDestroyOnLoad").GetComponent<AudioSource>();
+        mainAudioSource.enabled = true;
+    }
+
     void BackClick(GameObject go, object data)
     {
+        ResetAudio();
         Loading.sceneName = "Main";
         SceneManager.LoadScene("Loading");
     }
 
     void BackManagerClick(GameObject go, object data)
     {
+        ResetAudio();
+        RecoverManagerBatteryData.fromFightScene = true;
         Loading.sceneName = "Manager";
         SceneManager.LoadScene("Loading");
     }

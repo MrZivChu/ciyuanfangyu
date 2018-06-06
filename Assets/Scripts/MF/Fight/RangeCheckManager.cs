@@ -13,6 +13,11 @@ public enum JudgePosition
 
 public class RangeCheckManager : MonoBehaviour
 {
+    private void Start()
+    {
+        
+    }
+
     public List<GameObject> circleList;
 
     private void Awake()
@@ -25,6 +30,7 @@ public class RangeCheckManager : MonoBehaviour
 
     public void Check()
     {
+        return; 
         for (int i = 0; i < circleList.Count; i++)
         {
             if (circleList[i] != null)
@@ -33,22 +39,22 @@ public class RangeCheckManager : MonoBehaviour
             }
         }
 
-        //for (int y = 0; y < rangeList.Count; y++)
-        //{
-        //    Range range = rangeList[y];
-        //    if (range != null)
-        //    {
-        //        List<GameObject> leftObjList = range.leftObjList;
-        //        List<GameObject> rightObjList = range.rightObjList;
-        //        List<GameObject> topObjList = range.topObjList;
+        for (int y = 0; y < rangeList.Count; y++)
+        {
+            Range range = rangeList[y];
+            if (range != null)
+            {
+                List<GameObject> leftObjList = range.leftObjList;
+                List<GameObject> rightObjList = range.rightObjList;
+                List<GameObject> topObjList = range.topObjList;
 
-        //        leftObjList.ForEach((go) => { go.SetActive(true); });
-        //        rightObjList.ForEach((go) => { go.SetActive(true); });
-        //        topObjList.ForEach((go) => { go.SetActive(true); });
-        //    }
-        //}
+                leftObjList.ForEach((go) => { go.SetActive(true); });
+                rightObjList.ForEach((go) => { go.SetActive(true); });
+                topObjList.ForEach((go) => { go.SetActive(true); });
+            }
+        }
 
-        print("range的数量" + rangeList.Count);
+        //print("range的数量" + rangeList.Count);
         for (int m = 0; m < rangeList.Count; m++)
         {
             Range range = rangeList[m];

@@ -109,7 +109,7 @@ public class HUM : MonoBehaviour
                         if (hit.transform.CompareTag("build"))
                         {
                             BuildConfig bc = hit.transform.GetComponent<BuildConfig>();
-                            if (bc != null)
+                            if (bc != null && bc.index < 49)
                             {
                                 currentHitHoleObj = hit.transform;
                                 if (isChangePosition)
@@ -156,15 +156,59 @@ public class HUM : MonoBehaviour
 
     GameObject preBatteryObj;
     GameObject currentBatteryObj;
-    public void PlaceBattery(BatteryConfigInfo info, Transform hole)
+    void PlaceBattery(BatteryConfigInfo info, Transform hole)
     {
         if (hole != null && info != null)
         {
-            recoverBatteryDataBase.SpawnBattery(info, hole);
+            currentBatteryObj = recoverBatteryDataBase.SpawnBattery(info, hole);
 
-            currentBatteryObj = hole.GetChild(2).gameObject;
+            //currentBatteryObj = hole.GetChild(2).gameObject;
             ChangeHighLight();
         }
+    }
+
+    public void StartSpawnBattery(BatteryConfigInfo info, Transform hole)
+    {
+        PlayBuildOverAnima(hole);
+        tempInfo = info;
+        tempHole = hole;
+        Invoke("buildOVerPlaceBattery", 2f);
+    }
+
+    public void buildOVerPlaceBattery()
+    {
+        if (tempInfo != null && tempHole != null)
+        {
+            currentBatteryObj = recoverBatteryDataBase.SpawnBattery(tempInfo, tempHole);
+            //currentBatteryObj = tempHole.GetChild(2).gameObject;
+
+            BatteryParent bp = currentBatteryObj.GetComponent<BatteryParent>();
+            if (bp != null)
+            {
+                bp.ShowBuildOverCanvas();
+            }
+            ChangeHighLight();
+        }
+        if (tempBuildOverTarget != null)
+        {
+            Destroy(tempBuildOverTarget);
+        }
+    }
+
+    GameObject tempBuildOverTarget;
+    BatteryConfigInfo tempInfo;
+    Transform tempHole;
+    void PlayBuildOverAnima(Transform hole)
+    {
+        Object obj = Resources.Load("BuildOver");
+        tempBuildOverTarget = Instantiate(obj) as GameObject;
+        tempBuildOverTarget.transform.parent = hole;
+        tempBuildOverTarget.transform.localPosition = Vector3.zero;
+
+        Vector3 vv = Vector3.zero;
+        vv.y = tempBuildOverTarget.transform.position.y;
+        tempBuildOverTarget.transform.LookAt(vv);
+        tempBuildOverTarget.transform.Rotate(Vector3.up, 180);
     }
 
     void ChangeHighLight()

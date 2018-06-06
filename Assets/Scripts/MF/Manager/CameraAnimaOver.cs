@@ -5,8 +5,10 @@ using UnityEngine;
 public class CameraAnimaOver : MonoBehaviour
 {
     public HUM humScript;
+    public HUE hueScript;
     public RotateCamera rotateCameraScript;
     public Animator animator;
+    public EnemyManager enemyManager;
 
     private void Start()
     {
@@ -16,7 +18,12 @@ public class CameraAnimaOver : MonoBehaviour
     public void AnimaOver()
     {
         animator.enabled = false;
-        humScript.PlayHumAnima();
+        if (humScript != null)
+            humScript.PlayHumAnima();
+        if (hueScript != null)
+            hueScript.PlayHumAnima();
+        if (enemyManager != null)
+            enemyManager.enabled = true;
         rotateCameraScript.enabled = true;
     }
 }

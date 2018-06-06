@@ -319,6 +319,7 @@ public class Utils
                 {
                     Material item = materials[i];
                     item.SetColor("_EmissionColor", color);
+                    item.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
                 }
             }
         }

@@ -432,7 +432,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.286125
+        functionName: PlayCameraShake
+        data: 
+        objectReferenceParameter: {fileID: 1321296822764616, guid: 6e6a69ac00f135a4594fb10e3a8643fd,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -460,7 +468,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.21787499
+        functionName: PlayCameraShake
+        data: 
+        objectReferenceParameter: {fileID: 1321296822764616, guid: 6e6a69ac00f135a4594fb10e3a8643fd,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

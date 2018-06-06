@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using uTools;
 
 public class HUE : MonoBehaviour
 {
@@ -11,7 +13,6 @@ public class HUE : MonoBehaviour
 
 
     public List<GameObject> mercenaryGameobjectList;
-
     private void Start()
     {
         EventTriggerListener.Get(leftBtn.gameObject).onClick = LeftClick;
@@ -23,6 +24,21 @@ public class HUE : MonoBehaviour
         EventTriggerListener.Get(rightBtn.gameObject).onUp = RightUp;
 
         InitMercenary();
+
+        AudioSource mainAudioSource = GameObject.Find("DontDestroyOnLoad").GetComponent<AudioSource>();
+        mainAudioSource.enabled = false;
+    }
+
+    public List<uTweenPosition> tweenPositions;
+    public void PlayHumAnima()
+    {
+        if (tweenPositions != null && tweenPositions.Count > 0)
+        {
+            for (int i = 0; i < tweenPositions.Count; i++)
+            {
+                tweenPositions[i].Reset();
+            }
+        }
     }
 
     //是否长按
@@ -41,6 +57,7 @@ public class HUE : MonoBehaviour
 
     void LeftDown(GameObject go, object data)
     {
+        MusicManager.Play(MusicType.diskUpDown);
         GroupCheck.needTriggerEnterCheck = false;
         isClockwise = true;
         isPressing = false;
@@ -76,6 +93,7 @@ public class HUE : MonoBehaviour
 
     void RightDown(GameObject go, object data)
     {
+        MusicManager.Play(MusicType.diskUpDown);
         GroupCheck.needTriggerEnterCheck = false;
         isClockwise = false;
         isPressing = false;
@@ -111,6 +129,16 @@ public class HUE : MonoBehaviour
         for (int i = count; i < mercenaryGameobjectList.Count; i++)
         {
             mercenaryGameobjectList[i].SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            RecoverManagerBatteryData.fromFightScene = true;
+            Loading.sceneName = "Manager";
+            SceneManager.LoadScene("Loading");
         }
     }
 }

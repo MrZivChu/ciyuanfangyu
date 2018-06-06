@@ -2,43 +2,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GatlinGunBattery : BatteryParent
 {
-
-    public List<GameObject> canAttackEnemyList = new List<GameObject>();
     public GameObject currentTarget;
 
     public List<GameObject> barrelList = new List<GameObject>();
 
-    Animator animator;
+    public GameObject tempParticleSystem;
+    public Animator animator;
+    public GameObject blooadCanvas;
+    public GameObject buildOverCanvas;
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        if (blooadCanvas != null)
+            blooadCanvas.SetActive(false);
+        sumBlood = blood;
         InvokeRepeating("ChooseNewTarget", 0, 0.5f);
         InvokeRepeating("Shoot", 0, attackRepeatRateTime);
-
-        ConfirmEnemy();
+        InvokeRepeating("StartShoot", 0, 10);
+        InvokeRepeating("StopShoot", 5, 15);
     }
 
-    void ConfirmEnemy()
+    void Update()
     {
-        if (transform.childCount > 0)
+        CalcBlood();
+    }
+
+    public override void ShowBuildOverCanvas()
+    {
+        if (buildOverCanvas != null)
         {
-            Transform range = transform.GetChild(transform.childCount - 1);
-            if (range != null && range.childCount > 0)
+            buildOverCanvas.SetActive(true);
+            buildOverCanvas.transform.LookAt(Camera.main.transform);
+            Invoke("SetBuildOverCanvasHidden", 2);
+        }
+    }
+
+    void SetBuildOverCanvasHidden()
+    {
+        if (buildOverCanvas != null)
+        {
+            buildOverCanvas.SetActive(false);
+        }
+    }
+
+    float sumBlood;
+    void CalcBlood()
+    {
+        if (blooadCanvas != null)
+        {
+            blooadCanvas.transform.LookAt(Camera.main.transform);
+            Slider bloodSlider = blooadCanvas.transform.GetChild(0).GetComponent<Slider>();
+            if (bloodSlider != null)
             {
-                Transform confirmEnemyObj = range.GetChild(range.childCount - 1);
-                if (confirmEnemyObj != null)
-                {
-                    ConfirmEnemy cef = confirmEnemyObj.GetComponent<ConfirmEnemy>();
-                    if (cef != null)
-                    {
-                        canAttackEnemyList = cef.canAttackList;
-                    }
-                }
+                float rate = blood / sumBlood;
+                bloodSlider.value = rate;
             }
         }
+    }
+
+    public override void BeAttack()
+    {
+        base.BeAttack();
+        if (blooadCanvas != null)
+            blooadCanvas.SetActive(true);
     }
 
     //为炮塔选择新的目标
@@ -50,23 +79,52 @@ public class GatlinGunBattery : BatteryParent
         }
     }
 
+    public override void ResetNewTarget()
+    {
+        currentTarget = null;
+        currentTarget = GetEnemy();
+    }
+
+    void StopShoot()
+    {
+        if (animator != null)
+        {
+            shooting = false;
+            animator.SetBool("attack", false);
+            tempParticleSystem.SetActive(false);
+        }
+    }
+
+    bool shooting = false;
+    void StartShoot()
+    {
+        if (animator != null && currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
+        {
+            animator.SetBool("attack", true);
+            tempParticleSystem.SetActive(true);
+            shooting = true;
+        }
+    }
+
     public override void Shoot()
     {
-        if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
+        if (shooting)
         {
-            if (barrelList != null && barrelList.Count > 0)
+            if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
             {
-                for (int i = 0; i < barrelList.Count; i++)
+                if (barrelList != null && barrelList.Count > 0)
                 {
-                    Transform tt = barrelList[i].transform;
-                    GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
-                    bullet.transform.position = tt.position;
-                    //bullet.transform.localScale = Vector3.one;
-                    BulletParent bp = bullet.GetComponent<BulletParent>();
-                    bp.target = currentTarget;
-                    bp.speed = 15;
-                    bp.damage = attackValue;
-                    animator.SetTrigger("shootTrigger");
+                    for (int i = 0; i < barrelList.Count; i++)
+                    {
+                        Transform tt = barrelList[i].transform;
+                        GameObject bullet = Instantiate(Resources.Load("GatlinGunBullet")) as GameObject;
+                        bullet.transform.position = tt.position;
+                        BulletParent bp = bullet.GetComponent<BulletParent>();
+                        bp.target = currentTarget;
+                        bp.speed = 100;
+                        bp.damage = attackValue / barrelList.Count;
+                    }
+                    MusicManager.Play(MusicType.gatlinGunBatteryLv1);
                 }
             }
         }
@@ -75,6 +133,9 @@ public class GatlinGunBattery : BatteryParent
     //获取一个敌人
     GameObject GetEnemy()
     {
+        if (enemySpawnPoint == null)
+            return null;
+        canAttackEnemyList = EnemyManager.dic[enemySpawnPoint];
         if (canAttackEnemyList != null && canAttackEnemyList.Count > 0)
         {
             GameObject item = null;
@@ -86,8 +147,9 @@ public class GatlinGunBattery : BatteryParent
                     EnemyParent ep = item.GetComponent<EnemyParent>();
                     if (ep != null && ep.blood > 0)
                     {
-                        if (Vector3.Distance(transform.position, item.transform.position) < (maxAttackDistance - 5))
+                        if (Vector3.Distance(transform.position, item.transform.position) < (maxAttackDistance + 5))
                         {
+                            StartShoot();
                             return item;
                         }
                     }

@@ -15,6 +15,7 @@ public class RecoverBatteryDataBase : MonoBehaviour
     {
         HandleHoleList();
         HandleRecoverData();
+        SpawnOver();
     }
 
     public virtual void HandleHoleList()
@@ -56,10 +57,15 @@ public class RecoverBatteryDataBase : MonoBehaviour
         }
     }
 
+    public virtual void SpawnOver()
+    {
+
+    }
+
     public GameObject SpawnGroup(List<GameObject> bList, BatteryConfigInfo info, Transform hole, int level = 1)
     {
         GameObject go = SpawnBattery(info, hole, level);
-        go.GetComponent<BatteryParent>().singleHoleList = bList;
+        go.GetComponent<BatteryParent>().holeListForGroupBattery = bList;
         return go;
     }
 
@@ -104,7 +110,6 @@ public class RecoverBatteryDataBase : MonoBehaviour
 
     public virtual GameObject InstanceManagerBatteryObj(BatteryConfigInfo info, Transform parent, int level = 1)
     {
-        print(info.battleType + "Lv" + level);
         Object obj = Resources.Load(info.battleType + "Lv" + level);
         if (obj != null)
         {
@@ -114,8 +119,8 @@ public class RecoverBatteryDataBase : MonoBehaviour
             tempGO.transform.localPosition = Vector3.zero;
             BatteryParent bp = tempGO.GetComponent<BatteryParent>();
             bp.batteryName = info.batteryName;
-            bp.attackValue = info.attack;
-            bp.attackRepeatRateTime = 2;
+            bp.attackValue = info.attackValue;
+            bp.attackRepeatRateTime = info.attackRepeatRateTime;
             bp.blood = info.blood;
             bp.desc = info.desc;
             bp.icon = info.icon;
@@ -193,6 +198,8 @@ public class RecoverBatteryDataBase : MonoBehaviour
                             list.Add(rangeScript);
                         }
                     }
+                    BatteryParent bp = go.transform.parent.GetComponent<BatteryParent>();
+                    go.transform.GetChild(go.transform.childCount - 1).GetComponent<ConfirmEnemy>().bp = bp;
                 }
             }
         }
@@ -236,7 +243,6 @@ public class RecoverBatteryDataBase : MonoBehaviour
     {
         if (groupObj != null)
         {
-            print("之前的组合炮塔销毁");
             int count = groupObj.transform.childCount;
             if (count > 0)
             {

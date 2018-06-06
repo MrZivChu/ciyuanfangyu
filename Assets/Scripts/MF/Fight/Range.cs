@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Range : MonoBehaviour
 {
+    void Start()
+    {
+
+    }
     public int leftIndex = 0;
     public int rightIndex = 0;
 
@@ -12,5 +16,5 @@ public class Range : MonoBehaviour
     public List<GameObject> topObjList;
 
     public int level = 1;
-    
+
 }
