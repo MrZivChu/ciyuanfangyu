@@ -4594,7 +4594,7 @@ Transform:
   m_Children:
   - {fileID: 1954023020}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1267154502
 BoxCollider:
@@ -4622,7 +4622,7 @@ MonoBehaviour:
   batteryName: 
   icon: 
   model: 
-  blood: 10000
+  blood: 5000
   attackValue: 0
   maxAttackDistance: 0
   desc: 
@@ -5311,7 +5311,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4871255551068296, guid: 6151ac76eb6da634eb341ff647e79d2c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 23655763047175684, guid: 6151ac76eb6da634eb341ff647e79d2c,
         type: 2}

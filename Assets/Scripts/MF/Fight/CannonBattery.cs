@@ -11,10 +11,9 @@ public class CannonBattery : BatteryParent
     public List<GameObject> barrelList = new List<GameObject>();
 
     public GameObject tempParticleSystem;
-    Animator animator;
+    public Animator animator;
     private void Start()
     {
-        animator = GetComponent<Animator>();
         InvokeRepeating("ChooseNewTarget", 0, 0.5f);
         InvokeRepeating("Shoot", 0, attackRepeatRateTime);
 
@@ -34,6 +33,7 @@ public class CannonBattery : BatteryParent
                     ConfirmEnemy cef = confirmEnemyObj.GetComponent<ConfirmEnemy>();
                     if (cef != null)
                     {
+                        cef.bp = this;
                         canAttackEnemyList = cef.canAttackList;
                     }
                 }
@@ -50,6 +50,12 @@ public class CannonBattery : BatteryParent
         }
     }
 
+    public override void ResetNewTarget()
+    {
+        currentTarget = null;
+        currentTarget = GetEnemy();
+    }
+
     public override void Shoot()
     {
         if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
@@ -63,12 +69,12 @@ public class CannonBattery : BatteryParent
                     tempParticleSystem.SetActive(true);
 
                     Transform tt = barrelList[i].transform;
-                    GameObject bullet = Instantiate(Resources.Load("CannonBomb")) as GameObject;
+                    GameObject bullet = Instantiate(Resources.Load("CannonBullet")) as GameObject;
                     bullet.transform.position = tt.position;
                     //bullet.transform.localScale = Vector3.one;
                     BulletParent bp = bullet.GetComponent<BulletParent>();
                     bp.target = currentTarget;
-                    bp.speed = 60;
+                    bp.speed = 30;
                     bp.damage = attackValue;
                 }
             }

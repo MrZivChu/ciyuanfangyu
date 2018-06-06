@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //核弹
-public class MissileBomb : BulletParent
+public class MissileBullet : BulletParent
 {
     public const float g = 9.8f;
 

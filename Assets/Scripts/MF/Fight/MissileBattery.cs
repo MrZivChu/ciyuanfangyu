@@ -10,10 +10,10 @@ public class MissileBattery : BatteryParent
 
     public List<GameObject> barrelList = new List<GameObject>();
 
-    Animator animator;
+    public GameObject tempParticleSystem;
+    public Animator animator;
     private void Start()
-    {        
-        animator = GetComponent<Animator>();
+    {
         InvokeRepeating("ChooseNewTarget", 0, 0.5f);
         InvokeRepeating("Shoot", 0, attackRepeatRateTime);
 
@@ -33,6 +33,7 @@ public class MissileBattery : BatteryParent
                     ConfirmEnemy cef = confirmEnemyObj.GetComponent<ConfirmEnemy>();
                     if (cef != null)
                     {
+                        cef.bp = this;
                         canAttackEnemyList = cef.canAttackList;
                     }
                 }
@@ -47,6 +48,12 @@ public class MissileBattery : BatteryParent
         {
             currentTarget = GetEnemy();
         }
+    }
+
+    public override void ResetNewTarget()
+    {
+        currentTarget = null;
+        currentTarget = GetEnemy();
     }
 
     public override void Shoot()
@@ -66,11 +73,13 @@ public class MissileBattery : BatteryParent
                     bp.speed = 15;
                     bp.damage = attackValue;
                     animator.SetTrigger("shootTrigger");
+                    tempParticleSystem.SetActive(false);
+                    tempParticleSystem.SetActive(true);
                 }
             }
         }
     }
-  
+
     //获取一个敌人
     GameObject GetEnemy()
     {

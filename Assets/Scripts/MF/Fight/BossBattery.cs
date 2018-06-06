@@ -16,6 +16,14 @@ public class BossBattery : BatteryParent
         if (blood <= 0)
         {
             result.SetActive(true);
+        }else
+        {
+            base.BeAttack();
         }
+    }
+
+    public override void ResetNewTarget()
+    {
+
     }
 }

@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour
             Transform pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.point = pos;
             ewc.enemyTypelist = new List<EnemyParent>() {
-                new InfantryEnemy() { blood = 3000, maxAttackDistance = 5, walkSpeed = 4, attackRepeatRateTime =
+                new InfantryEnemy() { blood = 3000, maxAttackDistance = 3, walkSpeed = 4, attackRepeatRateTime =
                   4,model ="InfantryEnemy", attackValue = 10 ,recoverBatteryDataBase =recoverBatteryDataBase }
             };
             eachWaveConfigList.Add(ewc);
@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
             pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.point = pos;
             ewc.enemyTypelist = new List<EnemyParent>() {
-                new InfantryEnemy() { blood = 4000, maxAttackDistance = 4,  walkSpeed = 5, attackRepeatRateTime = 5 ,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase}
+                new InfantryEnemy() { blood = 4000, maxAttackDistance = 3,  walkSpeed = 5, attackRepeatRateTime = 5 ,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase}
             };
             eachWaveConfigList.Add(ewc);
 
@@ -61,7 +61,45 @@ public class EnemyManager : MonoBehaviour
             pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
             ewc.point = pos;
             ewc.enemyTypelist = new List<EnemyParent>(){
-                new InfantryEnemy() { blood = 5000, maxAttackDistance = 5,  walkSpeed = 7, attackRepeatRateTime = 3,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase }
+                new InfantryEnemy() { blood = 5000, maxAttackDistance = 3,  walkSpeed = 7, attackRepeatRateTime = 3,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase }
+            };
+            eachWaveConfigList.Add(ewc);
+
+            ewc = new EachWaveConfig();
+            ewc.startTime = 1;
+            pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
+            ewc.point = pos;
+            ewc.enemyTypelist = new List<EnemyParent>(){
+                new InfantryEnemy() { blood = 5000, maxAttackDistance = 3,  walkSpeed = 7, attackRepeatRateTime = 3,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase }
+            };
+            eachWaveConfigList.Add(ewc);
+
+
+            ewc = new EachWaveConfig();
+            ewc.startTime = 12;
+            pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
+            ewc.point = pos;
+            ewc.enemyTypelist = new List<EnemyParent>(){
+                new InfantryEnemy() { blood = 5000, maxAttackDistance = 3,  walkSpeed = 7, attackRepeatRateTime = 3,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase }
+            };
+            eachWaveConfigList.Add(ewc);
+
+            ewc = new EachWaveConfig();
+            ewc.startTime = 6;
+            pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
+            ewc.point = pos;
+            ewc.enemyTypelist = new List<EnemyParent>(){
+                new InfantryEnemy() { blood = 5000, maxAttackDistance = 3,  walkSpeed = 7, attackRepeatRateTime = 3,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase }
+            };
+            eachWaveConfigList.Add(ewc);
+
+
+            ewc = new EachWaveConfig();
+            ewc.startTime = 5;
+            pos = enemySpawnPointList[UnityEngine.Random.Range(0, enemySpawnPointList.Count - 1)];
+            ewc.point = pos;
+            ewc.enemyTypelist = new List<EnemyParent>(){
+                new InfantryEnemy() { blood = 5000, maxAttackDistance = 3,  walkSpeed = 7, attackRepeatRateTime = 3,model="InfantryEnemy" ,attackValue=10,recoverBatteryDataBase =recoverBatteryDataBase }
             };
             eachWaveConfigList.Add(ewc);
         }

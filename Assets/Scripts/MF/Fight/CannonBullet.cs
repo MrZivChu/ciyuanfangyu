@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //核弹
-public class CannonBomb : BulletParent
+public class CannonBullet : BulletParent
 {
     void Start()
     {
@@ -18,6 +18,25 @@ public class CannonBomb : BulletParent
     {
         if (other.CompareTag("terrain"))
         {
+            DestoryOwn();
+        }
+        else if (other.CompareTag("enemy"))
+        {
+            HandleEnemy();
+        }
+    }
+
+    void HandleEnemy()
+    {
+        EnemyParent ep = target.GetComponent<EnemyParent>();
+        if (ep != null)
+        {
+            ep.blood -= damage;
+            ep.BeAttack();
+            if (ep.blood <= 0)
+            {
+                ep.Die();
+            }
             DestoryOwn();
         }
     }
@@ -37,17 +56,7 @@ public class CannonBomb : BulletParent
             print(Vector3.Distance(transform.position, target.transform.position));
             if (Vector3.Distance(transform.position, target.transform.position) < 5)
             {
-                EnemyParent ep = target.GetComponent<EnemyParent>();
-                if (ep != null)
-                {
-                    ep.blood -= damage;
-                    ep.BeAttack();
-                    if (ep.blood <= 0)
-                    {
-                        ep.Die();
-                    }
-                    DestoryOwn();
-                }
+                HandleEnemy();
                 return;
             }
             if (gameObject)

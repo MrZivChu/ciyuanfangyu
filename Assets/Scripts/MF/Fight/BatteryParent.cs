@@ -38,6 +38,8 @@ public abstract class BatteryParent : MonoBehaviour
     //射击行为
     public abstract void Shoot();
 
+    public abstract void ResetNewTarget();
+
     //被攻击行为
     public Transform hitPlace;
     public virtual void BeAttack()

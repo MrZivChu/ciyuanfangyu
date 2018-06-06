@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class GatlinGunBattery : BatteryParent
 {
-
     public List<GameObject> canAttackEnemyList = new List<GameObject>();
     public GameObject currentTarget;
 
     public List<GameObject> barrelList = new List<GameObject>();
 
-    Animator animator;
+    public GameObject tempParticleSystem;
+    public Animator animator;
     private void Start()
     {
-        animator = GetComponent<Animator>();
         InvokeRepeating("ChooseNewTarget", 0, 0.5f);
         InvokeRepeating("Shoot", 0, attackRepeatRateTime);
+        InvokeRepeating("StartShoot", 0, 10);
+        InvokeRepeating("StopShoot", 5, 15);
 
         ConfirmEnemy();
     }
@@ -34,6 +35,7 @@ public class GatlinGunBattery : BatteryParent
                     ConfirmEnemy cef = confirmEnemyObj.GetComponent<ConfirmEnemy>();
                     if (cef != null)
                     {
+                        cef.bp = this;
                         canAttackEnemyList = cef.canAttackList;
                     }
                 }
@@ -50,23 +52,54 @@ public class GatlinGunBattery : BatteryParent
         }
     }
 
+    public override void ResetNewTarget()
+    {
+        currentTarget = null;
+        currentTarget = GetEnemy();
+    }
+
+    void StopShoot()
+    {
+        if (animator != null)
+        {
+            shooting = false;
+            animator.enabled = false;
+            tempParticleSystem.SetActive(false);
+        }
+    }
+
+    bool shooting = false;
+    void StartShoot()
+    {
+        if (animator != null)
+        {
+            if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
+            {
+                animator.enabled = true;
+                tempParticleSystem.SetActive(true);
+                shooting = true;
+            }
+        }
+    }
+
     public override void Shoot()
     {
-        if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
+        if (shooting)
         {
-            if (barrelList != null && barrelList.Count > 0)
+            if (currentTarget != null && currentTarget.GetComponent<EnemyParent>().blood > 0)
             {
-                for (int i = 0; i < barrelList.Count; i++)
+                if (barrelList != null && barrelList.Count > 0)
                 {
-                    Transform tt = barrelList[i].transform;
-                    GameObject bullet = Instantiate(Resources.Load("Bomb")) as GameObject;
-                    bullet.transform.position = tt.position;
-                    //bullet.transform.localScale = Vector3.one;
-                    BulletParent bp = bullet.GetComponent<BulletParent>();
-                    bp.target = currentTarget;
-                    bp.speed = 15;
-                    bp.damage = attackValue;
-                    animator.SetTrigger("shootTrigger");
+                    for (int i = 0; i < barrelList.Count; i++)
+                    {
+                        Transform tt = barrelList[i].transform;
+                        GameObject bullet = Instantiate(Resources.Load("GatlinGunBullet")) as GameObject;
+                        bullet.transform.position = tt.position;
+                        BulletParent bp = bullet.GetComponent<BulletParent>();
+                        bp.target = currentTarget;
+                        bp.speed = 100;
+                        bp.damage = attackValue;
+                    }
                 }
             }
         }
@@ -86,8 +119,9 @@ public class GatlinGunBattery : BatteryParent
                     EnemyParent ep = item.GetComponent<EnemyParent>();
                     if (ep != null && ep.blood > 0)
                     {
-                        if (Vector3.Distance(transform.position, item.transform.position) < (maxAttackDistance - 5))
+                        if (Vector3.Distance(transform.position, item.transform.position) < (maxAttackDistance + 5))
                         {
+                            StartShoot();
                             return item;
                         }
                     }

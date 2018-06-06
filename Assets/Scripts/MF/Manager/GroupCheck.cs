@@ -20,7 +20,7 @@ public class GroupCheck : MonoBehaviour
             if (!list.Contains(hole))
             {
                 list.Add(hole);
-                print("触发器" + gameObject.name);
+                //print(("触发器" + gameObject.name);
 
                 if (needTriggerEnterCheck)
                 {
@@ -37,7 +37,7 @@ public class GroupCheck : MonoBehaviour
             Transform hole = other.transform.parent;
             if (list.Contains(hole))
             {
-                print(other.name + "离开了");
+                //print((other.name + "离开了");
                 if (hole.childCount > 2)
                 {
                     hole.GetChild(2).gameObject.SetActive(true);
@@ -54,7 +54,7 @@ public class GroupCheck : MonoBehaviour
     Transform battery3;
     public void Check()
     {
-        print(gameObject.name);
+        //print((gameObject.name);
         if (list.Count == 3)
         {
             Transform hole1 = list[0];
@@ -103,7 +103,7 @@ public class GroupCheck : MonoBehaviour
                 {
                     if (dic[index1] == dic[index2] && dic[index2] == dic[index3])
                     {
-                        print("所有炮塔类型都一样");
+                        //print(("所有炮塔类型都一样");
                         //生成Lv3的炮塔
                         List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject, hole3.gameObject };
                         groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole2, 3);
@@ -114,7 +114,7 @@ public class GroupCheck : MonoBehaviour
                     }
                     else if (dic[index1] == dic[index2] && dic[index2] != dic[index3])
                     {
-                        print("第一个炮塔和第二个炮塔类型一样");
+                        //print(("第一个炮塔和第二个炮塔类型一样");
                         //生成Lv2的炮塔
                         List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject };
                         groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
@@ -125,7 +125,7 @@ public class GroupCheck : MonoBehaviour
                     }
                     else if (dic[index2] == dic[index3] && dic[index1] != dic[index2])
                     {
-                        print("第二个炮塔和第三个炮塔类型一样");
+                        //print(("第二个炮塔和第三个炮塔类型一样");
                         //生成Lv2的炮塔
                         List<GameObject> list = new List<GameObject>() { hole2.gameObject, hole3.gameObject };
                         groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
@@ -136,14 +136,14 @@ public class GroupCheck : MonoBehaviour
                     }
                     else
                     {
-                        print("第一个和第三个的炮塔无法进行组合");
+                        //print(("第一个和第三个的炮塔无法进行组合");
                     }
                 }
                 else if (hasBattery1 && hasBattery2)
                 {
                     if (dic[index1] == dic[index2])
                     {
-                        print("第一个炮塔和第二个炮塔类型一样");
+                        //print(("第一个炮塔和第二个炮塔类型一样");
                         //生成Lv2的炮塔
                         List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject };
                         groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
@@ -154,18 +154,18 @@ public class GroupCheck : MonoBehaviour
                     }
                     else
                     {
-                        print("第一个和第二个的炮塔类型不一样");
+                        //print(("第一个和第二个的炮塔类型不一样");
                     }
                 }
                 else if (hasBattery1 && hasBattery3)
                 {
-                    print("第一个和第三个的炮塔无法进行组合");
+                    //print(("第一个和第三个的炮塔无法进行组合");
                 }
                 else if (hasBattery2 && hasBattery3)
                 {
                     if (dic[index2] == dic[index3])
                     {
-                        print("第二个炮塔和第三个炮塔类型一样");
+                        //print(("第二个炮塔和第三个炮塔类型一样");
                         //生成Lv2的炮塔
                         List<GameObject> list = new List<GameObject>() { hole2.gameObject, hole3.gameObject };
                         groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index2]], hole2, 2);
@@ -176,17 +176,17 @@ public class GroupCheck : MonoBehaviour
                     }
                     else
                     {
-                        print("第二个和第三个的炮塔类型不一样");
+                        //print(("第二个和第三个的炮塔类型不一样");
                     }
                 }
                 else
                 {
-                    print("少于两个炮塔不需要进行任何判定");
+                    //print(("少于两个炮塔不需要进行任何判定");
                 }
             }
             else
             {
-                print("没有任何炮塔");
+                //print(("没有任何炮塔");
             }
         }
         else if (list.Count == 2)
@@ -229,7 +229,7 @@ public class GroupCheck : MonoBehaviour
                     {
                         if ((index1 >= 1 && index1 <= 8 && index2 >= 9 && index2 <= 24) || (index1 >= 9 && index1 <= 24 && index2 >= 25 && index2 <= 48))
                         {
-                            print("所有炮塔类型都一样");
+                            //print(("所有炮塔类型都一样");
                             //生成Lv2的炮塔
                             List<GameObject> list = new List<GameObject>() { hole1.gameObject, hole2.gameObject };
                             groupObj = recoverBatteryDataBase.SpawnGroup(list, BatteryDataConfigTable.dic[dic[index1]], hole1, 2);
@@ -240,23 +240,23 @@ public class GroupCheck : MonoBehaviour
                         }
                         else
                         {
-                            print("两个炮塔不相邻");
+                            //print("两个炮塔不相邻");
                         }
                     }
                     else
                     {
-                        print("两个炮塔类型不一样");
+                        //print("两个炮塔类型不一样");
                     }
                 }
                 else
                 {
-                    print("只有一个坑有炮塔");
+                    //print("只有一个坑有炮塔");
                 }
             }
         }
         else if (list.Count == 1)
         {
-            print("只有一个坑");
+            //print(("只有一个坑");
             Transform hole1 = list[0];
             int index1 = hole1.GetComponent<BuildConfig>().index;
 

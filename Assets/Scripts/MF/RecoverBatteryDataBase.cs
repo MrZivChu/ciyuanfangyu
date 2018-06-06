@@ -115,7 +115,7 @@ public class RecoverBatteryDataBase : MonoBehaviour
             BatteryParent bp = tempGO.GetComponent<BatteryParent>();
             bp.batteryName = info.batteryName;
             bp.attackValue = info.attack;
-            bp.attackRepeatRateTime = 2;
+            bp.attackRepeatRateTime = info.attackRepeatRateTime;
             bp.blood = info.blood;
             bp.desc = info.desc;
             bp.icon = info.icon;

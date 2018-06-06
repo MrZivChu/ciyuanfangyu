@@ -773,7 +773,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1208749607286744}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30f476ebf717e5e41b3e6b292650aff2, type: 3}
   m_Name: 
@@ -782,7 +782,7 @@ MonoBehaviour:
   icon: 
   model: 
   blood: 0
-  attack: 0
+  attackValue: 0
   maxAttackDistance: 0
   desc: 
   starLevel: 0
@@ -792,9 +792,12 @@ MonoBehaviour:
   battleType: 1
   boss: {fileID: 0}
   singleHoleList: []
+  hitPlace: {fileID: 0}
   canAttackEnemyList: []
   currentTarget: {fileID: 0}
   barrelList: []
+  tempParticleSystem: {fileID: 0}
+  animator: {fileID: 95052188476422134}
 --- !u!198 &198817331535562392
 ParticleSystem:
   m_ObjectHideFlags: 1
